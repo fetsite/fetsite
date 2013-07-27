@@ -14,10 +14,6 @@
 #  modul_id    :integer
 #  semester_id :integer
 #
-# == Information
-# Author:: Andreas Stephanides
-# License:: GPL
-# Dieses Model repräsentiert eine LVA. Die notwendigen Informationen können mit TISS (dem Online System der TU Wien) synchronisiert werden
 
 class Lva < ActiveRecord::Base
   has_paper_trail # Versionsverfolgung

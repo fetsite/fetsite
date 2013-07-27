@@ -215,9 +215,9 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@modulgruppe</span> = <span class="ruby-constant">Modulgruppe</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:modulgruppe</span>])
  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:studium_id</span>].<span class="ruby-identifier">nil?</span>
-    <span class="ruby-ivar">@studium</span>=<span class="ruby-constant">Studium</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:studium_id</span>]) 
+    <span class="ruby-ivar">@studium</span>=<span class="ruby-constant">Studium</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:studium_id</span>]) 
   <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@studium</span>=<span class="ruby-constant">Studium</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:modulgruppe</span>][<span class="ruby-value">:studium_id</span>]) 
+    <span class="ruby-ivar">@studium</span>=<span class="ruby-constant">Studium</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:modulgruppe</span>][<span class="ruby-value">:studium_id</span>]) 
  <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@modulgruppe</span>.<span class="ruby-identifier">save</span>

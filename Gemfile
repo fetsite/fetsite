@@ -71,3 +71,7 @@ gem 'haml'
 gem 'awesome_nested_set'
 gem 'annotate', ">=2.5.0"
 gem 'carrierwave'
+group :development, :test do 
+gem 'factory_girl_rails'
+gem 'rspec-rails'
+end

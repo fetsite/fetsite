@@ -13,16 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130214233723) do
 
-  create_table "beispiel_translations", :force => true do |t|
-    t.string   "locale"
-    t.text     "desc"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "beispiele_id"
-  end
-
-  add_index "beispiel_translations", ["locale"], :name => "index_beispiel_translations_on_locale"
-
   create_table "beispiele", :force => true do |t|
     t.string   "name"
     t.text     "desc"
