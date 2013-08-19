@@ -1,8 +1,14 @@
 
 <h3> <%=  link_to themengruppe.title, themengruppe %> </h3>
 <p>
-  <%=themengruppe.text %>
+  <%= 	if themengruppe.text.split.size > Themengruppe::WORD_COUNT
+			themengruppe.text.split[0..Themengruppe::WORD_COUNT].join(" ") + " ..."
+		else
+			themengruppe.text
+		end%>
 </p>
+<br/>
+<b><%= I18n.t("themengruppe.themen") %></b>
 <ul>
 	<% themengruppe.themen.each do |t| %>
 		<li>

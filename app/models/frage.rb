@@ -1,5 +1,5 @@
 class Frage < ActiveRecord::Base
-  attr_accessible :text, :title
+  attr_accessible :text, :title, :thema_id
   belongs_to :thema
   
   validates :thema, :presence => true

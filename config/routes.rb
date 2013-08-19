@@ -46,6 +46,7 @@
      resources :moduls
      resources :lvas
      resources :neuigkeiten
+		 resources :fragen
      get 'rubriken/verwalten', :controller=>:rubriken, :action=>:alle_verwalten, :as=>'alle_verwalten_rubrik'
 
      resources :rubriken do

@@ -1,3 +1,16 @@
 <%= raw(small.text) %>
 <br/>
-<%= link_to 'Edit', edit_thema_path(small) %>
+<%= raw("<b>FAQs:</b>")  unless small.fragen.empty? %>
+
+<br/>
+<% small.fragen.each do |frage| %>
+<p>
+<b> <%= frage.title %> </b> <br/>
+<%= raw(frage.text) %>
+</p>
+<br/>
+<% end %>
+
+
+
+<%= link_to 'Edit', small %>

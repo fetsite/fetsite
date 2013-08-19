@@ -122,4 +122,6 @@ de:
       keine: "Keine Fehlermeldungen oder Warnungen"
   support:
     array:
-      two_words_connector: ', '         
+      two_words_connector: ', '  
+  themengruppe:
+    themen: "Themen"

@@ -14,7 +14,7 @@
 		</div>
 		<div id="collapse<%=thema.id%>" class="accordion-body collapse">
 		  <div class="accordion-inner">
-			<%= render partial: "themen/small", object: thema %>
+			<%= render :partial => 'themen/small', :object => thema %>
 		  </div>
 		</div>
 	  </div>
@@ -24,6 +24,7 @@
 <%= link_to 'Add Thema', new_themengruppe_thema_path(@themengruppe) %>
 
 <br/><br/>
+
 
 <%= link_to 'Edit', edit_themengruppe_path(@themengruppe) %> |
 <%= link_to 'Back', themengruppen_path %>

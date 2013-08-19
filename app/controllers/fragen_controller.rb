@@ -27,7 +27,7 @@ class FragenController < ApplicationController
     @frage = Frage.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @frage }
     end
   end
@@ -44,7 +44,7 @@ class FragenController < ApplicationController
 
     respond_to do |format|
       if @frage.save
-        format.html { redirect_to @frage, notice: 'Frage was successfully created.' }
+        format.html { redirect_to @frage.thema, notice: 'Frage was successfully created.' }
         format.json { render json: @frage, status: :created, location: @frage }
       else
         format.html { render action: "new" }
@@ -76,7 +76,7 @@ class FragenController < ApplicationController
     @frage.destroy
 
     respond_to do |format|
-      format.html { redirect_to fragen_url }
+      format.html { redirect_to @frage.thema }
       format.json { head :no_content }
     end
   end

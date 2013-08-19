@@ -8,3 +8,18 @@
 
 <%= link_to 'Edit', edit_thema_path(@thema) %> |
 <%= link_to 'Back', themengruppe_path(@thema.themengruppe) %>
+
+<h2>FAQs:</h2>
+<% @thema.fragen.each do |frage| %>
+<p>
+<b> <%= frage.title %> </b> <br/>
+<%= raw(frage.text) %>
+<br/>
+<%= link_to 'Edit', edit_frage_path(frage) %> |
+<%= link_to 'Destroy',frage, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+</p>
+<% end %>
+<br/>
+
+<%= link_to 'Neue Frage', new_frage_path %>
