@@ -67,8 +67,10 @@
      
     
      resources :beispiele
-     resources :attachment
-     resources :themen
+     resources :themen do
+		resources :attachments
+	 end
+	 
      resources :themengruppen do
        resources :themen, :only=>[:new, :show]
      end

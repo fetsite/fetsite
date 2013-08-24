@@ -20,6 +20,16 @@
 
 </p>
 <% end %>
+<%= link_to 'Neue Frage', new_frage_path %> <br/>
 <br/>
 
-<%= link_to 'Neue Frage', new_frage_path %>
+<h2>Attachments:</h2>
+<% @thema.attachments.each do |attachment| %>
+<ul>
+	<li>
+		<%= link_to attachment.name, edit_thema_attachment_path(@thema,attachment) %> | <%= link_to 'Destroy',[@thema,attachment], method: :delete, data: { confirm: 'Are you sure?' } %>
+	</li>
+</ul>
+<% end %>
+<%= link_to 'Neues Attachment', new_thema_attachment_path(@thema) %>
+<br/>

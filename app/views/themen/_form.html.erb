@@ -8,7 +8,31 @@
   <% end %>
 <%= tinymce %>
 
+
+<h2>Attachments:</h2>
+<% @thema.attachments.each do |attachment| %>
+<ul>
+	<li>
+		<%= link_to attachment.name, edit_thema_attachment_path(@thema,attachment) %>
+		<button type="button" onclick="insertAttachment(<%="\"" + attachment.datei.url + "\""%>,<%="\""+attachment.name+"\""%>)">Insert Me!</button>
+	</li>
+</ul>
+<% end %>
+
   <%= f.actions do %>
     <%= f.action :submit, :as => :input %>
   <% end %>
 <% end %>
+
+<!--
+
+<script>
+function insertAttachment(url) {
+
+	tinymce.activeEditor.setContent(tinymce.activeEditor.getContent({format : 'raw'}) + "Test");
+	//editor.setContent(editor.getContent + "<img src=\"" + url + "\">")
+}
+</script>
+
+-->
+

@@ -21,3 +21,19 @@
 //= require bootstrap/load-image.min
 //= require bootstrap/image-gallery.min
 //= require jquery-fileupload
+
+function insertAttachment(url,name) {
+	var ext = url.split('.').pop();
+	var img_ext = [ "jpg", "png", "bmp" , "jpeg" ];
+	var text_ext = [ "pdf" ];
+	
+	if ( img_ext.indexOf(ext) > -1) {
+		tinymce.activeEditor.setContent(tinymce.activeEditor.getContent({format : 'raw'}) + "<img src=\"" + url + "\" title=\"" + name + "\">");
+	}
+	else if (text_ext.indexOf(ext) > -1) {
+		tinymce.activeEditor.setContent(tinymce.activeEditor.getContent({format : 'raw'}) + "<a href=\"" + url + "\">" + name +"</a>");
+	}
+	else {
+		alert("<a href=\"" + url + "\">" + "Link</a>");
+	}
+}

@@ -1,6 +1,7 @@
-<%= semantic_form_for @attachment do |f| %>
+<%= semantic_form_for [@thema,@attachment] do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :datei, :as => :file %>
   <% end %>
 
   <%= f.actions do %>

@@ -7,7 +7,6 @@
 #  text       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#
 
 class Themengruppe < ActiveRecord::Base
   WORD_COUNT = 50
