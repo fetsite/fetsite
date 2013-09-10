@@ -1,26 +1,35 @@
 <h1><%= I18n.t('fotos.galleries')%></h1>
- <%= %>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12"> 
-		<% @galleries.each do |gallery| %>
-			<%= link_to gallery do %>
-			<div class="media">
-				<div class="pull-left" href="#">
-					<%= image_tag gallery.fotos.first.datei.big_thumb.url %>
-				</div>
-				<div class="media-body">
-					<h1><%= gallery.datum %> - <%= gallery.name %></h1>
-					<p><%= gallery.desc %>
-					</p>
-				</div>
-			</div>
-			<% end %>
-
-		<% end %>
-		</div>
-	</div>
-</div
+<% @galleries.each_slice(2) do |row| %>
+<div class="row-fluid">
+  <% row.each do |gallery| %>
+  <div class="span6"> 
+    <%= link_to gallery, :class => 'gallery-block' do %>
+    <div class="media gallery-block">
+      <div class="pull-left" href="#">
+	<%= if(gallery.fotos.empty?)
+	    image_tag "no_image_128.png", {:class => "img-rounded"}
+	    else
+	    image_tag gallery.fotos.sample.datei.big_thumb.url, {:class => "img-rounded"}
+	    end %>
+      </div>
+      <div class="media-body">
+	<small class="pull-left"><%= gallery.fotos.size.to_s + " " + I18n.t('fotos.bilder')%> </small>
+	<small class="pull-right"><%=I18n.l(gallery.try(:datum).try(:to_date)) unless gallery.try(:datum).try(:to_date).nil? %></small></br>
+	<h1><%= gallery.name %></h1>
+	<p>
+	  <%= if gallery.desc.split.size > Gallery::WORD_COUNT
+	  gallery.desc.split[0..Gallery::WORD_COUNT].join(" ") + " ..."
+	  else
+	  gallery.desc
+	  end%>
+	</p>
+      </div>
+    </div>
+    <% end %> <!-- end link -->
+  </div> <!-- close span6 -->
+  <% end %> <!-- end row -->
+</div>
+<% end %>
 
 <br />
-<%= link_to I18n.t('fotos.new-gallery'), new_gallery_path %>
+<%= render :partial => 'layouts/pretty_toolbar' %>

@@ -11,6 +11,7 @@
 #
 
 class Gallery < ActiveRecord::Base
+  WORD_COUNT = 20
   attr_accessible :datum, :desc, :name
   has_many :fotos
 end

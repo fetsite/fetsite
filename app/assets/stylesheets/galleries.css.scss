@@ -34,3 +34,15 @@
 //    opacity: 0;
 //    transition: opacity 0.15s linear 0s;
 //}
+
+div.gallery-block
+{
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+a.gallery-block:hover
+{
+  display: block;
+  box-shadow: 1px 1px 2px 2px lightgray;
+}

@@ -1,18 +1,17 @@
 
 <p id="notice"><%= notice %></p>
 <div>
-  <small> <%= @gallery.datum %> </small>
+  <small class="pull-left"><%= @gallery.fotos.size.to_s + " " + I18n.t('fotos.bilder')%> </small>
+  <small class="pull-right"><%=I18n.l(@gallery.try(:datum).try(:to_date)) unless @gallery.try(:datum).try(:to_date).nil? %></small></br>
   <h1>
     <%= @gallery.name %>
   </h1>
-
 </div>
+
 <p>
   <%= @gallery.desc %>
 </p>
-
-
- 
+</br>
 
 <!-- modal-gallery is the modal dialog used for the image gallery -->
 <div id="modal-gallery" class="modal hide fade modal-gallery modal-fullscreen modal-loading" tabindex="-1">
@@ -32,13 +31,13 @@
 <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
   <% @gallery.fotos.each do |f| %>
 
-<a href="<%= f.datei.resized.url%>" title="<%=f.title%>" data-gallery="gallery">
-<%=image_tag(f.datei.thumb.url,{:class=>"img-polaroid"}) %></a>
+  <a href="<%= f.datei.resized.url%>" title="<%=f.title%>" data-gallery="gallery">
+    <%=image_tag(f.datei.thumb.url,{:class=>"img-polaroid"}) %></a>
 
 
-<% end %>
+  <% end %>
 </div>
-
+</br>
 <%= render 'layouts/pretty_toolbar' %>
 
 
@@ -48,6 +47,5 @@
 <script src="js/load-image.js"></script>
 <script src="js/bootstrap-image-gallery.js"></script>
 <script type="text/javascript">
-
-//$('#modal-gallery.fade').css('top', '50%');
-  </script>
+  //$('#modal-gallery.fade').css('top', '50%');
+</script>
