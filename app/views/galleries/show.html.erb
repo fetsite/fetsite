@@ -11,33 +11,61 @@
 <p>
   <%= @gallery.desc %>
 </p>
-</br>
 
-<!-- modal-gallery is the modal dialog used for the image gallery -->
-<div id="modal-gallery" class="modal hide fade modal-gallery modal-fullscreen modal-loading" tabindex="-1">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3 class="modal-title"></h3>
+
+<div class="fluid-row">
+  <div class="span9">  <!-- pagination-->
+    <div class="pagination pull_left" style="margin:0px 0px 0px 0px">
+      <ul>
+	<li><a href="<%= gallery_path @gallery, {:pppage => @pppage, :page => (@page==1 ? @page : @page-1)} %>"><%=I18n.t('fotos.prev')%></a></li>
+	<% for i in 1..@pages do %>
+	<li><a href="<%= gallery_path @gallery, {:pppage => @pppage, :page => i} %>"><%=i%></a></li>
+	<% end %>
+	<li><a href="<%= gallery_path @gallery, {:pppage => @pppage, :page => (@page==@pages ? @page : @page+1)} %>"><%=I18n.t('fotos.next')%></a></li>
+      </ul>
+    </div>
   </div>
-  <div class="modal-body"><div class="modal-image"></div></div>
-  <div class="modal-footer">
-    <a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
-    <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
-    <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
-    <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+  <div class="span3"> <!-- size selector -->
+    <div class="pull-right">
+      <div class="btn-group" data-toggle="buttons-radio">
+	<button class="btn" disabled><%=I18n.t('fotos.pictures_per_site')%></button>
+	<% for i in 0..@pppage_array.size-1 %>
+	<a class="btn" href="<%= gallery_path @gallery, {:pppage => i} %>"><%=@pppage_array[i]%></a>
+	<% end %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
-  <% @gallery.fotos.each do |f| %>
+<div style="clear:both"></div>
 
-  <a href="<%= f.datei.resized.url%>" title="<%=f.title%>" data-gallery="gallery">
-    <%=image_tag(f.datei.thumb.url,{:class=>"img-polaroid"}) %></a>
+<div class="fluid-row" style="margin:20px">
+  <!-- modal-gallery is the modal dialog used for the image gallery -->
+  <div id="modal-gallery" class="modal hide fade modal-gallery modal-fullscreen modal-loading" tabindex="-1">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
+      <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body"><div class="modal-image"></div></div>
+    <div class="modal-footer">
+      <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i></a>
+      <a class="btn btn-primary modal-next"><i class="icon-arrow-right icon-white"></i></a>
+      <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> <%=I18n.t('fotos.slideshow')%></a>
+      <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+    </div>
+  </div>
+
+  <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+    <% @fotos.each do |f| %>
+
+    <a href="<%= f.datei.resized.url%>" title="<%=f.title%>" data-gallery="gallery">
+      <%=image_tag(f.datei.thumb.url,{:class=>"img-polaroid img-rounded"}) %></a>
 
 
-  <% end %>
+    <% end %>
+  </div>
 </div>
-</br>
+
 <%= render 'layouts/pretty_toolbar' %>
 
 

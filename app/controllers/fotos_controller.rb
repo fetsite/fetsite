@@ -1,4 +1,5 @@
 class FotosController < ApplicationController
+  before_filter {@toolbar_elements=[]}
   # GET /fotos
   # GET /fotos.json
   def index
@@ -27,6 +28,8 @@ class FotosController < ApplicationController
     @foto = Foto.new
     @gallery = Gallery.find_by_id(params[:gallery_id])
     @foto.gallery_id = @gallery.id
+    @toolbar_elements << {:hicon => 'icon-arrow-left', :text => I18n.t('common.back'), :path => gallery_path(params[:gallery_id]) }
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @foto }

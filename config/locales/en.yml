@@ -3,6 +3,10 @@
 en:
   hello: "Hello world"
 
+  common:
+    back: "Back"
+    edit: "Edit"
+
   home:
     mtitle: "Menu"
     hallobeiderfet: "This is the page of Fachschaft Elektrotechnik at TU Wien"

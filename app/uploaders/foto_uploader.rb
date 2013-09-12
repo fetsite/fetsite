@@ -34,9 +34,11 @@ class FotoUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
    version :thumb do
      process :resize_to_fill => [64, 64]
+     process :quality => 30
    end
    version :big_thumb do 
      process :resize_to_fill => [128, 128]
+     process :quality => 30
    end
    version :resized do
 	 process :resize_to_fit => [1024, 1024]
@@ -52,5 +54,6 @@ class FotoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
 
 end

@@ -1,5 +1,11 @@
 de:
   fotos:
     galleries: "Bildergalerien"
-    new-gallery: "neue Galerie"
+    new-gallery: "Neue Galerie"
+    new-fotos: "Fotos hinzufügen"
     bilder: "Bilder"
+    prev: "Vorherige"
+    next: "Nächste"
+    slideshow: "Diaschau"
+    pictures_per_site: "Bilder pro Seite"
+    upload-pictures: "Bilder hochladen"

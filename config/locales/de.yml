@@ -8,6 +8,7 @@ de:
     actions: "Aktionen"
     delete: "Löschen"    
     verwalten: "Verwalten"
+    back: "Zurück"
   home:
     mtitle: "Menu"
     willkommen: "Willkommen bei der Fachschaft Elektrotechnik"

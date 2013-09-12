@@ -1,5 +1,11 @@
 en:
   fotos:
     galleries: "Picture Gallery"
-    new-gallery: "new gallery"
-    bilder: "pictures"
+    new-gallery: "New Gallery"
+    new-fotos: "Add Pictures"
+    bilder: "Pictures"
+    prev: "Previous"
+    next: "Next"
+    slideshow: "Slideshow"
+    pictures_per_site: "Pictures per Site"
+    upload-pictures: "Upload Pictures"
