@@ -24,7 +24,7 @@
   <%= f.input :desc %>
 </div>
   <div class="span4">
-    <%= f.input :lva, :as=>:radio, :collection => Lva.all %>
+    <%= f.input :lecturer, :as=>:select, :collection => @beispiel.lva.lecturers %>
   </div>
 <%= f.hidden_field :beispieldatei_cache %>
 <%= f.actions do %>
