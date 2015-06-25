@@ -86,7 +86,7 @@
 	</p>
 	<%= link_to t("beispiel.zip") , beispiel_sammlung_lva_path(@lva), class: :linkbox %>
 	<% @beispiele_all.each do |b| %>
-	<% cache("beispiel_"  +I18n.locale.to_s+b.id.to_s+can?(:delete,b).to_s+"_"+can?(:edit,b).to_s + "_" + can?(:flag, b).to_s + "_" + can?(:like, b).to_s +  "_" + b.updated_at.try(:utc).try(:to_s) + get_theme.to_s) do %>
+	<% cache("beispiel_"  +I18n.locale.to_s+b.id.to_s+can?(:delete,b).to_s+"_"+can?(:edit,b).to_s + "_" + can?(:flag, b).to_s + "_" + can?(:like, b).to_s +  "_" + b.updated_at.try(:utc).try(:to_s)  + get_theme_help(current_user).to_s) do %>
 	<%= render b%>
 	<% end %>
 	<% end %>
