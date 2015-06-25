@@ -93,6 +93,8 @@ class BeispieleController < ApplicationController
     @beispiel = Beispiel.find(params[:id])
     @beispiel.name=@beispiel.beispieldatei.to_s.split('/').last
     @backlink = @beispiel.lva.nil? ? root_url : lva_path(@beispiel.lva)
+    params[:beispiel].delete :beispieldatei
+    params[:beispiel].delete :beispieldatei_cache
     @lva = @beispiel.lva
     respond_to do |format|
       if @beispiel.update_attributes(params[:beispiel])

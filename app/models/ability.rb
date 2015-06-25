@@ -25,6 +25,7 @@ class Ability
     end
     if (user.has_role?("moderator",Beispiel))
       can :flag, Beispiel
+      can [:edit, :update], Beispiel
     end
     if( user.has_role?("fetuser") || user.has_role?("fetadmin"))
       can :manage, Modulgruppe
