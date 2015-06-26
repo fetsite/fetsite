@@ -1,37 +1,22 @@
 <div id="<%= beispiel.divid %>" class="contentbox">
   <div class="row-fluid">
-    <div class="span6" >
+    <div class="span5" >
       <b><%=link_to ffi1_icon("note20")+" " + beispiel.name + " " + I18n.l(beispiel.datum), beispiel.beispieldatei.url, title: beispiel.desc  %></b>
     </div>
     <div class="span1" >
       <%= (beispiel.beispieldatei.size/1024.0).round(2).to_s  %>KiB   
     </div>
-    <div class="span5">
+		<div class="span2" >
+			<%= beispiel.lecturer.try(:name).to_s %>
+		</div>
+    <div class="span4">
 			<%= flag_link(beispiel, "goodquality")%>
-
 			<%= flag_link(beispiel, "badquality")%>
 			<%= flag_link(beispiel, "delete")%>
-
-			<%= 
-	 if can?(:like, beispiel)
-	 link_to ffi1_icon("like3")+" like" + "("+beispiel.get_likes.size.to_s+")", like_beispiel_path(beispiel),title: "liked by " + ((current_user.liked?(beispiel)) ? ("you and " + ((beispiel.get_likes.size - 1).to_s + " others")) :  beispiel.get_likes.size.to_s), remote: true  
-	 else
-	 "liked by " + beispiel.get_likes.size.to_s
-	 end
-	 %>
-
-	<%= 
-	   if can?(:dislike, beispiel)
-	   link_to ffi1_icon("dislike")+" dislike" + "("+beispiel.get_dislikes.size.to_s+")", dislike_beispiel_path(beispiel),title:"disliked by " + ((current_user.disliked?(beispiel)) ? ("you and " + ((beispiel.get_dislikes.size - 1).to_s + " others")) :  beispiel.get_dislikes.size.to_s) , remote: true
-	   else
-	   "disliked by " + beispiel.get_dislikes.size.to_s
-	   end
-
-	   %>
-
-	<%= link_to ff_icon("icon-pencil")+"edit", edit_beispiel_path(beispiel) if can? :edit, beispiel%>
-	<%= link_to fa_icon("trash")+"delete",  beispiel_path(beispiel), :method=>:delete, :data=>{:confirm=>I18n.t('beispiel.sure')} if can? :delete, beispiel %>
-	<% link_to "Refresh", beispiel_path(beispiel,show_comments: true), remote: true %></br>
+			<%= like_dislike_for(beispiel) %>
+			<%= link_to ff_icon("icon-pencil")+"edit", edit_beispiel_path(beispiel) if can? :edit, beispiel%>
+			<%= link_to fa_icon("trash")+"delete",  beispiel_path(beispiel), :method=>:delete, :data=>{:confirm=>I18n.t('beispiel.sure')} if can? :delete, beispiel %>
+			<% link_to "Refresh", beispiel_path(beispiel,show_comments: true), remote: true %></br>
     </div>
  </div>
   <% unless beispiel.desc.nil? || beispiel.desc.empty? %>

@@ -7,6 +7,7 @@
       <%= (beispiel.beispieldatei.size/1024.0).round(2).to_s  %>KiB   
     </div>
     <div class="span5">
+
       <%= 
 	 if can?(:like, beispiel)
 	 link_to ffi1_icon("like3")+" like" + "("+beispiel.get_likes.size.to_s+")", like_beispiel_path(beispiel),title: "liked by " + ((current_user.liked?(beispiel)) ? ("you and " + ((beispiel.get_likes.size - 1).to_s + " others")) :  beispiel.get_likes.size.to_s), remote: true  

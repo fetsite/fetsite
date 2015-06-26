@@ -44,6 +44,7 @@ class Lva < ActiveRecord::Base
   has_and_belongs_to_many :modul,:uniq=>true # Gehört zu einem Modul
   has_and_belongs_to_many :semester
   has_many :beispiele , :class_name => "Beispiel"
+
   has_and_belongs_to_many :lecturers
   has_many :nlinks, as: :link
   has_many :crawlobjects, :as=>:something
@@ -56,7 +57,7 @@ class Lva < ActiveRecord::Base
   validates_presence_of :stunden # Stunden Eingetragen?
   validates_presence_of :modul # Zugehöriges Modul eingetragen?
   # (zumindest eines)
- 
+
   def typ_n
     typ=="andere" ? "" : typ
   end
