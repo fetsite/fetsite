@@ -126,5 +126,20 @@ m.save
     "blue1"
   end
 end
+  def like_dislike_for(obj)
+    out=""
+    if can?(:like, obj)
+      out += link_to ffi1_icon("like3")+" like" + "("+obj.get_likes.size.to_s+")",  url_for([:like, obj]),title: "liked by " + ((current_user.liked?(obj)) ? ("you and " + ((obj.get_likes.size - 1).to_s + " others")) :  obj.get_likes.size.to_s), remote: true  
+    else
+       out += "liked by " + obj.get_likes.size.to_s
+    end
+
+	   if can?(:dislike, obj)
+	    out += link_to ffi1_icon("dislike")+" dislike" + "("+obj.get_dislikes.size.to_s+")", url_for([:dislike, obj]),title:"disliked by " + ((current_user.disliked?(obj)) ? ("you and " + ((obj.get_dislikes.size - 1).to_s + " others")) :  obj.get_dislikes.size.to_s) , remote: true
+	   else
+	    out += "disliked by " + obj.get_dislikes.size.to_s
+	   end
+    raw(out)
+  end
 
 end
