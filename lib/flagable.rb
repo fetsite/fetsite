@@ -63,7 +63,7 @@ module Flagable
       fi = obj.class::FLAG_ICONS
       value=obj.send("flag_"+flag)
       cstyle=(value) ? "true" :"false"
-      link_to ff_icon(fi[flag]), flag_beispiel_path(obj,{flag: flag, value: !value, theme: nil, locale: nil}), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag)
+      link_to ff_icon(fi[flag]), url_for(obj,action: :flag, flag: flag, value: !value, theme: nil, locale: nil), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag)
     end
   end
 end
