@@ -36,6 +36,22 @@ class BeispieleController < ApplicationController
     end
   end
 
+  def set_lecturer
+    @beispiel = Beispiel.find(params[:id])
+    @beispiel.lecturer = Lecturer.find(params[:beispiel][:lecturer_id])
+    @beispiel.save
+    if @beispiel.save
+      format.html { redirect_to @backlink, notice: 'Beispiel was successfully updated.' }
+      format.js   {render text: "alert(\"updated\");"}
+      format.json { head :no_content }
+    else
+      format.html { render action: "edit" }
+      format.js 
+      format.json { render json: @beispiel.errors, status: :unprocessable_entity }
+    end
+
+
+  end
   # GET /beispiele/1/edit
   def edit
     @beispiel = Beispiel.find(params[:id])

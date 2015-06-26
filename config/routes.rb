@@ -74,6 +74,7 @@
           get 'like'
           get 'dislike'
           get 'flag'
+          get 'set_lecturer'
         end
       end
       resources :lvas  do 
