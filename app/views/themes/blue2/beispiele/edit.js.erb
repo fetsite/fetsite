@@ -1,0 +1,2 @@
+alert("<%=@beispiel.divid%>");
+$("<%= '#' + @beispiel.divid %>").replaceWith("<%= escape_javascript render(partial: "beispiele/beispiel_form", object: @beispiel, locals: {:beispiel=> @beispiel}) %>")
