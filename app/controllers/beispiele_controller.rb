@@ -115,6 +115,7 @@ class BeispieleController < ApplicationController
     respond_to do |format|
       if @beispiel.update_attributes(params[:beispiel])
         format.html { redirect_to @backlink, notice: 'Beispiel was successfully updated.' }
+        format.js {render action: "show"}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

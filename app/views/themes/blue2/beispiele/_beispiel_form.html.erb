@@ -1,10 +1,10 @@
 
 <div id="<%= beispiel.divid %>" class="contentbox">
-<%= semantic_form_for @beispiel, :html => { :multipart => true } do |f| %>
+<%= semantic_form_for @beispiel, :html => { :multipart => true }, :remote=>true do |f| %>
   <div class="row-fluid">
     <div class="span5" >
-  <%= f.input :name, label: false %>  <%=f.input :datum , :as => :datetimepicker, :label=> false %>
-
+  <%= f.input :name, label: false %>  <%=f.input :datum , :as => :string, :label=> false %>
+  <%= f.input :desc, label: false %>
       
 <b><%link_to ffi1_icon("note20")+" " + beispiel_form.name + " " + I18n.l(beispiel_form.datum), beispiel_form.beispieldatei.url, title: beispiel_form.desc  %></b>
     </div>
