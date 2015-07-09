@@ -4,7 +4,7 @@
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :home, :only=>[:index] do
   end
-  
+  get ':locale', constraints: {locale: /en|de/}, action: :language,controller: :home, as: "language"
   scope '(:locale)/admin' do
     resources :users, :only=>[]  do 
       collection do

@@ -94,7 +94,10 @@ class HomeController < ApplicationController
       format.js
     end
   end
+  def language
+  end
   def choose_contact_topics
+    authorize! :doadmin, User
     t=YAML.load_file("#{::Rails.root.to_s}/config/contact_topic.yml")
     unless params[:themen].nil?
     t=([t].flatten+params[:themen]).uniq
