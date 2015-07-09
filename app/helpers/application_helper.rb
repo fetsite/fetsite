@@ -39,8 +39,8 @@ m.save
 
 
   def switch_locale_url(target_locale)
-    current_url1({:locale=>target_locale}) .sub "/"+I18n.locale.to_s+"/", "/"+target_locale.to_s+"/"
-   
+#    current_url1({:locale=>target_locale}) .sub "/"+I18n.locale.to_s+"/", "/"+target_locale.to_s+"/"
+    language_path(locale: target_locale)
   end
   def ffi1_icon (name)
     content_tag("i","", class: "ffi1-"+name )

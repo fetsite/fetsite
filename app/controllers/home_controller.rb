@@ -95,6 +95,7 @@ class HomeController < ApplicationController
     end
   end
   def language
+    redirect_to  request.referer || root_path
   end
   def choose_contact_topics
     authorize! :doadmin, User
