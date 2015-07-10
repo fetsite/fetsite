@@ -5,8 +5,11 @@ class BeispieleController < ApplicationController
   include LikeVoteable
   acts_as_flagable
   def index
-    @beispiele = Beispiel.all
-    
+    unless params[:lva_id].nil?
+      @beispiele= Lva.find(params[:lva_id]).beispiele.accessible_by(current_ability, :show)
+    else
+    @beispiele = Beispiel.accessible_by(current_ability, :show)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @beispiele }

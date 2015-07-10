@@ -54,6 +54,7 @@ gem "tinymce-rails" , '~>4.1.0'
 #gem "globalize3"  ,'~>3.0.4'
 gem "globalize" ,'~>3.0.4'#,:git =>'git://github.com/globalize/globalize.git'
 gem 'globalize-versioning'
+gem 'globalize-accessors'
 # Version controll
 gem "paper_trail" , '~>3.0.5'#, :git=>'git://github.com/airblade/paper_trail.git'
 
