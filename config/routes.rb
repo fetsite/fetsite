@@ -31,12 +31,13 @@
   end
   devise_for :users , :controllers=>{:omniauth_callbacks=> "users/omniauth_callbacks"}
 
-  
+ 
   scope '(:locale)', constraints: {:locale=>/en|de/i} do
+    get 't/:theme/:url', to: redirect('/%{url}') 
     scope '(t/:theme)' do
       get "" , controller: :home, action: :index
       get "intern" , controller: :home, action: :intern
-      
+      get "beispielsammlung", to: redirect('/studien')
       scope '(:ansicht)' do
         resources :studien, :only=>[:new,:edit,:update,:destroy,:show] do
           member do
@@ -101,13 +102,18 @@
           get 'verwalten'
         end
       end
-      resources :fetprofiles do
+      resources :fetprofiles, as: :fetprofiles_bak do
         collection do 
           get 'verwalten'
           get 'internlist'
         end
       end
-      
+      resources :members , controller: :fetprofiles , as: :fetprofiles do
+        collection do
+          get 'verwalten'
+          get 'internlist'
+        end
+      end
       resources :fragen, :only =>[:new, :edit, :update, :destroy, :create]
       
 
