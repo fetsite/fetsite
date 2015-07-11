@@ -1,19 +1,13 @@
 <div class="beispiel">
-  <p>
+  
     <b>
       <%=link_to beispiel.name, beispiel.beispieldatei.url%>
     </b>
-  <p>
-    Beschreibung:
-  <p>
-    <%= beispiel.desc %>
-  </p>
+ 
+     <%=link_to beispiel.lva.name, lva_path(beispiel.lva.id) unless beispiel.lva.nil? %>
   
-  <p>
-    LVA: <%=link_to beispiel.lva.name, lva_path(beispiel.lva.id)%>
-  </p>
 
   <%= link_to 'Show', beispiel %>
   <%= link_to 'Edit', edit_beispiel_path(beispiel) %>
-  <%= link_to 'Destroy', beispiel, method: :delete, data: { confirm: 'Are you sure?' } %>
+  
 </div class="beispiel">

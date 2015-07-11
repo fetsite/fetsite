@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<%= absurl("/logo2014_64.png")%>"> 
+    
+    <link rel="alternate" hreflang="de" href="<%= url_for(params.merge(:locale=>:de))%>" />
+    <link rel="alternate" hreflang="en" href="<%= url_for(params.merge(:locale=>:en))%>" />
+
+    <%= stylesheet_link_tag "themes/"+theme_name+"/application", :media => "all" unless theme_name.empty?  %>
+    <%= stylesheet_link_tag "application", :media=>"all" if theme_name.empty? %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <% if content_for?(:header) %>
+			<%= yield :header %>
+    <% else %>
+			<title>Fetsite</title>
+    <% end  %>
+  </head>
+
+  <body>
+    <div id="maincontainer" class="container-fluid">
+      <div class="row-fluid">
+				<div class="span10 offset1 header_span">
+					<% cache("menu_u"+user_signed_in?.to_s+current_user.try(:id).to_s+"l"+I18n.locale.to_s+ can?(:seeintern, User).to_s+ can?(:index,Gallery).to_s+params[:theme].to_s, expires_in: 24.hours) do %>
+						<div class="header_wrap">
+							<div class="header hidden-print">
+								<%= link_to home_index_path do %>
+									<!-- <span class="feticon-fet_logo fa-4x color-1"> </span>-->
+									<%=  image_tag('/logo2014_64.png',{:style=>"float:left;height:50px",:height=>"50"}) %>
+								<% end %>
+							</div>
+							<div class="header visible-print">
+								<%=  image_tag('/logo2014_64.png',{:style=>"float:left;height:50px",:height=>"50"}) %>
+							</div>
+							<div class="visible-print">
+								Fachschaft Elektrotechnik 
+								<hr/>
+							</div>
+							<div id="menudiv" style="margin-top:12px" class="hidden-print">
+								<%= render :template => 'layouts/menu' %>
+							</div>
+
+						</div>     
+					<% end %>
+				</div>
+      </div>
+      <div class="row-fluid">	
+				<div class="span10 offset1" id="contentdiv">
+					<%= yield %>
+				</div>
+      </div>    
+    </div>
+    <script>
+    $('.dropdown-toggle').click(function(e) {
+      e.preventDefault();
+      setTimeout($.proxy(function() {
+				if ('ontouchstart' in document.documentElement) {
+					$(this).siblings('.dropdown-backdrop').off().remove();
+				}
+      }, this), 0);
+    });
+    </script>
+  </body>
+</html>

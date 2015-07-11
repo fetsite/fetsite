@@ -27,6 +27,7 @@ class Neuigkeit < ActiveRecord::Base
   validates :rubrik, :presence=>true
   validates :author, :presence=>true
   translates :title,:text, :versioning=>{:gem=>:paper_trail, :options=>{:fallbacks_for_empty_translations => true}}
+  globalize_accessors :locales => [:de, :en], :attributes =>[:text,:title]
   mount_uploader :picture, PictureUploader
 
   default_scope  order(:cache_order).includes(:calentries).includes(:title_pic)

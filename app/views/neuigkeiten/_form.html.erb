@@ -12,11 +12,16 @@
   <div class="span6">
     <%= f.input :flag_important,   :placeholder=> "Titel" %> 
   </div>    
-  <div class="span12">
+  <div class="row-fluid">
+
+  <div class="span8">
     <%= f.input :text,    :as=> :tinymce_text    %>
   </div>  
-
-  </div>
+	<div class="span4">
+  <%= @neuigkeit.text_de if I18n.locale == :en %>
+	</div>
+	
+  </div>  
   <div class="row-fluid">
     <div class="span6">
       <%  f.input :datum,   :as=> :datepicker      %>
