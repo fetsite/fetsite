@@ -1,19 +1,24 @@
  class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_i18n_locale_from_params
+
   protected
   theme :get_theme 
+
   def set_i18n_locale_from_params
     if params[:locale]
       if I18n.available_locales.include?(params[:locale].to_sym)
-        I18n.locale=params[:locale].to_sym
+        session[:locale] = params[:locale]
+
       else
         flash.now[:notice]= "#{params[:locale]} translation not available"
         logger.error flash.now[:notice]
+
       end
-    else
-      I18n.locale = session[:locale] || :de
     end
+    I18n.locale = session[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^de|en/).first || I18n.default_locale
+    
+
     session[:locale] = I18n.locale
   end
 
