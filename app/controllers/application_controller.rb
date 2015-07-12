@@ -11,7 +11,10 @@
         flash.now[:notice]= "#{params[:locale]} translation not available"
         logger.error flash.now[:notice]
       end
+    else
+      I18n.locale = session[:locale] || :de
     end
+    session[:locale] = I18n.locale
   end
 
   def after_sign_in_path_for(resource)
