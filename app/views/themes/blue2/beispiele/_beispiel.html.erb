@@ -14,7 +14,7 @@
 			<%= flag_link(beispiel, "badquality")%>
 			<%= flag_link(beispiel, "delete")%>
 			<%= like_dislike_for(beispiel) %>
-			<%= link_to ff_icon("icon-pencil")+"edit", edit_beispiel_path(beispiel), remote: true if can? :edit, beispiel%>
+			<%= link_to ff_icon("icon-pencil")+"edit", edit_beispiel_path(beispiel), remote: true if can? :edit, beispiel %>
 			<%= link_to fa_icon("trash")+"delete",  beispiel_path(beispiel), :method=>:delete, :data=>{:confirm=>I18n.t('beispiel.sure')} if can? :delete, beispiel %>
 			<% link_to "Refresh", beispiel_path(beispiel,show_comments: true), remote: true %></br>
     </div>
