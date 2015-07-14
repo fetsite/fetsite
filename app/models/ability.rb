@@ -27,6 +27,9 @@ class Ability
       can :flag, Beispiel
       can [:edit, :update], Beispiel
     end
+    if (user.has_role?("moderator",Lva))
+      can [:verwalten, :edit, :compare_tiss, :load_tiss, :update], Lva
+    end
     if( user.has_role?("fetuser") || user.has_role?("fetadmin"))
       can :manage, Modulgruppe
       can :manage, Modul
