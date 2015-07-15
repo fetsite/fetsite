@@ -40,7 +40,7 @@ class Thema < ActiveRecord::Base
   validates :title, :presence => true
   validates :text, :presence => true
   
-  scope :outdated, -> {includes(:translations).where("thema_translations.updated_at<?",7.month.ago).where("thema_translations.locale"=>I18n.t.locale)}
+  scope :outdated, -> {includes(:translations).where("thema_translations.updated_at<?",7.month.ago).where("thema_translations.locale"=>I18n.locale)}
   scope :public, where(:isdraft=>false).includes(:themengruppe).where("themengruppen.public"=>true)
 
   default_scope includes(:translations).order("themen.priority").reverse_order

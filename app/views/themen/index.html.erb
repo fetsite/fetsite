@@ -1,11 +1,13 @@
 <h1>Listing theme1n</h1><h2>drafts </h2>
 <% @themen_drafts.each do |thema| %>
-<%= render partial:"themen/nlink", object: thema %>
+<%= render partial:"themen/small", object: thema %>
 <% end %>
 
 <h2>All</h2>
 <% @themen.each do |thema| %>
-<%= render partial:"themen/nlink", object: thema %>
+<%= render partial:"themen/small", object: thema %>
+<% render  thema %>
+
 <% end %>
 <br />
 

@@ -4,9 +4,9 @@ class ThemenController < ApplicationController
   # GET /themen.json
   load_and_authorize_resource
   def index
-    @themen = Thema.accessible_by(current_ability,:show)
+    @themen = Thema.accessible_by(current_ability,:show).where(:isdraft=>false)
     @themen_drafts = Thema.accessible_by(current_ability,:show).where(:isdraft=>true)
-    
+    @themen_outdated =Thema.accessible_by(current_ability,:show).outdated
   end
   def show
     @thema = Thema.find(params[:id])
