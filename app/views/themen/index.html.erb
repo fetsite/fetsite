@@ -3,6 +3,11 @@
 <%= render partial:"themen/small", object: thema %>
 <% end %>
 
+<% @themen_outdated.each do |thema| %>
+<%= render partial:"themen/small", object: thema %>
+<% end %>
+
+
 <h2>All</h2>
 <% @themen.each do |thema| %>
 <%= render partial:"themen/small", object: thema %>
