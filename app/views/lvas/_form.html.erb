@@ -38,7 +38,11 @@
 	  
 	  <div class="span3">
 	    <h1> BILD </h1>
-	    <%= f.input :modul, :as=>:check_boxes%>	  
+			<input id="lva" class="autocomplete-checkbox" data-checkboxdiv="lva_moduls_input" data-checkboxname="lva[modul_ids][]" data-collection="<%= (Modul.all.map{|m| "{\"value\": \""+m.id.to_s + "\", \"label\": " + "\"" +escape_javascript( m.name) +  "\"}"}.join("; "))%>"> </input>
+	    <%= f.input :modul, :as => :check_boxes, :member_label=>:name, :collection => @lva.modul %>
+
+
+	    <% f.input :modul, :as=>:check_boxes%>	  
 	  </div>
 	</div>
       </div>
@@ -52,4 +56,36 @@
       <%= f.action :submit, :as => :input %>
     <% end %>
 <% end %>
+
+
+<script>
+$(function(){
+ $( ".autocomplete-checkbox" ).autocomplete({
+      minLength: 0,
+      source: [],
+      focus: function( event, ui ) {
+        $( this ).val( ui.item.label );
+        return false;
+      },
+      select: function( event, ui ) {
+        $( this ).val( "" );
+        $( "#"+$(this).data("checkboxdiv")).append($("<label>").append($("<div>").attr("class", "checkbox").append($("<input>").attr("type","checkbox").attr("value", ui.item.value).attr("checked","checked").attr("name",$(this).data("checkboxname"))).append(ui.item.label)));
+        return false;
+      }
+    }).each(function() { // Goes through `.autocomplete` elements and sets source
+        $(this).autocomplete("option", "source", $(this).data('collection').split(";").map(function(el){return JSON.parse(el)}));
+    })
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.label +  "</a>" )
+        .appendTo( ul );
+    };
+ 	$("#tabs").tabs();
+});
+</script>
+
+
 <%= tinymce %>
+
+
+
