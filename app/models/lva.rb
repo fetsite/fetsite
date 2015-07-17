@@ -146,7 +146,7 @@ class Lva < ActiveRecord::Base
   #      end
   #    end
     self.name=hash["course"]["title"]["de"]
-    self.pruefungsinformation =  hash["course"]["examinationModalities"][I18n.locale.to_s].to_s
+    self.pruefungsinformation =  hash["course"]["examinationModalities"][I18n.locale.to_s].to_s unless hash["course"]["examinationModalities"][I18n.locale.to_s].to_s.empty?
     self.desc= hash["course"]["objective"][I18n.locale.to_s]+"<p></p>"+hash["course"]["teachingContent"][I18n.locale.to_s]
     self.typ=hash["course"]["courseType"]
     self.stunden=hash["course"]["weeklyHours"]
