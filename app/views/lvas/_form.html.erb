@@ -38,18 +38,26 @@
 	  
 	  <div class="span3">
 	    <h1> BILD </h1>
-			<input id="lva" class="autocomplete-checkbox" data-checkboxdiv="lva_moduls_input" data-checkboxname="lva[modul_ids][]" data-collection="<%= (Modul.all.map{|m| "{\"value\": \""+m.id.to_s + "\", \"label\": " + "\"" +escape_javascript( m.name) +  "\"}"}.join("; "))%>"> </input>
+			<input id="lva" class="autocomplete-checkbox" data-checkboxdiv="lva_modul_input" data-checkboxname="lva[modul_ids][]" data-collection="<%= (Modul.all.map{|m| "{\"value\": \""+m.id.to_s + "\", \"label\": " + "\"" +escape_javascript( m.name.gsub("\"", "").gsub(";",",")).strip +  "\"}"}.join("; "))%>"> </input>
 	    <%= f.input :modul, :as => :check_boxes, :member_label=>:name, :collection => @lva.modul %>
 
-
+			
 	    <% f.input :modul, :as=>:check_boxes%>	  
-	  </div>
-	</div>
-      </div>
-      <div class="span3">
 	
-	<%= f.input :semester, :as=>:check_boxes, :collection=>@semester%>
-	<%= f.input :lecturers, :as=>:check_boxes%>
+    
+	
+	<% f.input :semester, :as=>:check_boxes, :collection=>@semester%>
+	
+	<input id="lva" class="autocomplete-checkbox" data-checkboxdiv="lva_semester_input" data-checkboxname="lva[semester_ids][]" data-collection="<%= (Semester.all.map{|m| "{\"value\": \""+m.id.to_s + "\", \"label\": " + "\"" +escape_javascript( m.name.gsub("\"", "").gsub(";",",")).strip +  "\"}"}.join("; "))%>"> </input>
+	    <%= f.input :semester, :as => :check_boxes, :member_label=>:name, :collection => @lva.semester %>
+
+
+			<input id="lva" class="autocomplete-checkbox" data-checkboxdiv="lva_lecturers_input" data-checkboxname="lva[lecturers_ids][]" data-collection="<%= (Lecturer.all.map{|m| "{\"value\": \""+m.id.to_s + "\", \"label\": " + "\"" +escape_javascript( m.name.gsub("\"", "").gsub(";",",")).strip +  "\"}"}.join("; "))%>"> </input>
+	    <%= f.input :lecturers, :as => :check_boxes, :member_label=>:name, :collection => @lva.lecturers %>
+
+
+
+	<% f.input :lecturers, :as=>:check_boxes%>
       </div>
     <% end %>
     <%= f.actions do %>
@@ -73,7 +81,7 @@ $(function(){
         return false;
       }
     }).each(function() { // Goes through `.autocomplete` elements and sets source
-        $(this).autocomplete("option", "source", $(this).data('collection').split(";").map(function(el){return JSON.parse(el)}));
+        $(this).autocomplete("option", "source", $(this).data('collection').split(";").map(function(el){console.log(el);return JSON.parse(el)}));
     })
     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
       return $( "<li>" )
