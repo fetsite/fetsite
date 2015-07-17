@@ -211,3 +211,13 @@ a.flag-true { color: $color_schema_3_dark}
 a.flag-true.flag-goodquality-true { color: green}
 
 a.flag-false { color: #CCC}
+
+ul.ui-menu 
+{list-style-type:none;
+}
+
+ul.ui-menu > li > a
+{padding:2px;
+padding-left:10px;
+cursor: pointer;
+}

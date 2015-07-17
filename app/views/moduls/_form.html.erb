@@ -32,9 +32,11 @@
       </div>
     </div>
     <div class="span3">
+			<%= f.input :lvas, as: :checkbox_autocomplete %>
 
 <input id="lva" class="autocomplete-checkbox" data-checkboxdiv="modul_lvas_input" data-checkboxname="modul[lva_ids][]" data-collection="<%= (Lva.all.map{|l| "{\"value\": \""+l.id.to_s + "\", \"label\": " + "\"" +escape_javascript( l.full_name) +  "\"}"}.join("; "))%>"> </input>
 	    <%= f.input :lvas, :as => :check_boxes, :member_label=>:full_name, :collection => @modul.lvas %>
+
 <input id="modul" class="autocomplete-checkbox" data-checkboxdiv="modul_modulgruppen_input" data-checkboxname="modul[modulgruppe_ids][]" data-collection="<%= (Modulgruppe.all.map{|l| "{\"value\": \""+l.id.to_s + "\", \"label\": " + "\"" +escape_javascript( l.long_name) +  "\"}"}.join("; "))%>"> </input>
       <%= f.input :modulgruppen, :as => :check_boxes, :member_label=>:long_name, :collection => @modul.modulgruppen %>
     </div>
@@ -70,7 +72,7 @@ $(function(){
         .append( "<a>" + item.label +  "</a>" )
         .appendTo( ul );
     };
-	$("#tabs").tabs();
+ 	$("#tabs").tabs();
 });
 </script>
 </div>
