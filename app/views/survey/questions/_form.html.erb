@@ -1,0 +1,13 @@
+<%= semantic_form_for @survey_question do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :text %>
+
+
+    <%= f.input :typ %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<%= semantic_form_for @answer do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :choice %>
+    <%= f.input :user %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

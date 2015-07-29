@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Text:</b>
+  <%= @survey_choice.text %>
+</p>
+
+<p>
+  <b>Question:</b>
+  <%= @survey_choice.question %>
+</p>
+
+<p>
+  <b>Sort:</b>
+  <%= @survey_choice.sort %>
+</p>
+
+<p>
+  <b>Picture:</b>
+  <%= @survey_choice.picture %>
+</p>
+
+
+<%= link_to 'Edit', edit_survey_choice_path(@survey_choice) %> |
+<%= link_to 'Back', survey_choices_path %>

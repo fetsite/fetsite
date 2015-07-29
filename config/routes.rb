@@ -1,5 +1,23 @@
 
  Fetsite::Application.routes.draw do
+  namespace :survey do
+    resources :answers
+  end
+
+
+  namespace :survey do
+    resources :choices
+  end
+
+
+  namespace :survey do
+    resources :questions do
+      member do
+        :answer
+      end
+    end
+  end
+
   themes_for_rails
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :home, :only=>[:index] do

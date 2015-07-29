@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @survey_question.title %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @survey_question.text %>
+</p>
+
+<p>
+  <b>Typ:</b>
+  <%= @survey_question.typ %>
+</p>
+
+<%= render @survey_question %>
+
+<%= link_to 'Edit', edit_survey_question_path(@survey_question) %> |
+<%= link_to 'Back', survey_questions_path %>
