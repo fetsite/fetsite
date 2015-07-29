@@ -10,6 +10,10 @@ class Survey::QuestionsController < ApplicationController
     end
   end
   def answer
+   @survey_question = Survey::Question.find(params[:id])
+
+
+     @survey_question.do_answer(params[:survey_question][:selected],current_user)
     render :show
   end
   # GET /survey/questions/1

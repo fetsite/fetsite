@@ -13,7 +13,7 @@
   namespace :survey do
     resources :questions do
       member do
-        :answer
+        put :answer
       end
     end
   end

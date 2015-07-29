@@ -1,0 +1,4 @@
+<div style="background:red"><b><%= answeredquestion.title%></b>
+<% answeredquestion.choices.each do |c| %>
+<%= c.to_s %><%= answeredquestion.answers.where(choice_id: c.id).count %>
+<% end %>

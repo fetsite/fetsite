@@ -1,2 +1,8 @@
-<b><%= question.title%></b>
-<%= form_for %>
+<div style="background:red"><b><%= question.title%></b>
+<%= semantic_form_for question, url: answer_survey_question_path do |f| %>
+<%= f.input :selected,  as: :check_boxes, collection: question.choices %>
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end  %>
+</div>

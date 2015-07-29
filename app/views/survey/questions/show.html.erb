@@ -16,6 +16,7 @@
 </p>
 
 <%= render @survey_question %>
+<%= render partial: "answeredquestion", object: @survey_question %>
 
 <%= link_to 'Edit', edit_survey_question_path(@survey_question) %> |
 <%= link_to 'Back', survey_questions_path %>
