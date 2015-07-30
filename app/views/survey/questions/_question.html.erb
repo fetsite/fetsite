@@ -1,7 +1,7 @@
 <div style="background:red"><b><%= question.title%></b>
 <%= semantic_form_for question, url: answer_survey_question_path do |f| %>
 <%= f.input :selected,  as: :check_boxes, collection: question.choices, label: false %>
-
+<%= f.input :selected,  as: :radio, collection: question.choices, label: false %>
     <%= f.action :submit, :as => :input %>
 
 <% end  %>
