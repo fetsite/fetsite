@@ -13,6 +13,7 @@ class Survey::Question < ActiveRecord::Base
   end
 
   def do_answer(choice_ids, user)
+unless user.nil?
     cid=choice_ids.map{|c|c.to_i}
     unless cid.empty?
     Survey::Answer.where(user_id: user.id, choice_id: self.choice_ids).delete_all
@@ -24,5 +25,6 @@ class Survey::Question < ActiveRecord::Base
     end
     end
   end
+end
 end
 

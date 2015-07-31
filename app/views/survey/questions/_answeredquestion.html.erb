@@ -3,7 +3,70 @@
 		<% answeredquestion.choices.each do |c| %>
 			<li>
 				<%= c.to_s %><%= answeredquestion.answers.where(choice_id: c.id).count %>
+
 			</li>
 		<% end %>
 	</ul>
+<div id="container_question_<%= answeredquestion.id %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+<script>
+$(function () {
+    $('#container_question_<%= answeredquestion.id %>').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '<%= answeredquestion.title%>'
+        },
+        subtitle: {
+            text: '<%= answeredquestion.text %>'
+        },
+        xAxis: {
+            categories: [<%= raw(answeredquestion.choices.map{|c| "'"+c.text+"'"}.join(",")) %>],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Answers',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' votes'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: '<%= answeredquestion.title%>',
+            data: [<%= raw(answeredquestion.choices.map{|c| c.answers.count.to_s}.join(",")) %>]
+        }]
+    });
+});
+</script>
+
+
 </div>
