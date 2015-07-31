@@ -22,7 +22,8 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
 
 
     respond_to do |format|
-      format.html # show.html.erb
+#      format.html # show.html.erb
+      format.js 
       format.json { render json: @comment }
     end
   end
