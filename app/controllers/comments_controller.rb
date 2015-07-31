@@ -52,6 +52,7 @@ class CommentsController < ApplicationController
       if @comment
         format.html { redirect_to @comment.commentable, notice: 'Comment was successfully created.', show_comments: true }
         format.json { render json: @comment, status: :created, location: @comment }
+       
       else
         format.html { render action: "new" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
