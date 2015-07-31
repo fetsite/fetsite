@@ -54,10 +54,11 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
       if @comment
         format.html { redirect_to @comment.commentable, notice: 'Comment was successfully created.', show_comments: true }
         format.json { render json: @comment, status: :created, location: @comment }
-       
+        format.js       
       else
         format.html { render action: "new" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.js {render action:"new"}
       end
     end
   end
