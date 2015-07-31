@@ -7,5 +7,7 @@
 				<li><%= render c %></li>
 			<% end %>
 		</ul>
+	<%= render partial: "answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0%> 
+
 	</div>
 <% end %>
