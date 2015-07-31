@@ -13,18 +13,21 @@ class Survey::Question < ActiveRecord::Base
   end
 
   def do_answer(choice_ids, user)
-unless user.nil?
-    cid=choice_ids.map{|c|c.to_i}
-    unless cid.empty?
-    Survey::Answer.where(user_id: user.id, choice_id: self.choice_ids).delete_all
-    cid.each do |c|
-      if self.choice_ids.include?(c)
-      a=Survey::Answer.new(user_id: user.id, choice_id: c.to_i)
-      a.save
+    unless (user.nil? || choice_ids.nil? || choice_ids.empty?)
+      cid=choice_ids.map{|c|c.to_i}
+      if (Survey::Answer.where(user_id: user.id, choice_id: cid).count > 0 )
+        found_ids=Survey::Answer.where(user_id: user.id, choice_id: cid).includes(:choice).pluck(:choice_id)
+        cid= cid - found_ids
+        Survey::Answer.where(user_id: user.id, choice_id: found_ids).delete_all
+      else
+        Survey::Answer.where(user_id: user.id, choice_id: self.choice_ids).delete_all
       end
-    end
+      cid.each do |c|
+        if self.choice_ids.include?(c)
+          a=Survey::Answer.new(user_id: user.id, choice_id: c.to_i)
+          a.save
+        end
+      end
     end
   end
 end
-end
-

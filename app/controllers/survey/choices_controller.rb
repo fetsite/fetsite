@@ -16,7 +16,7 @@ class Survey::ChoicesController < ApplicationController
     @survey_choice = Survey::Choice.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {redirect_to @survey_choice.question}
       format.json { render json: @survey_choice }
     end
   end

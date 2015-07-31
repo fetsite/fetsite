@@ -3,17 +3,14 @@ class Survey::QuestionsController < ApplicationController
   # GET /survey/questions.json
   def index
     @survey_questions = Survey::Question.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @survey_questions }
     end
   end
   def answer
-   @survey_question = Survey::Question.find(params[:id])
-
-
-     @survey_question.do_answer(params[:survey_question][:selected],current_user)
+    @survey_question = Survey::Question.find(params[:id])
+    @survey_question.do_answer(params[:survey_question][:selected],current_user)
     render :show
   end
   # GET /survey/questions/1
