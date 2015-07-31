@@ -34,7 +34,7 @@ class Survey::ChoicesController < ApplicationController
 
   # GET /survey/choices/1/edit
   def edit
-    @survey_choice = Survey::Choice.find(params[:id])
+    @choice = Survey::Choice.find(params[:id])
   end
 
   # POST /survey/choices
@@ -65,7 +65,7 @@ class Survey::ChoicesController < ApplicationController
       else
         format.html { render action: "edit" }
         format.json { render json: @survey_choice.errors, status: :unprocessable_entity }
-      end
+5      end
     end
   end
 

@@ -3,9 +3,10 @@
 <% else  %>
 	<div class="contentbox" style="background: grey">
 		<div class="contentbox">
-			<b><%= question.title%></b></div>
-	<div class="contentbox">
-	<ul>
+			<b><%= question.title%></b> <%=question.text%></div>
+
+		<div class="contentbox">
+		<ul class="choice-list">
 			<% question.choices.each do |c| %>
 				<li><%= render c %></li>
 			<% end %>

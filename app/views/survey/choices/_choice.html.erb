@@ -4,9 +4,11 @@ if current_user.nil?
 else
 	value=(current_user.id.nil?)? false : choice.answers.where(user_id: current_user.id).count>0
 	cstyle=(value) ? "true" :"false"
-	t= link_to ((value)? fa_icon("arrow-right"): "")+choice.text, answer_survey_question_path(choice.question, class: "choice-"+cstyle, params: {survey_question: {selected: [choice.id]}}) 
+	t= link_to raw("" + choice.html), answer_survey_question_path(choice.question,  params: {survey_question: {selected: [choice.id]}}),class: "choice-"+cstyle 
 end
 
 %>
-<%= t %>
-<%= ff_icon("ffi2-boy12") %>
+
+
+<%= t %>   <%= link_to fa_icon("pencil"), edit_survey_choice_path(choice) , class: "btn btn-link navbar-btn" 
+%>

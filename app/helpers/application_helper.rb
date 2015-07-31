@@ -45,6 +45,10 @@ m.save
   def ffi1_icon (name)
     content_tag("i","", class: "ffi1-"+name )
   end
+
+  def ffi2_icon (name)
+    content_tag("i","", class: "ffi2-"+name )
+  end
   def ff_icon (name)
     content_tag("i","", class: name )
   end
@@ -53,6 +57,11 @@ m.save
     y=YAML.load_file("#{::Rails.root.to_s}/config/flatfeticon1.yml")
     y["ffi1"]
   end
+  def ffi2_list 
+    y=YAML.load_file("#{::Rails.root.to_s}/config/flatfeticon2.yml")
+    y["ffi2"]
+  end
+
   def fa_list 
     y=YAML.load_file("#{::Rails.root.to_s}/config/fontawesome.yml")
     y["fa"]

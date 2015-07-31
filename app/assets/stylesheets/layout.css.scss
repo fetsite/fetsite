@@ -225,4 +225,25 @@ ul.ui-menu > li > a
 }				
 
 a.choice-true
-{text-width:bold}
+{font-weight: bold;}
+a.choice-false
+{color:grey}
+
+ul.choice-list
+{list-style-type: none;
+margin:0;
+
+}
+ul.choice-list > li 
+{
+}
+ul.choice-list > li > a {
+
+line-height:normal;
+}
+ul.choice-list > li > a > i { 
+font-size:3em;
+}
+ul.choice-list > li > a.btn > i { 
+font-size:1em;
+}

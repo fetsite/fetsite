@@ -24,7 +24,7 @@ $(function () {
             text: '<%= answeredquestion.text %>'
         },
         xAxis: {
-            categories: [<%= raw(answeredquestion.choices.map{|c| "'"+escape_javascript(ff_icon("ffi1-good2"))+c.text+"'"}.join(",")) %>],
+            categories: [<%= raw(answeredquestion.choices.map{|c| "'"+escape_javascript(c.html)+"'"}.join(",")) %>],
             title: {
                 text: null
             },
