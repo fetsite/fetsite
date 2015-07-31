@@ -17,6 +17,7 @@ class Beispiel < ActiveRecord::Base
   acts_as_votable
   acts_as_flagable
   belongs_to :lva
+
   belongs_to :lecturer
   FLAG_ICONS = {"badquality"=>"fa fa-flag","goodquality"=>"fa fa-flag", "delete"=>"fa fa-trash"}
   scope :not_flag_badquality, ->{where("flag_badquality IS NULL OR flag_badquality=?",false)}
@@ -25,6 +26,9 @@ class Beispiel < ActiveRecord::Base
  scope :flag_delete, ->{where("flag_delete=?",true)}
   
  mount_uploader :beispieldatei, AttachmentUploader
+
+  include IsCommentable
+
   validates :beispieldatei, :presence => true
   validates :name, :presence => true
   validates :lva_id, :presence => true

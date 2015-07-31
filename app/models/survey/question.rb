@@ -3,6 +3,8 @@ class Survey::Question < ActiveRecord::Base
   belongs_to :parent, polymorphic: true
   has_many :choices
   has_many :answers, through: :choices
+  include IsCommentable
+
   def add_yesno_choices
     c=Survey::Choice.new(title: "Ja")
     c.save

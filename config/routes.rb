@@ -1,24 +1,17 @@
-
  Fetsite::Application.routes.draw do
-  namespace :survey do
-    resources :answers
-  end
+   resources :comments
 
-
-  namespace :survey do
-    resources :choices
-  end
-
-
-  namespace :survey do
-    resources :questions do
-      member do
-        get :answer
+   namespace :survey do
+     resources :questions do
+       member do
+         get :answer
         put :answer
-      end
-    end
-  end
-
+       end
+     end
+     resources :choices
+     resources :answers 
+   end
+   
   themes_for_rails
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :home, :only=>[:index] do
@@ -168,7 +161,11 @@
           end
        end
       end
-      
+      resources :comments do
+        collection do
+          get 'hide'
+        end
+      end
       resources :home, :only=>[:index] do
         get :search, :on => :collection
         collection do

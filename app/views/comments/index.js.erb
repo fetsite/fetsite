@@ -1,0 +1,2 @@
+$("#<%= Comment.wrapid_for(@commentable) %>").html("<%= escape_javascript  render partial:"comments/comments", object: @comments %>")
+$("#<%= Comment.switchshowid_for(@commentable) %>").attr("href","<%= escape_javascript   hide_comments_path(commentable_type: @commentable.class.to_s, commentable_id: @commentable.id)   %>")

@@ -1,0 +1,14 @@
+<div id="<%= form.formid %>">
+  <%= semantic_form_for form , remote:true, html: {class: "form-inline"} do |f| %>
+  <%= f.inputs do %>
+ <%= f.input :commentable_id, as: :hidden %>
+ <%= f.input :commentable_type, as: :hidden %>
+ <%= f.input :text, as: :string %>
+ <%= f.input :anonym %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+</div>

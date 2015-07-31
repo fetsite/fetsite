@@ -1,0 +1,19 @@
+<div id="<%= comment.divid %>">
+  <a class="pull-left media-object" href="#"><%= image_tag comment.thumb_url %></a>
+  <div class="media-body"> 
+
+ <b><%= (!comment.anonym) ? comment.user.try(:email) : "Anonym" %></b> (<%= I18n.l(comment.created_at) %>) <%= link_to ffi1_icon("remove9"), comment, method: :delete, data: { confirm: 'Are you sure?' } %>: 
+<p><%= comment.text %>
+<% if can?(:comment, comment.commentable) %>
+<br><%= link_to "comment" , new_comment_path( commentable_type: "Comment", commentable_id: comment.id), remote:true  %>  
+<% end %>
+</p>
+  <div id="<%= Comment.formid_for(comment) %>">
+  </div>
+
+  <%= render partial:"comments/comments", object: comment.children.order(:created_at).reverse_order  if comment.children.size >0 %>
+
+
+</div>
+  
+</div>

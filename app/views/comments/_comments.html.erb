@@ -1,0 +1,12 @@
+<% unless comments.empty? %>
+<div class="contentbox" style="border-right:none;border-bottom:none; border-top:none">
+<ul class="unstyled media-list">
+<% comments.each do |c| %>
+<li class="media"><%= render c %></li>
+<% end %>
+</ul>
+</div>
+<% if comments.first.root? %>
+<%= paginate comments, :remote=>true , :theme=>'twitter-bootstrap'%>
+<% end %>
+<% end %>
