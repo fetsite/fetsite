@@ -43,9 +43,9 @@ class Comment < ActiveRecord::Base
     "comment_" + id.to_s
   end
   def formid
-"comment_form_" + commentable_type.gsub(":","_") + "_" + commentable_id.to_s 
+    "comment_form_" + commentable_type.gsub(":","_") + "_" + commentable_id.to_s 
   end
   def self.formid_for(c)
     "comment_form_" + c.class.to_s.gsub(":","_") + "_" + c.id.to_s 
-    end
+  end
 end

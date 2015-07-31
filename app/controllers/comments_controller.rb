@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
   def index
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
-    @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(2).reverse_order
+num = {"Beispiel"=> 2, "Survey::Question"=> 7} 
+   @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(num[params[:commentable_type]]).reverse_order
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @comment }
@@ -84,12 +85,13 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @commentable=@comment.commentable
+    @divid=@comment.divid
     @comment.destroy
 
     respond_to do |format|
       format.html { redirect_to @commentable, :action=>"show"}
       format.json { head :no_content }
-    
+      format.js
     end
   end
 end
