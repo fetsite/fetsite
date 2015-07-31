@@ -1,8 +1,12 @@
-<%=      
-value=(current_user.id.nil?)? false : choice.answers.where(user_id: current_user.id).count>0
-cstyle=(value) ? "true" :"false"
-link_to ((value)? fa_icon("arrow-right"): "")+choice.text, answer_survey_question_path(choice.question, params: {survey_question: {selected: [choice.id]}})
+<%
+if current_user.nil?
+	t=choice.text
+else
+	value=(current_user.id.nil?)? false : choice.answers.where(user_id: current_user.id).count>0
+	cstyle=(value) ? "true" :"false"
+	t= link_to ((value)? fa_icon("arrow-right"): "")+choice.text, answer_survey_question_path(choice.question, class: "choice-"+cstyle, params: {survey_question: {selected: [choice.id]}}) 
+end
 
-#url_for({controller: obj.class.name.tableize,action: :flag, flag: flag, value: !value, theme: nil, locale: nil, id: obj.id}), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag)
 %>
-
+<%= t %>
+<%= ff_icon("ffi2-boy12") %>

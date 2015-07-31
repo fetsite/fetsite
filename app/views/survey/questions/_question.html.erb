@@ -1,12 +1,15 @@
 <% if current_user.nil? %>
 	<%= render partial: "answeredquestion", object: question %> 
 <% else  %>
-	<div style="background:red"><b><%= question.title%></b>
-		<ul>
+	<div class="contentbox" style="background: grey">
+		<div class="contentbox">
+			<b><%= question.title%></b></div>
+	<div class="contentbox">
+	<ul>
 			<% question.choices.each do |c| %>
 				<li><%= render c %></li>
 			<% end %>
-		</ul>
+	</ul></div>
 	<%= render partial: "answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0%> 
 
 	</div>

@@ -39,6 +39,7 @@ a:hover {
 @import 'tinymce';
 @import 'fetlogo';
 @import 'flatfeticon1';
+@import 'flatfeticon2';
 
 
 
@@ -222,3 +223,6 @@ ul.ui-menu > li > a
 				padding-left:10px;
 				cursor: pointer;				
 }				
+
+a.choice-true
+{text-width:bold}
