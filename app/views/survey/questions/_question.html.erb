@@ -1,9 +1,11 @@
-<div style="background:red"><b><%= question.title%></b>
-<%= form_for question, url: answer_survey_question_path do |f| %>
-<%=  f.check_box :selected,  {as: :check_boxes, collection: question.choices, label: false}, ["1"] %>
-
-    <%= f.action :submit, :as => :input %>
-
-<% end  %>
-
-</div>
+<% if current_user.nil? %>
+	<%= render partial: "answeredquestion", object: question %> 
+<% else  %>
+	<div style="background:red"><b><%= question.title%></b>
+		<ul>
+			<% question.choices.each do |c| %>
+				<li><%= render c %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

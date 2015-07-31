@@ -1,13 +1,15 @@
 <div style="background:red"><b><%= answeredquestion.title%></b>
+<div id="container_question_<%= answeredquestion.id %>" style="min-width: 310px; max-width: 800px; height: <%= (100+answeredquestion.choices.count * 50).to_s%>px; margin: 0 auto">
 	<ul>
 		<% answeredquestion.choices.each do |c| %>
 			<li>
-				<%= c.to_s %><%= answeredquestion.answers.where(choice_id: c.id).count %>
-
+				<%= c.to_s %>: <%= answeredquestion.answers.where(choice_id: c.id).count %> votes
 			</li>
 		<% end %>
 	</ul>
-<div id="container_question_<%= answeredquestion.id %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+	
+
+</div>
 <script>
 $(function () {
     $('#container_question_<%= answeredquestion.id %>').highcharts({
@@ -21,10 +23,13 @@ $(function () {
             text: '<%= answeredquestion.text %>'
         },
         xAxis: {
-            categories: [<%= raw(answeredquestion.choices.map{|c| "'"+c.text+"'"}.join(",")) %>],
+            categories: [<%= raw(answeredquestion.choices.map{|c| "'"+escape_javascript(ff_icon("ffi1-good2"))+c.text+"'"}.join(",")) %>],
             title: {
                 text: null
-            }
+            },
+					labels: {
+						useHTML: true
+					}
         },
         yAxis: {
             min: 0,
