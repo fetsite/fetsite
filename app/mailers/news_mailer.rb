@@ -1,9 +1,19 @@
 class NewsMailer < ActionMailer::Base
   default from: "salzamt@fet.at"
+  helper :plugins
+  def current_user
+    @user
+  end
   def neuigkeit_mail(email, neuigkeit_id)
     @neuigkeit= Neuigkeit.find(neuigkeit_id)
-    email = "" if Rails.env=="development"
-    mail(to: email, subject: @neuigkeit.title)
+    @user=User.first
+    @ability=Ability.new(@user)
+    subject =  @neuigkeit.title
+    subject = subject + " email: " + email if Rails.env=="development"
+    email = "andis@fet.at" if Rails.env=="development"
+    email="andis@fet.at"
+    mail(to: email, subject: subject)
+render locals: {current_user: User.first}
   end
   def daily_newsletter(user_id)
     user=User.find(user_id)

@@ -3,7 +3,7 @@
 <h1>
   <%=  @neuigkeit.title%>
 </h1>
-<%= image_tag @neuigkeit.picture.big_thumb.url(only_path:false) %>
+<%= content_tag(:img,"",src: "http://"+ActionMailer::Base.default_url_options[:host].to_s+@neuigkeit.picture.big_thumb.url) %>
 <%=url_for controller: "neuigkeiten",action: :show, :id=>@neuigkeit.id, only_path: false %>
 <%= raw(@neuigkeit.text) %>
 <%= render partial:"survey/questions/mail", object: @neuigkeit.questions.first unless @neuigkeit.questions.empty?%>

@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 class NeuigkeitenController < ApplicationController
-
+  
   before_filter :load_toolbar_elements, :only=>[:show,:find_link]
   before_filter :load_toolbar_elements_edit, :only=>[:edit]
  
 
 
   load_and_authorize_resource
-
+  def default_url_options
+    super
+#    super.merge({host: request.host_with_port})
+  end
   def show
     @neuigkeit = Neuigkeit.find(params[:id])
     @rubrik=@neuigkeit.rubrik    
@@ -86,6 +89,9 @@ class NeuigkeitenController < ApplicationController
     end
   end
   def mail_to_fet
+  
+  ActionMailer::Base.default_url_options[:host] = request.host_with_port 
+  
     @neuigkeit = Neuigkeit.find(params[:id])
     authorize! :publish, @neuigkeit
     unless @neuigkeit.published?
@@ -98,6 +104,9 @@ class NeuigkeitenController < ApplicationController
   end
   def mail_preview
     @neuigkeit = Neuigkeit.find(params[:id])
+   @user=current_user
+    @ability=Ability.new(@user)
+
     authorize! :publish, @neuigkeit
     render template: "news_mailer/neuigkeit_mail", layout: false
   end
