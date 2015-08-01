@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+before_filter :decode_commentable_type
   def index
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
 num = {"Beispiel"=> 2, "Survey::Question"=> 7} 
@@ -96,4 +97,9 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
       format.js
     end
   end
+private
+def decode_commentable_type
+  params[:commentable_type].gsub("_","::")
+end
+
 end
