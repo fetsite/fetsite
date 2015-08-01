@@ -18,15 +18,19 @@ class Survey::ChoicesController < ApplicationController
     respond_to do |format|
       format.html {redirect_to @survey_choice.question}
       format.json { render json: @survey_choice }
+      format.js
     end
   end
 
   # GET /survey/choices/new
   # GET /survey/choices/new.json
   def new
-    @survey_choice = Survey::Choice.new
+    @question= Survey::Question.find(params[:question_id])
 
+    @choice=Survey::Choice.new
+    @choice.question=@question
     respond_to do |format|
+      format.js
       format.html # new.html.erb
       format.json { render json: @survey_choice }
     end
@@ -43,13 +47,16 @@ class Survey::ChoicesController < ApplicationController
 
   # POST /survey/choices
   # POST /survey/choices.json
+  include PluginsHelper
   def create
     @survey_choice = Survey::Choice.new(params[:survey_choice])
-
+    @divid = divid_for(@survey_choice) 
+    
     respond_to do |format|
       if @survey_choice.save
         format.html { redirect_to @survey_choice, notice: 'Choice was successfully created.' }
         format.json { render json: @survey_choice, status: :created, location: @survey_choice }
+        format.js 
       else
         format.html { render action: "new" }
         format.json { render json: @survey_choice.errors, status: :unprocessable_entity }

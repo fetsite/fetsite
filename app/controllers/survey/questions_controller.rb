@@ -20,7 +20,10 @@ class Survey::QuestionsController < ApplicationController
     end
     
     @survey_question.do_answer(params[:survey_question][:selected],user)
-    render :show
+    respond_to do |format|
+      format.html { redirect_to action: :show}
+      format.js { render action: :show}
+    end
   end
   # GET /survey/questions/1
   # GET /survey/questions/1.json
