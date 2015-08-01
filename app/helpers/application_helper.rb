@@ -43,14 +43,14 @@ m.save
     language_path(locale: target_locale)
   end
   def ffi1_icon (name)
-    content_tag("i","", class: "ffi1-"+name )
+    content_tag("i","", class: "ficon ffi1-"+name )
   end
 
   def ffi2_icon (name)
-    content_tag("i","", class: "ffi2-"+name )
+    content_tag("i","", class: "ficon ffi2-"+name )
   end
   def ff_icon (name)
-    content_tag("i","", class: name )
+    content_tag("i","", class: "ficon "+name )
   end
 
   def ffi1_list 

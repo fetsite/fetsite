@@ -83,12 +83,19 @@ class Survey::ChoicesController < ApplicationController
   # DELETE /survey/choices/1
   # DELETE /survey/choices/1.json
   def destroy
-    @survey_choice = Survey::Choice.find(params[:id])
+ @survey_choice = Survey::Choice.find(params[:id])
+      
+ if @survey_choice.answers.count>0
+      redirect_to action: :show
+else
+    @divid = divid_for(@survey_choice) 
     @survey_choice.destroy
 
     respond_to do |format|
       format.html { redirect_to survey_choices_url }
       format.json { head :no_content }
-    end
+      format.js
+end    
+end
   end
 end
