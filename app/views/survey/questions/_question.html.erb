@@ -1,18 +1,20 @@
 <% if current_user.nil? %>
-	<%= render partial: "survey/questions/answeredquestion", object: question %> 
+	<%= div_tag_for(question) do%>
+<%= render partial: "survey/questions/answeredquestion", object: question %> 
+	<% end %>
 <% else  %>
-	<div class="contentbox" style="background: grey">
+	<div class="contentbox" id="<%= divid_for(question)%>" style="">
 		<div class="contentbox">
 			<b><%= question.title%></b> <%=question.text%></div>
-
 		<div class="contentbox">
-		<ul class="choice-list">
-			<% question.choices.each do |c| %>
-				<li><%= render c %></li>
-			<% end %>
-	</ul></div>
-	<%= render partial: "survey/questions/answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0%> 
-
+			<ul class="choice-list">
+				<% question.choices.each do |c| %>
+					<li><%= render c %></li>
+				<% end %>
+			</ul>
+		</div>
+		<%= render partial: "survey/questions/answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0%> 
+		
 	</div>
 <% end %>
 
