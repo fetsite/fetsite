@@ -1,0 +1,6 @@
+<% question=mail  %>
+<div class="contentbox">
+			<b><%= question.title%></b> <%=question.text%></div>
+			<% question.choices.each do |c| %>
+				<li><%= render c %></li>
+			<% end %>

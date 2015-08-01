@@ -11,7 +11,7 @@
 				<li><%= render c %></li>
 			<% end %>
 	</ul></div>
-	<%= render partial: "answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0%> 
+	<%= render partial: "survey/questions/answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0%> 
 
 	</div>
 <% end %>

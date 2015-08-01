@@ -1,6 +1,10 @@
+
+    <%= stylesheet_link_tag "application", :media=>"all"  %>
 <h1>
   <%=  @neuigkeit.title%>
 </h1>
-<%= image_tag "http://www.fet.at"+@neuigkeit.picture.big_thumb.url %>
+<%= image_tag @neuigkeit.picture.big_thumb.url(only_path:false) %>
+<%=url_for controller: "neuigkeiten",action: :show, :id=>@neuigkeit.id, only_path: false %>
 <%= raw(@neuigkeit.text) %>
+<%= render partial:"survey/questions/mail", object: @neuigkeit.questions.first unless @neuigkeit.questions.empty?%>
 <%= link_to "Auf Fet.at weiterlesen", rubrik_neuigkeit_url(@neuigkeit.rubrik, @neuigkeit,:locale=>:de, :theme=>nil,:host=> "www.fet.at") %> 

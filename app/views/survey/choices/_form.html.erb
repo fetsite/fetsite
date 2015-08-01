@@ -5,9 +5,7 @@
   
   <%= f.input :icon, :input_html=>{:id=>"iconfield"},:as=>:hidden %>
 
-					<label>Bild</label>
-					<%= image_tag(@choice.picture.thumb.url) unless @choice.picture.nil? %>
-					<%= f.file_field :picture %>
+	<%= f.input :picture, as: :uploader %>
 					<%= f.hidden_field :picture_cache %>
 
   <% end %>

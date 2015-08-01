@@ -2,7 +2,7 @@ class NewsMailer < ActionMailer::Base
   default from: "salzamt@fet.at"
   def neuigkeit_mail(email, neuigkeit_id)
     @neuigkeit= Neuigkeit.find(neuigkeit_id)
-    
+    email = "" if Rails.env=="development"
     mail(to: email, subject: @neuigkeit.title)
   end
   def daily_newsletter(user_id)
