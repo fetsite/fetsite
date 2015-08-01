@@ -14,6 +14,9 @@
 
 <div id="<%= divid_for(comment,"newform") %>">
 </div>
+      <div id="<%= Comment.wrapid_for( comment)%>">
+
 <%= render partial:"comments/comments", object: comment.children.order(:created_at).reverse_order  if comment.children.size >0 %>
+			</div>
 	</div>
 </div>

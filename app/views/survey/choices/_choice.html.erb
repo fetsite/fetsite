@@ -1,16 +1,18 @@
-<div id="choice_<%= choice.id %>"
+
+<%= div_tag_for(choice) do %>
+
 <%
 if current_user.nil?
 	t=choice.text
 else
 	value=(current_user.id.nil?)? false : choice.answers.where(user_id: current_user.id).count>0
 	cstyle=(value) ? "true" :"false"
-	t= link_to raw("" + choice.html), answer_survey_question_path(choice.question,  params: {survey_question: {selected: [choice.id]}}),class: "choice-"+cstyle 
+	t= link_to(raw("" + choice.html+ (( choice.picture.nil?) ? "":image_tag(choice.picture.thumb.url))), answer_survey_question_path(choice.question,  params: {survey_question: {selected: [choice.id]}}),class: "choice-"+cstyle )
 end
 
 %>
 
 
-<%= t %>   <%= link_to fa_icon("pencil"), edit_survey_choice_path(choice) , class: "btn btn-link navbar-btn" 
+<%= t %>   <%= link_to fa_icon("pencil"), edit_survey_choice_path(choice) , class: "btn btn-link navbar-btn" , remote: true
 %>
-</div>
+<% end %>

@@ -39,19 +39,3 @@
   </div>
   <% end %>
 
-  <%= link_to "comment" , new_comment_path( commentable_type: "Beispiel", commentable_id: beispiel.id), remote:true if can? :comment, beispiel %>  
-  <%= link_to "comments:.."+beispiel.comments.count().to_s, comments_path(commentable_type: "Beispiel", commentable_id: beispiel.id), remote:true, id: Comment.switchshowid_for(beispiel) %>
-  <div id="<%= Comment.formid_for(beispiel) %>">
-  </div>
-  <% unless beispiel.comments.roots.empty? %>
-  <div class="row-fluid">
-    <div class="span12">
-      <div id="<%= Comment.wrapid_for(beispiel)%>">
-	<%= render partial:"comments/comments", object: beispiel.comments.order(:created_at).roots.reverse_order if params[:show_comments] %>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-
-</div>

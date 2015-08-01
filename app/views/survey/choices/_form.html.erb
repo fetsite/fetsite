@@ -1,12 +1,17 @@
 <%= semantic_form_for @choice do |f| %>
   <%= f.inputs do %>
     <%= f.input :text %>
+  <i id="icon" style="font-size:2em" class="<%= @choice.icon %>"></i><a href="#" id="openselect" onclick=""> Choose Icon</a>
+  
+  <%= f.input :icon, :input_html=>{:id=>"iconfield"},:as=>:hidden %>
 
-    <%= f.input :sort %>
-    <%= f.input :picture, :input_html=>{:id=>"iconfield"} %>
+					<label>Bild</label>
+					<%= image_tag(@choice.picture.thumb.url) unless @choice.picture.nil? %>
+					<%= f.file_field :picture %>
+					<%= f.hidden_field :picture_cache %>
+
   <% end %>
-    <i id="icon" style="font-size:2em" class="<%= @choice.picture %>"></i><a href="#" id="openselect" onclick=""> Choose Icon</a>
-
+  
   <%= f.actions do %>
     <%= f.action :submit, :as => :input %>
   <% end %>

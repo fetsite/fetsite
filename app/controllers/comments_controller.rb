@@ -53,8 +53,11 @@ before_filter :decode_commentable_type
     c = params[:comment][:commentable_type].constantize.find(params[:comment][:commentable_id]) unless params[:comment][:commentable_type].nil? or params[:comment][:commentable_id].nil? 
     
     @comment = Comment.build_for(c, current_user,"", params_new)  
-   @comments=@comment.parent_object.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
-
+    if @comment.parent_object.class==Comment
+  @comments= @comment.parent_object.children
+else
+    @comments=@comment.parent_object.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
+end
     respond_to do |format|
       if @comment
         format.html { redirect_to @comment.commentable, notice: 'Comment was successfully created.', show_comments: true }
