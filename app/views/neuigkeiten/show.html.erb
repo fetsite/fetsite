@@ -34,10 +34,12 @@
 		<%= notice %>
 	</p>
 	<%= render partial: "neuigkeit_view", object: @neuigkeit %>
+</div>
 	<% @neuigkeit.questions.each do |q| %>
 		<%= render q%>
 	<% end %>
-</div>
+
+
 </div>
 <div class="fb-like" data-href"<%= rubrik_neuigkeit_url(@rubrik,@neuigkeit,{themes: nil, locale: nil})%>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 

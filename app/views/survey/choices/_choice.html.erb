@@ -15,4 +15,5 @@ end
 
 <%= t %>   <%= link_to fa_icon("pencil"), edit_survey_choice_path(choice) , class: "btn btn-link navbar-btn" , remote: true
 %>
+<%= link_to fa_icon("pencil"), delete_survey_choice_path(choice) , class: "btn btn-link navbar-btn" , remote: true %>
 <% end %>

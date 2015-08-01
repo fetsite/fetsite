@@ -1,7 +1,7 @@
 class Survey::Question < ActiveRecord::Base
   attr_accessible :text, :title, :typ, :choice_ids
   belongs_to :parent, polymorphic: true
-  has_many :choices
+  has_many :choices, dependent: :destroy
   has_many :answers, through: :choices
   include IsCommentable
 
@@ -22,7 +22,9 @@ class Survey::Question < ActiveRecord::Base
         cid= cid - found_ids
         Survey::Answer.where(user_id: user.id, choice_id: found_ids).delete_all
       else
+        if self.typ == 0 
         Survey::Answer.where(user_id: user.id, choice_id: self.choice_ids).delete_all
+        end
       end
       cid.each do |c|
         if self.choice_ids.include?(c)

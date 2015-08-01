@@ -4,9 +4,9 @@
 	<% end %>
 <% else  %>
 	<div class="contentbox" id ="<%= divid_for(question) %>" style="">
-		<div class="contentbox">
-			<b><%= question.title%></b> <%=question.text%><%= link_to fa_icon("pencil"), edit_survey_question_path(question) , class: "btn btn-link navbar-btn" , remote: true%></div>
-		<div class="contentbox">
+		<div >
+			<b><%= question.title%></b> <%=question.text%><%= link_to fa_icon("pencil"), edit_survey_question_path(question) , class: "btn btn-link navbar-btn" , remote: true%>
+
 			<ul class="choice-list">
 				<% question.choices.each do |c| %>
 					<li><%= render c %></li>

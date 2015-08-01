@@ -1,5 +1,7 @@
 <div id="<%= divid_for(comment) %>">
+<% if (!comment.anonym)  %>
   <a class="pull-left media-object" href="#"><%= image_tag comment.thumb_url %></a>
+<% end %>
   <div class="media-body"> 
 		<b><%= (!comment.anonym) ? comment.user.try(:email) : "Anonym" %>
 		</b> (<%= I18n.l(comment.created_at) %>) 
