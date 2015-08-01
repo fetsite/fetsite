@@ -1,5 +1,6 @@
 
-    <%= stylesheet_link_tag "application", :media=>"all"  %>
+
+    <%= stylesheet_link_tag "http://"+ActionMailer::Base.default_url_options[:host].to_s + "/assets/themes/blue2/application.css", :media=>"all"  %>
 <h1>
   <%=  @neuigkeit.title%>
 </h1>
@@ -7,4 +8,4 @@
 <%=url_for controller: "neuigkeiten",action: :show, :id=>@neuigkeit.id, only_path: false %>
 <%= raw(@neuigkeit.text) %>
 <%= render partial:"survey/questions/mail", object: @neuigkeit.questions.first unless @neuigkeit.questions.empty?%>
-<%= link_to "Auf Fet.at weiterlesen", rubrik_neuigkeit_url(@neuigkeit.rubrik, @neuigkeit,:locale=>:de, :theme=>nil,:host=> "www.fet.at") %> 
+<%= link_to "Auf Fet.at weiterlesen", rubrik_neuigkeit_url(@neuigkeit.rubrik, @neuigkeit,:locale=>:de, :theme=>nil) %> 

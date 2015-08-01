@@ -9,8 +9,17 @@ class Survey::QuestionsController < ApplicationController
     end
   end
   def answer
-    @survey_question = Survey::Question.find(params[:id])
-    @survey_question.do_answer(params[:survey_question][:selected],current_user)
+    @survey_question = Survey::Question.find(params[:id])    
+    if (params[:key].nil? || params[:key].empty?) 
+      user = current_user
+    else
+      k=Key.find_by_uuid(params[:key]  )
+      if k.is_valid && k.typ==3 && k.parent == @survey_question
+        user = k.user
+      end
+    end
+    
+    @survey_question.do_answer(params[:survey_question][:selected],user)
     render :show
   end
   # GET /survey/questions/1

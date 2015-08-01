@@ -1,5 +1,5 @@
 <% if current_user.nil? %>
-	<%= render partial: "answeredquestion", object: question %> 
+	<%= render partial: "survey/questions/answeredquestion", object: question %> 
 <% else  %>
 	<div class="contentbox" style="background: grey">
 		<div class="contentbox">
