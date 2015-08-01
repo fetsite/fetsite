@@ -1,2 +1,2 @@
-$("#<%= Comment.formid_for(@comment.parent) %>").html("")
-$("#<%= Comment.wrapid_for(@comment.commentable) %>").html("<%= escape_javascript  render partial:"comments/comments", object: @comments %>")
+$("#<%= divid_for(@comment.parent_object,"newform") %>").html("")
+$("#<%= Comment.wrapid_for(@comment.parent_object) %>").html("<%= escape_javascript  render partial:"comments/comments", object: @comments %>")

@@ -9,7 +9,14 @@ class Comment < ActiveRecord::Base
   validate :user, :presence=>true
   validate :commentable, :presence=>true
   include IsCommentable
-
+NUM = {"Beispiel"=> 2, "Survey::Question"=> 7}   
+  def parent_object
+    if self.root?
+      self.commentable
+    else
+      self.parent
+    end
+  end
   def self.build_for(set_commentable, user, text,attr={})
     c = new
     raise "Tried to build comment for non commentable" unless set_commentable.try(:is_commentable?)
@@ -39,9 +46,7 @@ class Comment < ActiveRecord::Base
   def self.switchshowid_for(c)
     "show_comments_" + c.class.to_s.gsub(":","_") + "_" + c.id.to_s
   end
-  def divid
-    "comment_" + id.to_s
-  end
+
   def formid
     "comment_form_" + commentable_type.gsub(":","_") + "_" + commentable_id.to_s 
   end

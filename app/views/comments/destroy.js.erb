@@ -1,1 +1,2 @@
-$('#<%= @divid %>').remove()
+
+$("#<%= Comment.wrapid_for(@commentable) %>").html("<%= escape_javascript  render partial:"comments/comments", object: @comments %>")

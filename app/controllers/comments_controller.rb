@@ -2,8 +2,8 @@ class CommentsController < ApplicationController
 before_filter :decode_commentable_type
   def index
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
-num = {"Beispiel"=> 2, "Survey::Question"=> 7} 
-   @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(num[params[:commentable_type]]).reverse_order
+
+   @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @comment }
@@ -31,6 +31,8 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
   def new
     @comment = Comment.new
     @comment.commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
+
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @comment }
@@ -51,6 +53,8 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
     c = params[:comment][:commentable_type].constantize.find(params[:comment][:commentable_id]) unless params[:comment][:commentable_type].nil? or params[:comment][:commentable_id].nil? 
     
     @comment = Comment.build_for(c, current_user,"", params_new)  
+   @comments=@comment.parent_object.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
+
     respond_to do |format|
       if @comment
         format.html { redirect_to @comment.commentable, notice: 'Comment was successfully created.', show_comments: true }
@@ -88,9 +92,10 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
   def destroy
     @comment = Comment.find(params[:id])
     @commentable=@comment.commentable
-    @divid=@comment.divid
-    @comment.destroy
 
+    
+    @comment.destroy
+    @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
     respond_to do |format|
       format.html { redirect_to @commentable, :action=>"show"}
       format.json { head :no_content }
@@ -99,7 +104,7 @@ num = {"Beispiel"=> 2, "Survey::Question"=> 7}
   end
 private
 def decode_commentable_type
-  params[:commentable_type].gsub("_","::")
+  params[:commentable_type].gsub!("_","::") unless params[:commentable_type].nil?
 end
 
 end
