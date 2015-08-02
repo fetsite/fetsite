@@ -1,11 +1,11 @@
 class CommentsController < ApplicationController
-before_filter :decode_commentable_type
+  load_and_authorize_resource
+  before_filter :decode_commentable_type
   def index
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
+   @comments=@commentable.comments.order(:created_at).roots.accessible_by(current_ability, :show).page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
 
-   @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
     respond_to do |format|
-      format.html # new.html.erb
       format.js
     end
 
@@ -20,6 +20,7 @@ before_filter :decode_commentable_type
     @comment = Comment.find(params[:id])
     respond_to do |format|
       format.js 
+      format.html {redirect_to @comment.commentable}
     end
   end
   def new

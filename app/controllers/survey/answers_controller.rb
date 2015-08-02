@@ -1,6 +1,8 @@
 class Survey::AnswersController < ApplicationController
   # GET /survey/answers
   # GET /survey/answers.json
+  load_and_authorize_resource
+
   def index
     @survey_answers = Survey::Answer.all
 

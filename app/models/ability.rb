@@ -10,8 +10,24 @@ class Ability
       end
     end
     user ||=  User.new # guest user (not logged in)
+
     can :manage, Survey::Question 
-    can :manage, Comment
+    can :manage, Survey::Choice
+    can :manage, Survey::Answer
+
+    #---------------------------------------------------
+    
+    can :index, Comment
+    can :show, Comment
+    if loggedin
+      can [:create,:new], Comment
+    end
+
+  #  can :manage, Comment
+    unless user.has_role?("fetadmin")
+      cannot :delete, Comment
+cannot :destroy, Comment
+    end
     #-----------------------------------------------------
     # Rechteverwaltung fuer Studien Modul
     can [:show, :index], Studium, :visible=>true

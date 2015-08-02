@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  attr_accessible :text,:anonym, :intern, :hidden
+  attr_accessible :text,:anonym, :intern, :hidden, :commentable_id, :commentable_type
   # commentable depth, official, intern, anonym
   acts_as_votable
   acts_as_nested_set  :scope => [:commentable_id, :commentable_type]
