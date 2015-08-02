@@ -7,7 +7,6 @@ class Survey::QuestionsController < ApplicationController
     @survey_questions = Survey::Question.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @survey_questions }
     end
   end
   def answer
@@ -34,7 +33,6 @@ class Survey::QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @survey_question }
     end
   end
 
@@ -42,10 +40,8 @@ class Survey::QuestionsController < ApplicationController
   # GET /survey/questions/new.json
   def new
     @survey_question = Survey::Question.new
-
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @survey_question }
     end
   end
 
@@ -62,10 +58,8 @@ class Survey::QuestionsController < ApplicationController
     respond_to do |format|
       if @survey_question.save
         format.html { redirect_to @survey_question, notice: 'Question was successfully created.' }
-        format.json { render json: @survey_question, status: :created, location: @survey_question }
       else
         format.html { render action: "new" }
-        format.json { render json: @survey_question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,10 +72,8 @@ class Survey::QuestionsController < ApplicationController
     respond_to do |format|
       if @survey_question.update_attributes(params[:survey_question])
         format.html { redirect_to @survey_question, notice: 'Question was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @survey_question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -94,7 +86,7 @@ class Survey::QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to survey_questions_url }
-      format.json { head :no_content }
+
     end
   end
 end

@@ -3,12 +3,10 @@ class CommentsController < ApplicationController
   before_filter :decode_commentable_type
   def index
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
-   @comments=@commentable.comments.order(:created_at).roots.accessible_by(current_ability, :show).page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
-
+    @comments=@commentable.comments.order(:created_at).roots.accessible_by(current_ability, :show).page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
     respond_to do |format|
       format.js
     end
-
   end
   def hide
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
@@ -62,18 +60,14 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.json
   def update
-    
     params[:comment].select! {|i| !["commentable_id", "commentable_type"].include?(i)}
     @comment = Comment.find(params[:id])
     @comment.commentable=params[:comment][:commentable_type].constantize.find(params[:comment][:commentable_id]) unless params[:comment][:commentable_type].nil? or params[:comment][:commentable_id].nil? 
     respond_to do |format|
-      
       if @comment.update_attributes(params[:comment])
         format.html { redirect_to @comment.commentable, notice: 'Comment was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -86,13 +80,12 @@ class CommentsController < ApplicationController
     @comment.destroy
     @comments=@commentable.comments.order(:created_at).roots.page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
     respond_to do |format|
-
       format.js
     end
   end
-private
-def decode_commentable_type
-  params[:commentable_type].gsub!("_","::") unless params[:commentable_type].nil?
-end
-
+  private
+  def decode_commentable_type
+    params[:commentable_type].gsub!("_","::") unless params[:commentable_type].nil?
+  end
+  
 end
