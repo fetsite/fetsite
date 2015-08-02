@@ -1,5 +1,14 @@
  Fetsite::Application.routes.draw do
-   resources :comments
+   resources :comments, except: [:show] do
+     collection do
+       get 'hide'
+     end
+   end
+
+       resources :comments, contstraints: {id: /[0-9]+/}, only: :show
+
+
+    
 
    namespace :survey do
      resources :questions do
@@ -160,11 +169,6 @@
             get 'newsletter_preview'
           end
        end
-      end
-      resources :comments do
-        collection do
-          get 'hide'
-        end
       end
       resources :home, :only=>[:index] do
         get :search, :on => :collection

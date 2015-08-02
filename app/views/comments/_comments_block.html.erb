@@ -3,9 +3,9 @@
 <div id="<%= divid_for(comments_block,"newform") %>">
 </div>
 <% unless  comments_block.comments.roots.empty? %>
-
-      <div id="<%= Comment.wrapid_for( comments_block)%>">
-				<%= render partial:"comments/comments", object:  comments_block.comments.order(:created_at).roots.reverse_order if params[:show_comments] %><%# can? fehlt!%>
-      </div>
-
+	
+  <div id="<%= Comment.wrapid_for( comments_block)%>">
+		<%= render partial:"comments/comments", object:  comments_block.comments.order(:created_at).roots.reverse_order if params[:show_comments] %><%# can? fehlt!%>
+  </div>
+			
 <% end %>
