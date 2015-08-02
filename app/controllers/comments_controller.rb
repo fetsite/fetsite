@@ -22,8 +22,11 @@ class CommentsController < ApplicationController
     end
   end
   def new
+   
     @comment = Comment.new
     @comment.commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
+    authorize! :comment, @comment.commentable
+
     respond_to do |format|
       format.js
     end
@@ -40,6 +43,7 @@ class CommentsController < ApplicationController
     params_new= params[:comment].select {|i| !["commentable_id", "commentable_type"].include?(i)}
 
     c = params[:comment][:commentable_type].constantize.find(params[:comment][:commentable_id]) unless params[:comment][:commentable_type].nil? or params[:comment][:commentable_id].nil? 
+    authorize! :comment, c
     
     @comment = Comment.build_for(c, current_user,"", params_new)  
 

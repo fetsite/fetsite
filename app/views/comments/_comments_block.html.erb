@@ -1,7 +1,9 @@
+<%= link_to "Comments:.."+ comments_block.comments.count().to_s, comments_path(commentable_type: comments_block.class.to_s.gsub("::","_"), commentable_id:  comments_block.id), remote:true, id: Comment.switchshowid_for( comments_block) %> <%# load the comments in the comments block %>
+<p>
 <%= link_to "Comment" , new_comment_path( commentable_type: comments_block.class.to_s.gsub("::","_"), commentable_id:  comments_block.id), remote:true if can? :comment,  comments_block %>  <%# This is the button to add a new comment %>
-<%= link_to "comments:.."+ comments_block.comments.count().to_s, comments_path(commentable_type: comments_block.class.to_s.gsub("::","_"), commentable_id:  comments_block.id), remote:true, id: Comment.switchshowid_for( comments_block) %> <%# load the comments in the comments block %>
 <div id="<%= divid_for(comments_block,"newform") %>">
 </div>
+</p>
 <% unless  comments_block.comments.roots.empty? %>
 	
   <div id="<%= Comment.wrapid_for( comments_block)%>">

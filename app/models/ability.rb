@@ -17,10 +17,12 @@ class Ability
 
     #---------------------------------------------------
     
-    can :index, Comment
+    can [:index,:hide], Comment
     can :show, Comment
+    
     if loggedin
       can [:create,:new], Comment
+      can [:comment], Comment
     end
 
   #  can :manage, Comment

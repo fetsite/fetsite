@@ -1,24 +1,23 @@
 <div id="<%= divid_for(comment) %>">
-<% if (!comment.anonym)  %>
-  <a class="pull-left media-object" href="#"><%= image_tag comment.thumb_url %></a>
-<% end %>
+	<% if (!comment.anonym)  %>
+		<a class="pull-left media-object" href="#"><%= image_tag comment.thumb_url %></a>
+	<% end %>
   <div class="media-body"> 
 		<b><%= (!comment.anonym) ? comment.user.try(:email) : "Anonym" %>
 		</b> (<%= I18n.l(comment.created_at) %>) 
 		
-		<%= link_to ffi1_icon("remove9"), comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>: 
+		<%= link_to ffi1_icon("remove9"), comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, remote: true if can? :destroy, comment %>: 
 		<p>
 			<%= comment.text %>
-			<% if can?(:comment, comment.commentable) %>
-				<br><%= link_to "comment" , new_comment_path( commentable_type: "Comment", commentable_id: comment.id), remote:true  %>  
+			<% if can?(:comment, comment.commentable) && can?(:new, Comment) %>
+				<br><%= link_to "comment" , new_comment_path( commentable_type: "Comment", commentable_id: comment.id), remote:true   %>  
 			<% end %>
 		</p>
 
-<div id="<%= divid_for(comment,"newform") %>">
-</div>
-      <div id="<%= Comment.wrapid_for( comment)%>">
-
-<%= render partial:"comments/comments", object: comment.children.order(:created_at).reverse_order  if comment.children.size >0 %>
-			</div>
+		<div id="<%= divid_for(comment,"newform") %>">
+		</div>
+    <div id="<%= Comment.wrapid_for( comment)%>">
+			<%= render partial:"comments/comments", object: comment.children.order(:created_at).reverse_order  if comment.children.size >0 %>
+		</div>
 	</div>
 </div>
