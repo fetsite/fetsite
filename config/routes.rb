@@ -18,7 +18,7 @@
        end
      end
      resources :choices
-     resources :answers 
+
    end
    
   themes_for_rails

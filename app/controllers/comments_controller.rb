@@ -3,10 +3,15 @@ class CommentsController < ApplicationController
   before_filter :decode_commentable_type
   def index
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
+if @commentable.nil?
+  render status: 404
+  else
     @comments=@commentable.comments.order(:created_at).roots.accessible_by(current_ability, :show).page(params[:page]).per(Comment::NUM[params[:commentable_type]]).reverse_order
+
     respond_to do |format|
       format.js
     end
+end
   end
   def hide
     @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) unless params[:commentable_type].nil? or params[:commentable_id].nil?
