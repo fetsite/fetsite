@@ -20,6 +20,7 @@ module Flagable
  
         @obj=controller_name.classify.constantize.find(params[:id])
         lflag=("flag_"+params[:flag]).to_sym
+        authorize! lflag, @obj
         unless params[:flag].nil? || params[:flag].empty? || params[:value].nil?
           if @obj.respond_to?(lflag.to_s+"=")
             @obj.send(lflag.to_s+"=",params[:value]=="true")

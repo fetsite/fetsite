@@ -36,14 +36,20 @@ cannot :destroy, Comment
     can [:show], Modulgruppe
     can [:show, :index], Modul
     can [:show, :index, :beispiel_sammlung], Lva
-    can [:create, :show], Beispiel
+    can [:create, :show], Beispiel, flag_delete: false
     if loggedin
       can :like, Beispiel
       can :dislike, Beispiel    
     end
-    if (user.has_role?("moderator",Beispiel))
+    if ((user.has_role?("moderator",Beispiel)) || user.has_role?("fetuser") || user.has_role?("fetadmin"))
       can :flag, Beispiel
       can [:edit, :update], Beispiel
+      can :flag, Beispiel
+      can :set_lecturer, Beispiel
+      can :flag_delete, Beispiel
+      can :flag_goodquality, Beispiel
+      can :flag_badquality, Beispiel
+
     end
     if (user.has_role?("moderator",Lva))
       can [:verwalten, :edit, :compare_tiss, :load_tiss, :update], Lva
@@ -53,7 +59,9 @@ cannot :destroy, Comment
       can :manage, Modul
       can :manage, Lva
       can :manage, Studium
-      can :manage, Beispiel
+      #can :manage, Beispiel
+      can :comment, Beispiel
+      
       can :manage, Lecturer
       
     end

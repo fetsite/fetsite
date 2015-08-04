@@ -5,6 +5,8 @@ class Survey::Question < ActiveRecord::Base
   has_many :answers, through: :choices
   include IsCommentable
 
+  scope :templates, ->{ where(flag_template:true)}
+
   def add_yesno_choices
     c=Survey::Choice.new(title: "Ja")
     c.save
