@@ -40,6 +40,7 @@ class Survey::QuestionsController < ApplicationController
   # GET /survey/questions/new.json
   def new
     @survey_question = Survey::Question.new
+    @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) 
     respond_to do |format|
       format.html # new.html.erb
     end
