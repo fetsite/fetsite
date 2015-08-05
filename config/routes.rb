@@ -15,6 +15,8 @@
        member do
          get :answer
         put :answer
+         get 'flag'
+ 
        end
      end
      resources :choices

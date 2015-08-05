@@ -4,7 +4,7 @@ class Survey::Question < ActiveRecord::Base
   has_many :choices, dependent: :destroy
   has_many :answers, through: :choices
   include IsCommentable
-
+  FLAG_ICONS={"delete" => "fa fa-trash"}
   scope :templates, ->{ where(flag_template:true)}
 
   def add_yesno_choices
