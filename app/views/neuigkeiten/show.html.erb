@@ -35,9 +35,9 @@
 	</p>
 	<%= render partial: "neuigkeit_view", object: @neuigkeit %>
 </div>
-	<% @neuigkeit.questions.each do |q| %>
-		<%= render q%>
-	<% end %>
+<% @neuigkeit.questions.each do |q| %>
+	<%= render q if can? :show, q %>
+<% end %>
 
 
 </div>

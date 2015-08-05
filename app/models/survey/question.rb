@@ -6,6 +6,7 @@ class Survey::Question < ActiveRecord::Base
   include IsCommentable
   FLAG_ICONS={"delete" => "fa fa-trash"}
   scope :templates, ->{ where(flag_template:true)}
+  acts_as_flagable
 
   def add_yesno_choices
     c=Survey::Choice.new(title: "Ja")

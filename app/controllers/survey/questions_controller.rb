@@ -2,7 +2,7 @@ class Survey::QuestionsController < ApplicationController
   # GET /survey/questions
   # GET /survey/questions.json
   load_and_authorize_resource
-
+  acts_as_flagable
   def index
     @survey_questions = Survey::Question.all
     respond_to do |format|
