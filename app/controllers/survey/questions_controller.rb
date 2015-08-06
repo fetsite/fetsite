@@ -31,7 +31,9 @@ class Survey::QuestionsController < ApplicationController
   # GET /survey/questions/1.json
   def create_from_template
     @template = Survey::Question.find(params[:id])
-
+    parent= params[:parent_type].constantize.find(params[:parent_id])
+    @survey_question = @template.copy_from_template_for(parent)
+    render action: :show
   end
 
   def show
@@ -46,7 +48,8 @@ class Survey::QuestionsController < ApplicationController
   # GET /survey/questions/new.json
   def new
     @survey_question = Survey::Question.new
-    @commentable=params[:commentable_type].constantize.find(params[:commentable_id]) 
+    @parent=params[:parent_type].constantize.find(params[:parent_id])
+    @survey_question.parent=@parent
     respond_to do |format|
       format.html # new.html.erb
     end

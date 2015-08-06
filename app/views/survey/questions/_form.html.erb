@@ -3,6 +3,8 @@
     <%= f.input :title %>
     <%= f.input :text %>
 
+    <%= f.input :parent_type, as: :hidden %>
+    <%= f.input :parent_id, as: :hidden %>
 
     <%= f.input :typ %>
   <% end %>

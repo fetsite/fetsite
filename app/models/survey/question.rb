@@ -2,7 +2,7 @@
 class Survey::Question < ActiveRecord::Base
   attr_accessible :text, :title, :typ, :choice_ids, :parent_type, :parent_id
   belongs_to :parent, polymorphic: true
-  has_many :choices, dependent: :destroy
+  has_many :choices, dependent: :destroy, class_name: "Survey::Choice"
   has_many :answers, through: :choices
   include IsCommentable
   FLAG_ICONS={"delete" => "fa fa-trash", "template"=> "ffi1-cleaning1"}
@@ -20,6 +20,7 @@ class Survey::Question < ActiveRecord::Base
       self.choices.each do |c|
         cpy.choices << c.copy_from_template
       end
+      cpy
     end
   end
 

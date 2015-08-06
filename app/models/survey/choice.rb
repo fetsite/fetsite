@@ -16,5 +16,6 @@ class Survey::Choice < ActiveRecord::Base
   def copy_from_template
     cpy = Survey::Choice.new(self.attributes_for_copy)
     cpy.save
+    cpy
   end
 end

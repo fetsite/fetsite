@@ -16,7 +16,7 @@
          get :answer
         put :answer
          get 'flag'
- 
+         get :create_from_template
        end
      end
      resources :choices
