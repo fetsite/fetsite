@@ -43,6 +43,8 @@ cannot :destroy, Comment
     end
     if ((user.has_role?("moderator",Beispiel)) || user.has_role?("fetuser") || user.has_role?("fetadmin"))
       can :flag, Beispiel
+    can [:create, :show], Beispiel, flag_delete: true
+
       can [:edit, :update], Beispiel
       can :flag, Beispiel
       can :set_lecturer, Beispiel

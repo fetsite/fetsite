@@ -20,6 +20,7 @@ class Beispiel < ActiveRecord::Base
 
   belongs_to :lecturer
   FLAG_ICONS = {"badquality"=>"fa fa-flag","goodquality"=>"fa fa-flag", "delete"=>"fa fa-trash"}
+ FLAG_CONFIRM={}
   scope :not_flag_badquality, ->{where("flag_badquality IS NULL OR flag_badquality=?",false)}
  scope :flag_badquality, ->{where("flag_badquality=?",true)}
   scope :not_flag_delete, ->{where("flag_delete IS NULL OR flag_delete=?",false)}

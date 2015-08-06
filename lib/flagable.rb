@@ -65,7 +65,8 @@ module Flagable
       fc = obj.class::FLAG_CONFIRM
       value=obj.send("flag_"+flag)
       cstyle=(value) ? "true" :"false"
-      link_to ff_icon(fi[flag]), url_for({controller: obj.class.name.tableize,action: :flag, flag: flag, value: !value, theme: nil, locale: nil, id: obj.id}), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag),  data: { confirm: (((!fc.nil? && fc["flag_"+flag].nil?) ? fc["flag_"+flag].nil? : nil)) }
+      cfm = (fc.nil? || fc["flag_"+flag].nil?) ?   {} : {confirm:  fc["flag_"+flag]}
+      link_to ff_icon(fi[flag]), url_for({controller: obj.class.name.tableize,action: :flag, flag: flag, value: !value, theme: nil, locale: nil, id: obj.id}), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag), data: cfm
     end
   end
 end

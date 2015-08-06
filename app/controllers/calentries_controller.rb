@@ -26,7 +26,7 @@ class CalentriesController < ApplicationController
   # GET /calentries/new.json
  def new
    @calentry = Calentry.new
-   @calentry.object="Neuigkeit".constantize.find(params[:object_id])
+   @calentry.object=params[:object_type].constantize.find(params[:object_id])
    @calentry.typ=1
    respond_to do |format|
      format.html # new.html.erb

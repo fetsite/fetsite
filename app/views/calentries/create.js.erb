@@ -1,2 +1,1 @@
-alert("sdf");
-$("#calentry_new").replaceWith("<div id=\"calentry_<%= @calentry.id %>\"> <%=escape_javascript( render :partial=>"calentry", :object=>@calentry)%> </div><div id=\"calentry_new\"><%= escape_javascript( link_to "new Calentry",  new_calentry_path, :remote=>true) %></div>");
+$("#<%= divid_for(@calentry.object,"new_calentry") %>").replaceWith("<div id=\"calentry_<%= @calentry.id %>\"> <%=escape_javascript( render :partial=>"calentry", :object=>@calentry)%> </div><div id=\"<%= divid_for(@calentry.object,"new_calentry") %>\"><%= escape_javascript( link_to "new Calentry",  new_calentry_path(:object_id=>@calentry.object.id.to_s, :object_type=>@calentry.object.class.to_s), :remote=>true) %></div>");
