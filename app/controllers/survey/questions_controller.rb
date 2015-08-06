@@ -9,6 +9,7 @@ class Survey::QuestionsController < ApplicationController
       format.html # index.html.erb
     end
   end
+
   def answer
     @survey_question = Survey::Question.find(params[:id])    
     if (params[:key].nil? || params[:key].empty?) 
@@ -28,6 +29,11 @@ class Survey::QuestionsController < ApplicationController
   end
   # GET /survey/questions/1
   # GET /survey/questions/1.json
+  def create_from_template
+    @template = Survey::Question.find(params[:id])
+
+  end
+
   def show
     @survey_question = Survey::Question.find(params[:id])
 

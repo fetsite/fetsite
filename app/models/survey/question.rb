@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Survey::Question < ActiveRecord::Base
   attr_accessible :text, :title, :typ, :choice_ids
   belongs_to :parent, polymorphic: true
@@ -5,10 +6,12 @@ class Survey::Question < ActiveRecord::Base
   has_many :answers, through: :choices
   include IsCommentable
   FLAG_ICONS={"delete" => "fa fa-trash", "template"=> "ffi1-cleaning1"}
-  FLAG_CONFIRM={}
+  FLAG_CONFIRM={"delete"=> "Sicher loeschen?"}
   scope :templates, ->{ where(flag_template:true)}
   acts_as_flagable
-
+  def attributes_for_copy
+    self.attributes
+  end
   def add_yesno_choices
     c=Survey::Choice.new(title: "Ja")
     c.save

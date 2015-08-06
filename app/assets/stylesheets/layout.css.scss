@@ -210,7 +210,7 @@ float:clear; }
 
 a.flag-true { color: $color_schema_3_dark}
 a.flag-true.flag-goodquality-true { color: green}
-
+a.flag-true.flag-template-true {color: $color_schema_1_dark}
 a.flag-false { color: #CCC}
 
 ul.ui-menu 
