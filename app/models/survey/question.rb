@@ -4,7 +4,7 @@ class Survey::Question < ActiveRecord::Base
   has_many :choices, dependent: :destroy
   has_many :answers, through: :choices
   include IsCommentable
-  FLAG_ICONS={"delete" => "fa fa-trash"}
+  FLAG_ICONS={"delete" => "fa fa-trash", "template"=> "ffi1-cleaning1"}
   FLAG_CONFIRM={}
   scope :templates, ->{ where(flag_template:true)}
   acts_as_flagable

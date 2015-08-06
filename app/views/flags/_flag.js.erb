@@ -1,1 +1,1 @@
-$('#<%=@obj.flaglinkid(params[:flag]) %>').replaceWith("<%= escape_javascript( render(partial: "flags/flaglink", format: "html", locals: {flag: params[:flag]}) )%>"); 
+$('#<%=@obj.flaglinkid(params[:flag]) %>').replaceWith("<%= escape_javascript( flag_link(@obj,flag)) %>"); 

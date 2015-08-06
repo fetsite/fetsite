@@ -1,12 +1,15 @@
 <% if current_user.nil? %>
 	<%= div_tag_for(question) do%>
-<%= render partial: "survey/questions/answeredquestion", object: question %> 
+		<%= render partial: "survey/questions/answeredquestion", object: question %> 
 	<% end %>
 <% else  %>
 	<div class="contentbox" id ="<%= divid_for(question) %>" style="">
 		<div >
-			<b><%= question.title%></b> <%=question.text%><%= link_to fa_icon("pencil"), edit_survey_question_path(question) , class: "btn btn-link navbar-btn" , remote: true%>
+			<b><%= question.title%></b> 
+			<%= question.text %>
+			<%= link_to fa_icon("pencil"), edit_survey_question_path(question) , class: "btn btn-link navbar-btn" , remote: true %>
 			<%= flag_link(question, "delete")%>
+			<%= flag_link(question, "template")%>
 
 			<ul class="choice-list">
 				<% question.choices.each do |c| %>

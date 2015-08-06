@@ -1,68 +1,66 @@
-<div id="container_question_<%= answeredquestion.id %>" style="min-width: 310px; max-width: 800px; height: <%= (100+answeredquestion.choices.count * 90).to_s%>px; margin: 0 auto" class="contentbox">
-<div style="background:red"><b><%= answeredquestion.title%></b>
-
-	<ul>
-		<% answeredquestion.choices.each do |c| %>
-			<li>
-				<%= c.to_s %>: <%= answeredquestion.answers.where(choice_id: c.id).count %> votes
-			</li>
-		<% end %>
-	</ul>
-	
-
-</div>
-<script>
-$(function () {
+<div id="container_question_<%= answeredquestion.id %>" style="min-width: 310px; max-width: 800px; height: <%= (100+answeredquestion.choices.count * 90).to_s %>px; margin: 0 auto" class="contentbox">
+	<div style="background:red">
+		<b><%= answeredquestion.title%></b>
+		<ul>
+			<% answeredquestion.choices.each do |c| %>
+				<li>
+					<%= c.to_s %>: <%= answeredquestion.answers.where(choice_id: c.id).count %> votes
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	<script>
+	$(function () {
     $('#container_question_<%= answeredquestion.id %>').highcharts({
-        chart: {
-            type: 'bar'
-        },
+      chart: {
+        type: 'bar'
+      },
+      title: {
+        text: '<%= answeredquestion.title%>'
+      },
+      subtitle: {
+        text: '<%= answeredquestion.text %>'
+      },
+      xAxis: {
+        categories: [<%= raw(answeredquestion.choices.map{|c| "'"+escape_javascript(c.html)+"'"}.join(",")) %>],
         title: {
-            text: '<%= answeredquestion.title%>'
+          text: null
         },
-        subtitle: {
-            text: '<%= answeredquestion.text %>'
+				labels: {
+					useHTML: true
+				}
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Answers',
+          align: 'high'
         },
-        xAxis: {
-            categories: [<%= raw(answeredquestion.choices.map{|c| "'"+escape_javascript(c.html)+"'"}.join(",")) %>],
-            title: {
-                text: null
-            },
-					labels: {
-						useHTML: true
-					}
+        labels: {
+          overflow: 'justify'
         },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Answers',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            },
-					minTickInterval: 1
-        },
-        tooltip: {
-            valueSuffix: ' votes'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: '<%= answeredquestion.title%>',
-            data: [<%= raw(answeredquestion.choices.map{|c| c.answers.count.to_s}.join(",")) %>]
-        }]
+				minTickInterval: 1
+      },
+      tooltip: {
+        valueSuffix: ' votes'
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: '<%= answeredquestion.title %>',
+        data: [<%= raw(answeredquestion.choices.map{|c| c.answers.count.to_s}.join(",")) %>]
+      }]
     });
-});
-</script>
+	});
+	</script>
 
 
 </div>
