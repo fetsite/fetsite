@@ -12,7 +12,7 @@ Verwendung: Aufruf mit
   <% unless t[:method]==:versions %>
   <% unless t[:method]==:dropdown %>
   
-  <% text=ff_icon(t[:hicon])+t[:text] %>
+  <% text=ff_icon(t[:hicon].to_s)+t[:text].to_s %>
   <%= link_to text, t[:path], :method=>t[:method], :confirm=>t[:confirm].to_s, :data=>t[:data], :class=>((t[:method].to_s=='delete') ? "btn btn-danger" : "btn") ,:remote=>(t[:remote])?true : false %>
   <% else %>
   <div class="btn-group">
