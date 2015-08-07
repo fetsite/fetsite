@@ -7,5 +7,7 @@
 <%= content_tag(:img,"",src: "http://"+ActionMailer::Base.default_url_options[:host].to_s+@neuigkeit.picture.big_thumb.url) %>
 <%=url_for controller: "neuigkeiten",action: :show, :id=>@neuigkeit.id, only_path: false %>
 <%= raw(@neuigkeit.text) %>
-<%= render partial:"survey/questions/mail", object: @neuigkeit.questions.first unless @neuigkeit.questions.empty?%>
+<% @neuigkeit.questions.each do |q| %>
+<%= render partial:"survey/questions/mail", object: q %>
+<% end  %>
 <%= link_to "Auf Fet.at weiterlesen", rubrik_neuigkeit_url(@neuigkeit.rubrik, @neuigkeit,:locale=>:de, :theme=>nil) %> 
