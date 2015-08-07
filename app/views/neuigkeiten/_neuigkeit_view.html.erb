@@ -39,15 +39,15 @@
 		</div>
   </div>
 
-<%= render_calentries_for(neuigkeit_view)%>
-
+	<%= render_calentries_for(neuigkeit_view)%>
+	
 	<% unless neuigkeit_view.meeting.nil? %>
 		<%= render neuigkeit_view.meeting %>
 	<% end%>
 
 	
-<%= new_question_for(neuigkeit_view) %>	
+	<%= new_question_for(neuigkeit_view) %>	
 	<%= render_attachments_for(neuigkeit_view) %>
-
+	
 	<%= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
 </div>

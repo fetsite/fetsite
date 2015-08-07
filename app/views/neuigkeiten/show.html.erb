@@ -50,7 +50,7 @@
 <%= render partial: 'neuigkeiten/nlink_list_whole', :object=>@neuigkeit.nlinks %>
 
 
-<div id="findlink-body"class="ui-dialog" style="">
+<div id="findlink-body" class="ui-dialog" style="">
 	<% if can? :find_link, @neuigkeit %>
 		Nach Element suchen:
 		<%= semantic_form_for :find_link, :url=>find_link_rubrik_neuigkeit_path(@rubrik,@neuigkeit), :html=>{:id=>"search_form", :method=>'get'} , :remote=> true do |f| %>
