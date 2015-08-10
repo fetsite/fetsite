@@ -1,4 +1,4 @@
-<% if current_user.nil? %>
+<% unless can?(:answer,question) %>
 	<%= div_tag_for(question) do%>
 		<%= render partial: "survey/questions/answeredquestion", object: question unless question.flag_delete%> 
 	<% end %>
@@ -7,16 +7,19 @@
 		<div >
 			<b><%= question.title%></b> 
 			<%= question.text %>
-			<%= link_to fa_icon("pencil"), edit_survey_question_path(question) , class: "btn btn-link navbar-btn" , remote: true %>
-			<%= flag_link(question, "delete")%>
-			<%= flag_link(question, "template")%>
+			<%= link_to fa_icon("pencil"), edit_survey_question_path(question) , class: "btn btn-link navbar-btn" , remote: true if can? :edit, question %>
+
+			<%= flag_link(question, "locked") %>
+
+			<%= flag_link(question, "template") %>
+			<%= flag_link(question, "delete") %>
 			<% unless question.flag_delete %>
 			<ul class="choice-list">
 				<% question.choices.each do |c| %>
 					<li><%= render c %></li>
 				<% end %>
 			</ul>
-			<%= link_to "+" , new_survey_choice_path(params:{question_id: question.id}), remote: true%>
+			<%= link_to "+" , new_survey_choice_path(params:{question_id: question.id}), remote: true if can? :edit, question %>
 		<% end  %>
 		</div>
 		<%= render partial: "survey/questions/answeredquestion", object: question if question.answers.where(user_id: current_user.id).count>0 unless question.flag_delete %> 

@@ -11,10 +11,17 @@ class Ability
     end
     user ||=  User.new # guest user (not logged in)
 
-    can :manage, Survey::Question 
-    can :manage, Survey::Choice
-    can :manage, Survey::Answer
-
+    if( user.has_role?("fetuser") || user.has_role?("fetadmin"))
+      can [:show,:answer, :create,:new, :create_from_template, :flag], Survey::Question
+      can [:edit, :update, :flag_delete], Survey::Question, :flag_locked=>false
+      can :flag_locked, Survey::Question, :user_id=>user.id
+      can [:show,:new], Survey::Choice
+      can [:edit,:update, :delete,:create], Survey::Choice, :question=>{:flag_locked=>false}
+      can :manage, Survey::Answer
+    end
+    if user.has_role?("fetadmin")
+      can [:delete,:flag_template], Survey::Question
+    end
     #---------------------------------------------------
     
     can [:index,:hide], Comment

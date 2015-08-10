@@ -33,6 +33,7 @@ class Survey::QuestionsController < ApplicationController
     @template = Survey::Question.find(params[:id])
     parent= params[:parent_type].constantize.find(params[:parent_id])
     @survey_question = @template.copy_from_template_for(parent)
+    @survey_question.user=current_user
     render action: :show
   end
 
@@ -64,7 +65,7 @@ class Survey::QuestionsController < ApplicationController
   # POST /survey/questions.json
   def create
     @survey_question = Survey::Question.new(params[:survey_question])
-
+    @survey_question.user=current_user
     respond_to do |format|
       if @survey_question.save
         format.html { redirect_to @survey_question, notice: 'Question was successfully created.' }
@@ -78,7 +79,8 @@ class Survey::QuestionsController < ApplicationController
   # PUT /survey/questions/1.json
   def update
     @survey_question = Survey::Question.find(params[:id])
-
+    @survey_question.user=current_user
+    @survey_question.save
     respond_to do |format|
       if @survey_question.update_attributes(params[:survey_question])
         format.html { redirect_to @survey_question, notice: 'Question was successfully updated.' }

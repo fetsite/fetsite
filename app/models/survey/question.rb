@@ -5,11 +5,11 @@ class Survey::Question < ActiveRecord::Base
   has_many :choices, dependent: :destroy, class_name: "Survey::Choice"
   has_many :answers, through: :choices
   include IsCommentable
-  FLAG_ICONS={"delete" => "fa fa-trash", "template"=> "ffi1-cleaning1"}
+  FLAG_ICONS={"delete" => "fa fa-trash", "template"=> "ffi1-cleaning1","locked"=>"fa fa-key"}
   FLAG_CONFIRM={"delete"=> "Sicher loeschen?"}
   scope :templates, ->{ where(flag_template: true)}
   acts_as_flagable
-
+  belongs_to :user
   def copy_from_template_for(parent)
     unless self.flag_template
       return nil
