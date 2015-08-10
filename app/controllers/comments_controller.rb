@@ -51,7 +51,7 @@ end
     authorize! :comment, c
     
     @comment = Comment.build_for(c, current_user,"", params_new)  
-
+    @commentable=c
     if @comment.parent_object.class==Comment
       @comments= @comment.parent_object.children
     else

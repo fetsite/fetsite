@@ -38,7 +38,7 @@
 	</p>
 	<%= render partial: "neuigkeit_view", object: @neuigkeit %>
 
-
+<%= new_question_for(@neuigkeit) if can? :new, Survey::Question %>
 	<% @questions.each do |q| %>
 		<%= render q if can? :show, q %>
 	<% end %>

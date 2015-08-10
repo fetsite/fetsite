@@ -16,16 +16,11 @@ class LvasController < ApplicationController
   end
   def beispiel_sammlung
     @lva = Lva.find_by_id(params[:id])
-    #Attachment name
     filename = 'beispiel_sammlung_' + @lva.lvanr.to_s + '_' + l(Date.today).to_s + '.zip'
     temp_file = Tempfile.new(filename) 
     begin
-      #This is the tricky part
-      #Initialize the temp file as a zip file
       Zip::OutputStream.open(temp_file) { |zos| }
-      #Add files to the zip file as usual
       Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
-        #Put files in here
         i=1
         @lva.beispiele.each do |bsp|
           zip.add(i.to_s + '_' + File.basename(bsp.beispieldatei.current_path), bsp.beispieldatei.current_path)
@@ -53,29 +48,26 @@ class LvasController < ApplicationController
     @beispiele_deleted = @lva.beispiele.flag_delete.order(:datum).accessible_by(current_ability, :show)
     @toolbar_elements =[]
     @toolbar_elements<<{:hicon=>'icon-pencil', :icon=>:pencil,:text =>I18n.t('common.manage'),:path => verwalten_lva_path(@lva)} if can? :verwalten, @lva
-     @crawlobjects = @lva.crawlobjects.roots.accessible_by(current_ability)
+    @crawlobjects = @lva.crawlobjects.roots.accessible_by(current_ability)
+    @questions=@lva.questions.accessible_by(current_ability,:show)
   end
+
   def verwalten
     @lva = Lva.find_by_id(params[:id])
     @beispiel=Beispiel.new
-   @beispiele_all=@lva.beispiele.order(:datum).accessible_by(current_ability, :show)
+    @beispiele_all=@lva.beispiele.order(:datum).accessible_by(current_ability, :show)
     @beispiele = @lva.beispiele.not_flag_badquality.not_flag_delete.order(:lecturer_id,:datum).accessible_by(current_ability, :show)
     @beispiele_badQ = @lva.beispiele.flag_badquality.not_flag_delete.order(:datum).accessible_by(current_ability, :show)
     @beispiele_deleted = @lva.beispiele.flag_delete.order(:datum).accessible_by(current_ability, :show)
- 
     render :show
   end
 
-  # GET /lvas/new
-  # GET /lvas/new.json
   def new
     @lva = Lva.new
     modul=Modul.find_by_id(params[:modul_id])
     @lva.modul<<modul unless modul.nil? #
-    
   end
 
-  # GET /lvas/1/edit
   def edit
     @lva = Lva.find(params[:id])
     @semester =  @lva.modul.map(&:modulgruppen).flatten.map(&:studium).map(&:semester).flatten.uniq
@@ -126,7 +118,6 @@ class LvasController < ApplicationController
   def destroy
     @lva = Lva.find(params[:id])
     @lva.destroy
-
     respond_to do |format|
       format.html { redirect_to lvas_url }
     end
@@ -139,10 +130,6 @@ private
     @toolbar_elements<<{:hicon=>'icon-pencil', :icon=>:pencil,:text =>I18n.t('common.edit'),:path => edit_lva_path(@lva)} if can? :edit, @lva
     @toolbar_elements << {:hicon=>'icon-remove-circle', :text=>"Tissvergleichladen", :path=> compare_tiss_lva_path(@lva)} if can? :compare_tiss, @lva
     @toolbar_elements << {:hicon=>'icon-remove-circle', :text=>I18n.t('lva.delete'), :path=> lva_path(@lva), :method=>:delete, :confirm=>t('lva.deletesure') } if can? :delete, @lva
-
-
-
-
   end
 
 end
