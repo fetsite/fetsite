@@ -14,6 +14,7 @@ class NeuigkeitenController < ApplicationController
   def show
     @neuigkeit = Neuigkeit.find(params[:id])
     @rubrik=@neuigkeit.rubrik    
+    @questions = @neuigkeit.questions.accessible_by?(:show, current_ability)
     if can?(:shownonpublic, Rubrik)
       @rubriken = Rubrik.all
     else
