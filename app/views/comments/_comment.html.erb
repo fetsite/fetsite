@@ -10,14 +10,17 @@
 		<p>
 			<%= comment.text %>
 			<% if can?(:comment, comment.commentable) && can?(:new, Comment) %>
-				<br><%= link_to "comment" , new_comment_path( commentable_type: "Comment", commentable_id: comment.id), remote:true   %>  
+				<br><%= link_to fa_icon("mail-reply")+" antworten" , new_comment_path( commentable_type: "Comment", commentable_id: comment.id), remote:true   %>  
 			<% end %>
 		</p>
 
 
     <div id="<%= Comment.wrapid_for( comment)%>">
 			<%= render partial:"comments/comments", object: comment.children.order(:created_at).reverse_order  if comment.children.size >0 %>
-		</div>
+<%= link_to fa_icon("mail-reply")+" antworten" , new_comment_path( commentable_type: "Comment", commentable_id: comment.id), remote:true   %>  
+
+			<% end %>
+</div>
 		<div id="<%= divid_for(comment,"newform") %>"></div>
 	</div>
 </div>
