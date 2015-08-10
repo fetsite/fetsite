@@ -3,7 +3,7 @@
   <b>Typ:</b>
   <%= @survey_question.typ %>
 </p>
-
+<%= render @survey_question.parent unless @survey_question.parent.nil?|| !(@survey_question.parent.class == Neuigkeit) %>
 <%= render @survey_question %>
 
 <%= render_comments_for(@survey_question) %>
