@@ -1,12 +1,15 @@
 <div id="neuigkeit_<%=  neuigkeit_view.id %>" class="contentbox" itemscope itemtype="http://schema.org/Article">
   <meta itemprop="about" content="<%= neuigkeit_view.text_first_words %>"/>
+	<%= meta_itemprop("about", neuigkeit_view.text_first_words) %>
   <meta itemprop="sameAs" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
   <meta itemprop="url" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
 
   
-	<div>
-		<%= link_to fa_icon("calendar-o")+"nc" , new_calentry_path(), class: "btn" %>
-<%= fa_icon_stack("calendar-o","plus") %>
+	<div><span class="btn-group">
+		<%= link_to fa_icon("edit"), "#", class: "btn" %>
+
+		<%= link_to fa_icon("plus"), "#", class: "btn" %></span>
+
 			<div class="dropdown pull-right">
 				<a class="dropdown-toggle btn" data-toggle="dropdown" title="publish" href="#"><%= fa_icon("mail-forward")%></a>
 			<ul class="dropdown-menu">
@@ -63,8 +66,12 @@
 
 	
 
-	<%= render_attachments_for(neuigkeit_view) %>
+	<%= render_attachments_list_for(neuigkeit_view) %>
+
 	</div>
+
+<%= render_new_attachments_for(neuigkeit_view, fa_icon("plus"), {class: "btn"})  %>
+
 
 	<%= new_question_for(neuigkeit_view) if can? :new, Survey::Question %>
 	<% @questions.each do |q| %>

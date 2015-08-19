@@ -53,7 +53,7 @@ m.save
     content_tag("i","", class: "ficon "+name )
   end
   def fa_icon_stack(name1, name2)
-    content_tag("span", content_tag("i","",class:"fa fa-stack-1x fa-"+name1)+ content_tag("i","",class:"fa fa-stack-1x fa-sm fa-"+name2),class: "fa-stack fa-sm")
+    content_tag("span", content_tag("i","",class:"fa fa-stack-2x fa-"+name1)+ content_tag("i","",class:"fa fa-stack-1x fa-"+name2),class: "fa-stack fa-sm")
   end
   def ffi1_list 
     y=YAML.load_file("#{::Rails.root.to_s}/config/flatfeticon1.yml")
@@ -151,6 +151,10 @@ end
 	    out += "disliked by " + obj.get_dislikes.size.to_s
 	   end
     raw(out)
+  end
+
+  def meta_itemprop(itemprop, content)
+    tag("meta", itemprop: itemprop, content: content) 
   end
 
 end
