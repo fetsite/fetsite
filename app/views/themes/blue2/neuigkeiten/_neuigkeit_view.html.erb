@@ -5,18 +5,20 @@
 
   
 	<div>
-		<p>
-			<div class="dropdown">
+		<%= link_to fa_icon("calendar-o")+"nc" , new_calentry_path(), class: "btn" %>
+<%= fa_icon_stack("calendar-o","plus") %>
+			<div class="dropdown pull-right">
+				<a class="dropdown-toggle btn" data-toggle="dropdown" title="publish" href="#"><%= fa_icon("mail-forward")%></a>
 			<ul class="dropdown-menu">
 			<li>
 				<%= link_to fa_icon("facebook-square") + " post on facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit) %>
 			</li>
 			</ul>
 			</div>
-</p>
+
 		<%#= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
 	</div>  
-	<div class="media">
+	<br>	<div class="media">
 	  <span itemprop="articleSection">
 			<%= ff_icon(neuigkeit_view.rubrik.icon) unless neuigkeit_view.rubrik.icon.nil? or neuigkeit_view.rubrik.icon.empty? %>&nbsp;<%= neuigkeit_view.rubrik.name %>
     </span>
