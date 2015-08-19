@@ -1,26 +1,19 @@
-<div id="neuigkeit_<%=  neuigkeit_view.id %>" class="contentbox" itemscope itemtype="http://schema.org/Article">
-  <meta itemprop="about" content="<%= neuigkeit_view.text_first_words %>"/>
+<div id="neuigkeit_<%= neuigkeit_view.id %>" class="contentbox" itemscope itemtype="http://schema.org/Article">
 	<%= meta_itemprop("about", neuigkeit_view.text_first_words) %>
-  <meta itemprop="sameAs" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
-  <meta itemprop="url" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
+  <%= meta_itemprop("sameAs", neuigkeit_url(neuigkeit_view,:theme=>nil)) %>
+	<%= meta_itemprop("url", neuigkeit_url(neuigkeit_view,:theme=>nil)) %>
 
   
-	<div><span class="btn-group">
-		<%= link_to fa_icon("edit"), "#", class: "btn" %>
+	<div>
+<%= render partial: "menu" %>		
 
-		<%= link_to fa_icon("plus"), "#", class: "btn" %></span>
 
-			<div class="dropdown pull-right">
-				<a class="dropdown-toggle btn" data-toggle="dropdown" title="publish" href="#"><%= fa_icon("mail-forward")%></a>
-			<ul class="dropdown-menu">
-			<li>
-				<%= link_to fa_icon("facebook-square") + " post on facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit) %>
-			</li>
-			</ul>
-			</div>
 
-		<%#= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
 	</div>  
+	<div>
+
+		<%= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
+	</div>
 	<br>	<div class="media">
 	  <span itemprop="articleSection">
 			<%= ff_icon(neuigkeit_view.rubrik.icon) unless neuigkeit_view.rubrik.icon.nil? or neuigkeit_view.rubrik.icon.empty? %>&nbsp;<%= neuigkeit_view.rubrik.name %>
