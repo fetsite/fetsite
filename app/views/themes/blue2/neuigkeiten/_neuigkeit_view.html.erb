@@ -4,14 +4,19 @@
   <meta itemprop="url" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
 
   
-	<div >
-	<p>
-		<%= fa_icon("facebook-square") %>
-		<%= link_to fa_icon("facebook-square") +"facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit) %>
-	</p>
-	<%#= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
+	<div>
+		<p>
+			<div class="dropdown">
+			<ul class="dropdown-menu">
+			<li>
+				<%= link_to fa_icon("facebook-square") + " post on facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit) %>
+			</li>
+			</ul>
+			</div>
+</p>
+		<%#= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
 	</div>  
-<div class="media">
+	<div class="media">
 	  <span itemprop="articleSection">
 			<%= ff_icon(neuigkeit_view.rubrik.icon) unless neuigkeit_view.rubrik.icon.nil? or neuigkeit_view.rubrik.icon.empty? %>&nbsp;<%= neuigkeit_view.rubrik.name %>
     </span>
