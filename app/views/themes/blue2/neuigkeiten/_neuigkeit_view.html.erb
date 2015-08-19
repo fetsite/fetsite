@@ -1,0 +1,65 @@
+<div id="neuigkeit_<%=  neuigkeit_view.id %>" class="contentbox" itemscope itemtype="http://schema.org/Article">
+  <meta itemprop="about" content="<%= neuigkeit_view.text_first_words %>"/>
+  <meta itemprop="sameAs" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
+  <meta itemprop="url" content="<%= neuigkeit_url(neuigkeit_view,:theme=>nil)%>"/>
+
+  
+	<div >
+	<p>
+		<%= fa_icon("facebook-square") %>
+		<%= link_to fa_icon("facebook-square") +"facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit) %>
+	</p>
+	<%#= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
+	</div>  
+<div class="media">
+	  <span itemprop="articleSection">
+			<%= ff_icon(neuigkeit_view.rubrik.icon) unless neuigkeit_view.rubrik.icon.nil? or neuigkeit_view.rubrik.icon.empty? %>&nbsp;<%= neuigkeit_view.rubrik.name %>
+    </span>
+    <span class="pull-right">
+			<span itemprop="author"><%= neuigkeit_view.author.email.to_s unless neuigkeit_view.try(:author).try(:email).to_s %> 
+				<%= neuigkeit_view.author.text %></span>
+			<% unless neuigkeit_view.try(:datum).try(:to_date).nil? %>
+				<%= " "+ I18n.t("neuigkeit.am")+" " %><span itemprop="datePublished"><%= I18n.l(neuigkeit_view.try(:datum).try(:to_date))   %>
+				</span>
+			<% end %>
+  </div>
+
+  <% unless neuigkeit_view.published? %> 
+    <div class="sticker sticker-red"> Not Published <%= link_to "Publish", publish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),remote:true, class: :btn if can? :publish, neuigkeit_view %></div> 
+	<% end %>
+  <% unless neuigkeit_view.origurl.nil? || neuigkeit_view.origurl.empty? %>
+		<div class="alert"><%= link_to "Zitiert von "+ neuigkeit_view.origurl, neuigkeit_view.origurl %>
+		</div>    
+  <% end %>
+  <div class="media">
+    <% unless neuigkeit_view.picture_robust.big_thumb.to_s.empty? %>
+			<div class="pull-left" href="#">
+				<p><br><%= link_to image_tag(neuigkeit_view.picture_robust.big_thumb),neuigkeit_view.picture_robust.try(:url)  %>
+				</p>
+			</div>
+    <% end %>
+    <div class="media-body">
+			<h1 itemprop="name">
+				<%= raw(neuigkeit_view.title) %>				<%= link_to fa_icon("edit"), edit_rubrik_neuigkeit_path(neuigkeit_view.rubrik, neuigkeit_view), remote: true if can? :edit, neuigkeit_view %>
+			</h1>
+			<div itemprop="articleBody">
+				<%= raw(neuigkeit_view.text) %>
+			</div>
+		</div>
+  </div>
+
+	<%= render_calentries_for(neuigkeit_view)%>
+	
+	<% unless neuigkeit_view.meeting.nil? %>
+		<%= render neuigkeit_view.meeting %>
+	<% end%>
+
+	
+
+	<%= render_attachments_for(neuigkeit_view) %>
+	</div>
+
+	<%= new_question_for(neuigkeit_view) if can? :new, Survey::Question %>
+	<% @questions.each do |q| %>
+		<%= render q if can? :show, q %>
+	<% end %>

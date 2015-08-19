@@ -13,7 +13,7 @@ class NeuigkeitenController < ApplicationController
   end
   def show
     @neuigkeit = Neuigkeit.find(params[:id])
-    @rubrik=@neuigkeit.rubrik    
+    @rubrik = @neuigkeit.rubrik    
     @questions = @neuigkeit.questions.accessible_by(current_ability,:show)
     if can?(:shownonpublic, Rubrik)
       @rubriken = Rubrik.all
@@ -219,13 +219,13 @@ actions << {:hicon=>'icon-facebook', :text=> I18n.t('neuigkeit.publishfetmail'),
   
 
 
-  @toolbar_elements << {:text=>I18n.t('common.edit'),:path=>edit_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),:icon=>:pencil} if can? :edit, @neuigkeit.rubrik
+    @toolbar_elements << {:text=>I18n.t('common.edit'),:path=>edit_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),:icon=>:pencil} if can? :edit, @neuigkeit.rubrik
 if  can?(:showversions, Neuigkeit)
     @versions= @neuigkeit.translation.versions.select([:created_at]).reverse
 
     @toolbar_elements <<{:path=>rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),:method=>:versions,:versions=>@versions}
 end     
-      actions << {:hicon=>'icon-remove-circle', :text=> I18n.t('common.delete'),:path => rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :method=> :delete,:confirm=>'Sure?' } if can? :delete, @neuigkeit
+actions << {:hicon=>'icon-remove-circle', :text=> I18n.t('common.delete'),:path => rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :method=> :delete,:confirm=>'Sure?' } if can? :delete, @neuigkeit
     @toolbar_elements << {:text => "action", :method => :dropdown, :elements=> actions} unless actions.empty?
   end
   
