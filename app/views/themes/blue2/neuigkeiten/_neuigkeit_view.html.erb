@@ -2,13 +2,9 @@
 	<%= meta_itemprop("about", neuigkeit_view.text_first_words) %>
   <%= meta_itemprop("sameAs", neuigkeit_url(neuigkeit_view,:theme=>nil)) %>
 	<%= meta_itemprop("url", neuigkeit_url(neuigkeit_view,:theme=>nil)) %>
-
   
 	<div>
-<%= render partial: "menu" %>		
-
-
-
+		<%= render partial: "menu" %>		
 	</div>  
 	<div>
 
@@ -52,7 +48,7 @@
   </div>
 
 	<%= render_calentries_for(neuigkeit_view)%>
-	
+	<%= new_calentry_div(neuigkeit_view) %>	
 	<% unless neuigkeit_view.meeting.nil? %>
 		<%= render neuigkeit_view.meeting %>
 	<% end%>
@@ -63,7 +59,6 @@
 
 	</div>
 
-<%= render_new_attachments_for(neuigkeit_view, fa_icon("plus"), {class: "btn"})  %>
 
 
 	<%= new_question_for(neuigkeit_view) if can? :new, Survey::Question %>

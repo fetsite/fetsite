@@ -3,6 +3,6 @@
 <%= render ce unless ce.nil? %>
 <% end %>
 </div>
-<div id="<%= divid_for(parent,"new_calentry") %>" >
-<%= link_to "new Calentry",  new_calentry_path(:object_id=>@neuigkeit.id, :object_type=>"Neuigkeit"), :remote=>true if can? :edit, @neuigkeit  %>
-</div>
+
+<%#= link_to "new Calentry",  new_calentry_path(:object_id=>@neuigkeit.id, :object_type=>"Neuigkeit"), :remote=>true if can? :edit, @neuigkeit  %>
+

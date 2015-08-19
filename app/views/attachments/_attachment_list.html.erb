@@ -10,7 +10,7 @@
     <% if editor %>
     <td>
       <div class="dropdown">
-	<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= fa_icon("chevron-down") %> Actions</a>
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%= fa_icon("chevron-down") %> </a>
 	<ul class="dropdown-menu">
 	  <li>
 	    <%= link_to fa_icon("tag")+" Titlepic", set_titlepic_attachment_path(a,:params=>{:titlepic=>true}), remote: true %>
