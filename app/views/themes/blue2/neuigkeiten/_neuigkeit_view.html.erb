@@ -61,7 +61,6 @@
 
 
 
-	<%= new_question_for(neuigkeit_view) if can? :new, Survey::Question %>
 	<% @questions.each do |q| %>
 		<%= render q if can? :show, q %>
 	<% end %>
