@@ -59,19 +59,34 @@ class NeuigkeitenController < ApplicationController
     @neuigkeit = Neuigkeit.find(params[:id])
     @neuigkeit.reverse_publish
     @neuigkeit.save
+
+    @questions = @neuigkeit.questions.accessible_by(current_ability,:show)
+
     if params[:verwalten] 
       redirect_to verwalten_rubrik_path(@neuigkeit.rubrik)
+   else
+    respond_to do |format|
+      format.html { redirect_to rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)}
+      format.js { render partial: "show"}
     end
-    redirect_to rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)
+end
+   
   end   
   def publish 
     @neuigkeit = Neuigkeit.find(params[:id])
     @neuigkeit.publish
     @neuigkeit.save
-    if params[:verwalten] 
+
+    @questions = @neuigkeit.questions.accessible_by(current_ability,:show)
+  
+   if params[:verwalten] 
       redirect_to verwalten_rubrik_path(@neuigkeit.rubrik)
+else
+    respond_to do |format|
+      format.html { redirect_to rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)}
+      format.js { render partial: "show"}
     end
-    redirect_to  rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)
+end
   end 
   def publish_to_facebook
     @neuigkeit = Neuigkeit.find(params[:id])

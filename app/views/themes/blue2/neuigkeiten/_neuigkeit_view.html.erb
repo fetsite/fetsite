@@ -4,13 +4,15 @@
 	<%= meta_itemprop("url", neuigkeit_url(neuigkeit_view,:theme=>nil)) %>
   
 	<div>
+<% cache() do %>
 		<%= render partial: "menu" %>		
+<%  end %>
 	</div>  
 	<div>
 
-		<%= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
+		<%#= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
 	</div>
-	<br>	<div class="media">
+		<div class="media">
 	  <span itemprop="articleSection">
 			<%= ff_icon(neuigkeit_view.rubrik.icon) unless neuigkeit_view.rubrik.icon.nil? or neuigkeit_view.rubrik.icon.empty? %>&nbsp;<%= neuigkeit_view.rubrik.name %>
     </span>

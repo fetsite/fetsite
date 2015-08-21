@@ -167,6 +167,7 @@ class Neuigkeit < ActiveRecord::Base
     end
     self.update_column(:cache_is_published, self.published?)
   end
+
   private
   def sanitize
     self.calentries.each do |calentry|
