@@ -3,6 +3,9 @@
 <span class="btn-group">
 	<%= link_to fa_icon("paperclip"), "#", class: "btn", id: "attachments-form-open", title: "Attachments" if can? :edit, @neuigkeit %>	
 	<%= link_to fa_icon("calendar-o"),  new_calentry_path(:object_id=>@neuigkeit.id, :object_type=>"Neuigkeit"), :remote=>true, class: :btn if can? :edit, @neuigkeit %>
+
+	<%= link_to fa_stack("calendar-o","ban"), "#", :remote=>true, class: :btn if can? :edit, @neuigkeit %>
+
 </span>
 
 <%= new_question_for(@neuigkeit, fa_icon("question")) if can? :new, Survey::Question %>
@@ -10,7 +13,7 @@
 <div class="dropdown pull-right">
 	<a class="dropdown-toggle btn" data-toggle="dropdown" title="publish" href="#"><%= fa_icon("mail-forward")%></a>
 	<ul class="dropdown-menu">
-		<%= li_tag(link_to(fa_icon("facebook-square") + " post on facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit))) %>
+		<%= li_tag(link_to(fa_icon("facebook-square") + " post on facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)))  if can?(:publish, @neuigkeit) && @neuigkeit.published? %>
 		<%= li_tag(link_to(ff_icon("icon-plus")+ I18n.t('neuigkeit.publish'), publish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)) )%>
 	</ul>
 </div>

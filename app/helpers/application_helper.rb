@@ -53,6 +53,10 @@ m.save
     content_tag("i","", class: "ficon "+name )
   end
 
+  def fa_stack(icon1, icon2)
+     content_tag("i", content_tag("i","", class: "ficon "+" fa-"+icon1+" fa fa-stack-1x" ) +    content_tag("i","", class: "ficon "+" fa-"+icon2+" fa fa-stack-1x" ),class: "fa-stack")
+  
+  end
   def ffi1_list 
     y=YAML.load_file("#{::Rails.root.to_s}/config/flatfeticon1.yml")
     y["ffi1"]
