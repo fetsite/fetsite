@@ -2,18 +2,11 @@
 	<%= link_to(fa_icon("edit"), edit_rubrik_neuigkeit_path( @neuigkeit.rubrik,  @neuigkeit), remote: true , class: "btn", title: "Edit") if can? :edit, @neuigkeit 
 	%>
 	<span class="btn-group">
-		<%= link_to(fa_icon("paperclip"), "#", \ 
-								class: "btn", id: "attachments-form-open", title: "Attachments") \ 
-									if can? :edit, @neuigkeit 
+		<%= link_to(fa_icon("paperclip"), "#", 	class: "btn", id: "attachments-form-open", title: "Attachments") if can? :edit, @neuigkeit 
 		%>	
-		<%= link_to(fa_icon("calendar-o"), \
-								new_calentry_path(:object_id=>@neuigkeit.id, :object_type=>"Neuigkeit"), \
-								:remote=>true, class: :btn) \
-									if can? :edit, @neuigkeit 
+		<%= link_to(fa_icon("calendar-o"),	new_calentry_path(:object_id=>@neuigkeit.id, :object_type=>"Neuigkeit"), 	:remote=>true, class: :btn) if can? :edit, @neuigkeit 
 		%>
-		<%= link_to(fa_icon("link") , "#", \ 
-								id: "findlink-open",title: "Neue Verknüpfung" , class: "btn") \
-									if can? :find_link, @neuigkeit 
+		<%= link_to(fa_icon("link") , "#", id: "findlink-open",title: "Neue Verknüpfung" , class: "btn") if can? :find_link, @neuigkeit 
 		%>
 		
 	</span>
@@ -21,15 +14,9 @@
 	<%= new_question_for(@neuigkeit, fa_icon("question")) if can? :new, Survey::Question %>
  
 	<span class=" pull-right">
-		<%= link_to(fa_icon("globe"), \ 
-								publish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), \
-								title:  I18n.t('neuigkeit.publish'), class: "btn") \
-									if can?(:publish, @neuigkeit) && !@neuigkeit.published? 
+		<%= link_to(fa_icon("globe"), publish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), title:  I18n.t('neuigkeit.publish'), class: "btn") if can?(:publish, @neuigkeit) && !@neuigkeit.published? 
 		%>
-		<%= link_to (fa_stack("globe","ban"), \ 
-								 unpublish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), \
-								 :remote=>true, class: "btn stacked") \
-									 if  can?(:unpublish, @neuigkeit) && @neuigkeit.published? 
+		<%= link_to (fa_stack("globe","ban"), unpublish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :remote=>true, class: "btn stacked") if  can?(:unpublish, @neuigkeit) && @neuigkeit.published? 
 		%>
 		<% if @neuigkeit.published? %>
 			<div class="dropdown" style=" display:inline"">
@@ -37,14 +24,10 @@
 					<%= fa_icon("mail-forward")%><span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<%= li_tag(link_to(fa_icon("facebook-square") + " post on facebook", \
-														 publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit))) \
-														 if can?(:publish, @neuigkeit) && @neuigkeit.published? 
+					<%= li_tag(link_to(fa_icon("facebook-square") + " post on facebook", publish_to_facebook_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit))) if can?(:publish, @neuigkeit) && @neuigkeit.published? 
 					%>
 					
-					<%= li_tag(link_to(fa_icon("envelope-o") + " send mail", \
-														 mail_to_fet_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)))  \ 
-														 if can?(:publish, @neuigkeit) && @neuigkeit.published? 
+					<%= li_tag(link_to(fa_icon("envelope-o") + " send mail", mail_to_fet_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit))) if can?(:publish, @neuigkeit) && @neuigkeit.published? 
 					%>
 				</ul>
 			</div>

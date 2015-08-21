@@ -4,7 +4,7 @@
 	<%= meta_itemprop("url", neuigkeit_url(neuigkeit_view,:theme=>nil)) %>
   
 	<div>
-<% cache() do %>
+<% cache("menu_neuigkeit"+ can?(:edit,@neuigkeit).to_s +can?(:find_link, @neuigkeit).to_s + can?(:new, Survey::Question).to_s + can?(:publish, @neuigkeit).to_s + can?(:unpublish, @neuigkeit).to_s + @neuigkeit.published?.to_s ) do %>
 		<%= render partial: "menu" %>		
 <%  end %>
 	</div>  
