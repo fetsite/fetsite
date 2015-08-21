@@ -1,22 +1,11 @@
-
-	<%= link_to(fa_icon("edit"), edit_rubrik_neuigkeit_path( @neuigkeit.rubrik,  @neuigkeit), remote: true , class: "btn") if can? :edit, @neuigkeit %>
+<div class="toolbar-inline">
+	<%= link_to(fa_icon("edit"), edit_rubrik_neuigkeit_path( @neuigkeit.rubrik,  @neuigkeit), remote: true , class: "btn", title: "Edit") if can? :edit, @neuigkeit %>
 <span class="btn-group">
-	<%= link_to fa_icon("paperclip"), "#", class: "btn", id: "attachments-form-open" if can? :edit, @neuigkeit %>	
+	<%= link_to fa_icon("paperclip"), "#", class: "btn", id: "attachments-form-open", title: "Attachments" if can? :edit, @neuigkeit %>	
 	<%= link_to fa_icon("calendar-o"),  new_calentry_path(:object_id=>@neuigkeit.id, :object_type=>"Neuigkeit"), :remote=>true, class: :btn if can? :edit, @neuigkeit %>
 </span>
 
-<%  if can?(:edit, @neuigkeit) %>
-	<div class="dropdown" style="display:inline">		
-		<%= link_to fa_icon("plus"), "#", class: "btn dropdown-toggle", data: {toggle: "dropdown"}, title: "plus" %>
-		<ul class="dropdown-menu">
-			<li>
-			
-				
-			</li>
-		</ul>
-	</div>
-<% end %>
-	<%= new_question_for(@neuigkeit) if can? :new, Survey::Question %>
+<%= new_question_for(@neuigkeit, fa_icon("question")) if can? :new, Survey::Question %>
 
 <div class="dropdown pull-right">
 	<a class="dropdown-toggle btn" data-toggle="dropdown" title="publish" href="#"><%= fa_icon("mail-forward")%></a>
@@ -29,6 +18,7 @@
 <div class="ui-dialog" id="attachments-form">
 	<%= render_new_attachments_for(@neuigkeit, fa_icon("plus"), {class: "btn"})  %>
 
+</div>
 </div>
 <script>
 $(function(){

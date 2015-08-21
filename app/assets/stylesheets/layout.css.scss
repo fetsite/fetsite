@@ -250,3 +250,11 @@ font-size:1em;
 a.choice > i {font-size: 32px}
 span.highcharts-axis-labels > i {
 font-size:32px}
+
+div.toolbar-inline > div.dropdown
+{ display:inline;
+
+}
+div.btn-toolbar > div.dropdown > ul.dropdown-menu 
+{	font-size: small;
+}

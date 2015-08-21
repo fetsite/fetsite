@@ -39,7 +39,7 @@
     <% end %>
     <div class="media-body">
 			<h1 itemprop="name">
-				<%= raw(neuigkeit_view.title) %>				<%= link_to fa_icon("edit"), edit_rubrik_neuigkeit_path(neuigkeit_view.rubrik, neuigkeit_view), remote: true if can? :edit, neuigkeit_view %>
+				<%= raw(neuigkeit_view.title) %>				<%#= link_to fa_icon("edit"), edit_rubrik_neuigkeit_path(neuigkeit_view.rubrik, neuigkeit_view), remote: true if can? :edit, neuigkeit_view %>
 			</h1>
 			<div itemprop="articleBody">
 				<%= raw(neuigkeit_view.text) %>
