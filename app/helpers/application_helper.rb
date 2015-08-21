@@ -54,7 +54,7 @@ m.save
   end
 
   def fa_stack(icon1, icon2)
-     content_tag("i", content_tag("i","", class: "ficon "+" fa-"+icon1+" fa fa-stack-1x" ) +    content_tag("i","", class: "ficon "+" fa-"+icon2+" fa fa-stack-1x" ),class: "fa-stack")
+   content_tag("span",  content_tag("span", content_tag("i","", class: "ficon "+" fa-"+icon1+" fa fa-stack-1x" ) +    content_tag("i","", class: "ficon "+" fa-"+icon2+" fa fa-stack-2x" ),class: "fa-stack "),class:"fa-stack-sm")
   
   end
   def ffi1_list 

@@ -258,9 +258,21 @@ div.toolbar-inline > div.dropdown
 div.btn-toolbar > div.dropdown > ul.dropdown-menu 
 {	font-size: small;
 }
-div.toolbar-inline > .ficon.fa-stack {
+.fa-stack {
+height: 1em;}
+ .fa-stack-sm >  .fa-stack
+{postion:relative;
+top:-7px;
+width:2em;
+}
+ .fa-stack-sm {
+
 height:1em;
 line-height:1em;
 width:1em;
 height:1em;
 }
+.btn.stacked {
+padding-left:4px;
+padding-right:4px;
+ }
