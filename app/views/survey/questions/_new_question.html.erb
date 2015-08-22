@@ -1,0 +1,17 @@
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <%= text %>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li>
+			<%= link_to "Neue Frage", new_survey_question_path(params: {parent_type: parent.class.to_s, parent_id: parent.id.to_s}) %>
+		</li>
+		<li>Templates:</li>
+		<% question_templates.each do |q| %>
+			<li>
+				<%= link_to q.title, create_from_template_survey_question_path(q, params: {parent_type: parent.class.to_s, parent_id: parent.id.to_s}) %>
+			</li>
+		<% end  %>
+  </ul>
+</div>

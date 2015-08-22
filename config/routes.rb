@@ -1,5 +1,28 @@
-
  Fetsite::Application.routes.draw do
+   resources :comments, except: [:show] do
+     collection do
+       get 'hide'
+     end
+   end
+
+       resources :comments, contstraints: {id: /[0-9]+/}, only: :show
+
+
+    
+
+   namespace :survey do
+     resources :questions do
+       member do
+         get :answer
+        put :answer
+         get 'flag'
+         get :create_from_template
+       end
+     end
+     resources :choices
+
+   end
+   
   themes_for_rails
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :home, :only=>[:index] do
@@ -149,7 +172,6 @@
           end
        end
       end
-      
       resources :home, :only=>[:index] do
         get :search, :on => :collection
         collection do
@@ -233,4 +255,5 @@
   end
   root :to => 'home#index'
 end
+
 

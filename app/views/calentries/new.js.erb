@@ -1,3 +1,3 @@
-$("#calentry_new_<%= @calentry.object.class.to_s + "_" + @calentry.object.id.to_s %>").replaceWith("<div id=\"calentry_new_<%= @calentry.object.class.to_s + "_" + @calentry.object.id.to_s %>\"><%=escape_javascript( render :partial=>"nested_form" ,:object=>@calentry) %></div>");
+$("#<%= divid_for(@calentry.object,"new_calentry") %>").replaceWith("<div id=\"<%= divid_for(@calentry.object,"new_calentry") %>\"><%=escape_javascript( render :partial=>"nested_form" ,:object=>@calentry) %></div>");
   $('.datetimepicker').datetimepicker({format: 'd.m.Y H:i', startDate: (!($(this).attr("value")==undefined))? $(this).attr("value"): ""})
   

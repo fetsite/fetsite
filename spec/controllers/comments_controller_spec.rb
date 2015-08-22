@@ -32,9 +32,13 @@ describe CommentsController do
 
   describe "GET index" do
     it "assigns all comments as @comments" do
-      comment = Comment.create! valid_attributes
+      comment = Comment.create! valid_attributes # add items to database
       get :index, {}, valid_session
-      assigns(:comments).should eq([comment])
+      assigns(:comments).should eq([comment]) # check if all items are returned
+    end
+    it "has a 200 status code" do 
+      get :index
+      expect(response.status).to eq(200)
     end
   end
 

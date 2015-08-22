@@ -1,10 +1,12 @@
 <%= content_for :header do %>
-<title>Fetsite - <%=  @lva.full_name %></title>
-<% set_meta_tags :og => {
-  :url=>lva_path(:theme=>nil) }
-%>
-<%= display_meta_tags %>
+	<title>Fetsite - <%=  @lva.full_name %></title>
+	<% set_meta_tags :og => {
+													 :url=>lva_path(:theme=>nil) 
+													 }
+	%>
+	<%= display_meta_tags %>
 <% end %>
+
 <div itemscope itemtype="schema.org/Article" >
   <div class="container-fluid">
     <%= render 'studien/tabs'%>
@@ -12,115 +14,106 @@
     
     <div class="row-fluid">
       <div class="span12">
-	<%= render 'layouts/pretty_toolbar' %>
+				<%= render 'layouts/pretty_toolbar' %>
       </div>
     </div>
-
     <div class="row-fluid">
       <div class="span8">
-	<h1 itemprop="name"><%= @lva.full_name %></h1>
-	<meta itemprop="url" content="<%= lva_path(@lva) %>" />
-	<ul class="linklist">
-	  <li>
-	    <%= link_to ffi1_icon("live2")+"ET-Forum", @lva.forumlink, class: :linkbox, itemprop: "discussionUrl" unless @lva.forumlink.nil? or @lva.forumlink.empty?%>
-	  </li>
-	  <li>
-	    <%= link_to "TISS", @lva.tisslink, class: :linkbox %>
-	  </li>
-	</ul>
-	<div itemprop="articleBody">
-	<h2><%= I18n.t('lva.pruefungsinfo')%></h2>
-	<div class="">
-	  <%= @lva.pruefungsinformation.to_s.html_safe %>
-	</div>
-
-	<h2><%= I18n.t('lva.lernaufwand')%></h2>
-	<div class="">
-	  <%= @lva.lernaufwand %>
-	</div>
-
-	<h2><%= I18n.t('lva.desc')%></h2>
-	<div class="">
-	  <%= @lva.desc.to_s.html_safe %>
-	</div>
-	</div>
+				<h1 itemprop="name"><%= @lva.full_name %></h1>
+				<meta itemprop="url" content="<%= lva_path(@lva) %>" />
+				<ul class="linklist">
+					<li>
+						<%= link_to ffi1_icon("live2")+"ET-Forum", @lva.forumlink, class: :linkbox, itemprop: "discussionUrl" unless @lva.forumlink.nil? or @lva.forumlink.empty?%>
+					</li>
+					<li>
+						<%= link_to "TISS", @lva.tisslink, class: :linkbox %>
+					</li>
+				</ul>
+				<div itemprop="articleBody">
+					<h2><%= I18n.t('lva.pruefungsinfo')%></h2>
+					<div class="">
+						<%= @lva.pruefungsinformation.to_s.html_safe %>
+					</div>
+					
+					<h2><%= I18n.t('lva.lernaufwand')%></h2>
+					<div class="">
+						<%= @lva.lernaufwand %>
+					</div>
+					
+					<h2><%= I18n.t('lva.desc')%></h2>
+					<div class="">
+						<%= @lva.desc.to_s.html_safe %>
+					</div>
+				</div>
       </div>
       <div class="span4">
-	<div class="contentbox">
-	  <ul>
-	    <li><b><%= I18n.t('lva.lvanr')%>:</b> <%=@lva.lvanr %></li>
-	    <li><b>ECTS:</b> <%=@lva.ects %></li>
-	    <li><b><%= I18n.t('lva.stunden')%>:</b> <%=@lva.stunden %></li>
-	  </ul>
-	  <h2><%= I18n.t('lva.module')%></h2>
-	  <ul>
-	    <% @lva.modul.each do |modul| %>
-	    <li><b><%= link_to modul.name , modul_path(modul)%></b>
-	      <ul>
-		<% modul.modulgruppen.each do |g| %>
-
-		<li><%= link_to g.studium.title_context , studium_path(g.studium)%> (<%=link_to g.name, modulgruppe_path(g)%>)</li>
-		<% end %>
-	      </ul>
-	    </li>
-	    
-	    <% end %>
-	  </ul>
-	</div>
-	<div class="contentbox">
-	  <h2> <%= I18n.t "lecturers.lecturers" %> </h2>
-	  <% @lva.lecturers.each do |lec| %>
-	  <%= render :partial=>'lecturers/lec_lva', :object=>lec %>
-
-	  <% end %>
-	</div>
+				<div class="contentbox">
+					<ul>
+						<li><b><%= I18n.t('lva.lvanr')%>:</b> <%=@lva.lvanr %></li>
+						<li><b>ECTS:</b> <%=@lva.ects %></li>
+						<li><b><%= I18n.t('lva.stunden')%>:</b> <%=@lva.stunden %></li>
+					</ul>
+					<h2><%= I18n.t('lva.module')%></h2>
+					<ul>
+						<% @lva.modul.each do |modul| %>
+							<li><b><%= link_to modul.name , modul_path(modul)%></b>
+								<ul>
+									<% modul.modulgruppen.each do |g| %>
+										<li><%= link_to g.studium.title_context , studium_path(g.studium)%> (<%=link_to g.name, modulgruppe_path(g)%>)</li>
+									<% end %>
+								</ul>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+				<div class="contentbox">
+					<h2> <%= I18n.t "lecturers.lecturers" %> </h2>
+					<% @lva.lecturers.each do |lec| %>
+						<%= render :partial=>'lecturers/lec_lva', :object=>lec %>
+					<% end %>
+				</div>
       </div>
     </div>
-
-
-    <div class="row-fluid">
+		<div class="row-fluid">
       <div class="span12">
-
-	<h2><%= I18n.t("lva.bspe") %></h2>
-	<p><%= I18n.t("lva.ratebsp")%>       <%= link_to ffi1_icon("facebook1") + I18n.t('home.fblogin'), user_omniauth_authorize_path(:facebook) ,class: :linkbox %>
-	</p>
-	<%= link_to t("beispiel.zip") , beispiel_sammlung_lva_path(@lva), class: :linkbox %>
-	<% @beispiele_all.each do |b| %>
-	<% cache("beispiel_"  +I18n.locale.to_s+b.id.to_s+can?(:delete,b).to_s+"_"+can?(:edit,b).to_s + "_" + can?(:flag, b).to_s + "_" + can?(:like, b).to_s +  "_" + b.updated_at.try(:utc).try(:to_s)  + get_theme_help(current_user).to_s) do %>
-	<%= render b%>
-	<% end %>
-	<% end %>
+				
+				<h2><%= I18n.t("lva.bspe") %></h2>
+				<p><%= I18n.t("lva.ratebsp")%>       <%= link_to ffi1_icon("facebook1") + I18n.t('home.fblogin'), user_omniauth_authorize_path(:facebook) ,class: :linkbox %>
+				</p>
+				<%= link_to t("beispiel.zip") , beispiel_sammlung_lva_path(@lva), class: :linkbox %>
+				<% @beispiele_all.each do |b| %>
+					<% cache("beispiel_"  +I18n.locale.to_s+b.id.to_s+can?(:delete,b).to_s+"_"+can?(:edit,b).to_s + "_" + can?(:flag, b).to_s+ can?(:comment, b).to_s + "_" + can?(:like, b).to_s +  "_" + b.updated_at.try(:utc).try(:to_s)  + get_theme_help(current_user).to_s) do %>
+						<%= render b%>
+					<% end %>
+				<% end %>
       </div>
 
     </div>
 
-    <div class="row-fluid">
-      <div class="span12">
-	<% unless @lva.nlinks.empty? %> 
-	<h2><%= I18n.t("rubrik.title") %></h2>
-	<% @lva.nlinks.each do |l| %> 
-	<%= render l.neuigkeit %>
-	<% end %>
-	<% end %>
-
-      </div>
-    </div>
+    <div class="row-fluid"> <div class="span12">
+			<% unless @lva.nlinks.empty? %> 
+				<h2><%= I18n.t("rubrik.title") %></h2>
+				<% @lva.nlinks.each do |l| %> 
+						<%= render l.neuigkeit %>
+				<% end %>
+			<% end %>
+    </div></div>
     <% cache("lva_beispiel_form_bulk_"+@lva.id.to_s+I18n.locale.to_s+@lva.updated_at.to_i.to_s) do %>
-    <div class="row-fluid">
-      <div class="span12">
-	<%= render 'beispiele/form_bulk' %>
-      </div>
-    </div>
+			<div class="row-fluid">
+				<div class="span12">
+					<%= render 'beispiele/form_bulk' %>
+				</div>
+			</div>
 
     <% end %>
     <% unless @crawlobjects.nil? %>
-    <div class="row-fluid">
-      <div class="span12">
-	<% @crawlobjects.each do |co| %>
-	<%= render co %>
-	<% end %>
-      </div>
-    </div>
+			<div class="row-fluid">
+				<div class="span12">
+					<% @crawlobjects.each do |co| %>
+						<%= render co %>
+					<% end %>
+				</div>
+			</div>
     <% end %>
 
   </div>

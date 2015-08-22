@@ -2,8 +2,10 @@
 	<title>Fetsite - <%=  @neuigkeit.title %> (<%= @neuigkeit.rubrik.name %>)</title>
 	<% set_meta_tags :author => fetprofile_path(@neuigkeit.author.fetprofile) unless @neuigkeit.author.fetprofile.nil? %>
 	<% unless @neuigkeit.picture_robust.url.nil? %>
-		<%	picture_url=URI(root_url)
-		picture_url.path=@neuigkeit.picture_robust.url(:locale=>nil, :theme=>nil) %>
+		<%	
+		picture_url=URI(root_url)
+		picture_url.path=@neuigkeit.picture_robust.url(:locale=>nil, :theme=>nil) 
+		%>
 	<% end %>
 	<% set_meta_tags :og => 
 	{
@@ -14,14 +16,13 @@
 	 :url=>neuigkeit_url(:theme=>nil)
 	 }
 	%>
-	
-
 	<%= display_meta_tags %>
 <% end %>
 
 <%= render 'rubriken/tabs' %>
 
 <div id="fb-root"></div>
+
 <script>(function(d, s, id) {
 	var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -32,27 +33,33 @@
 
 <div class="content-column content-wrap">
 	<%= link_to "Refresh", neuigkeit_path(@neuigkeit), remote: true %>
-  <p id="notice"><%= notice %></p>
+  <p id="notice">
+		<%= notice %>
+	</p>
 	<%= render partial: "neuigkeit_view", object: @neuigkeit %>
-</div>
-</div>
-	<div class="fb-like" data-href"<%= rubrik_neuigkeit_url(@rubrik,@neuigkeit,{themes: nil, locale: nil})%>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 
-<% if can? :find_link , @neuigkeit %>
-		<a id="findlink-open" href="#"><%= fa_icon("link")%> Neue Verknüpfungen </a>
-<% end %>
+<%= new_question_for(@neuigkeit) if can? :new, Survey::Question %>
+	<% @questions.each do |q| %>
+		<%= render q if can? :show, q %>
+	<% end %>
 
+
+</div>
+<div class="fb-like" data-href"<%= rubrik_neuigkeit_url(@rubrik,@neuigkeit,{themes: nil, locale: nil})%>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+
+<%= link_to fa_icon("link") + "Neue Verknüpfung" , "#", id: "findlink-open" if can? :find_link, @neuigkeit %>
+<% cache(cache_array_key(@neuigkeit.nlinks, "NLinks")) do %>
 <%= render partial: 'neuigkeiten/nlink_list_whole', :object=>@neuigkeit.nlinks %>
+<% end  %>
 
-
-<div id="findlink-body"class="ui-dialog" style="">
+<div id="findlink-body" class="ui-dialog" style="">
 	<% if can? :find_link, @neuigkeit %>
 		Nach Element suchen:
 		<%= semantic_form_for :find_link, :url=>find_link_rubrik_neuigkeit_path(@rubrik,@neuigkeit), :html=>{:id=>"search_form", :method=>'get'} , :remote=> true do |f| %>
 			<%= f.input :query, :input_html => { :name => 'query' },:label=>false %>
 		<% end %>
 		<%= render partial: 'nlink_list_search_whole', object: @nlink_search %>
-		
 	<% end %>
 </div>
 <script>
@@ -65,9 +72,9 @@ $(function(){
     buttons: {
       "Fertig": function() {
         dialog.dialog( "close" );
-        }
+      }
     }
   });
   $("#findlink-open").on("click",function(){dialog.dialog("open")})
-  });
+});
 </script>

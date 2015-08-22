@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 class NeuigkeitenController < ApplicationController
-
+  
   before_filter :load_toolbar_elements, :only=>[:show,:find_link]
   before_filter :load_toolbar_elements_edit, :only=>[:edit]
  
 
 
   load_and_authorize_resource
-
+  def default_url_options
+    super
+#    super.merge({host: request.host_with_port})
+  end
   def show
     @neuigkeit = Neuigkeit.find(params[:id])
-    @rubrik=@neuigkeit.rubrik    
+    @rubrik = @neuigkeit.rubrik    
+    @questions = @neuigkeit.questions.accessible_by(current_ability,:show)
     if can?(:shownonpublic, Rubrik)
       @rubriken = Rubrik.all
     else
@@ -55,19 +59,34 @@ class NeuigkeitenController < ApplicationController
     @neuigkeit = Neuigkeit.find(params[:id])
     @neuigkeit.reverse_publish
     @neuigkeit.save
+
+    @questions = @neuigkeit.questions.accessible_by(current_ability,:show)
+
     if params[:verwalten] 
       redirect_to verwalten_rubrik_path(@neuigkeit.rubrik)
+   else
+    respond_to do |format|
+      format.html { redirect_to rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)}
+      format.js { render partial: "show"}
     end
-    redirect_to rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)
+end
+   
   end   
   def publish 
     @neuigkeit = Neuigkeit.find(params[:id])
     @neuigkeit.publish
     @neuigkeit.save
-    if params[:verwalten] 
+
+    @questions = @neuigkeit.questions.accessible_by(current_ability,:show)
+  
+   if params[:verwalten] 
       redirect_to verwalten_rubrik_path(@neuigkeit.rubrik)
+else
+    respond_to do |format|
+      format.html { redirect_to rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)}
+      format.js { render partial: "show"}
     end
-    redirect_to  rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit)
+end
   end 
   def publish_to_facebook
     @neuigkeit = Neuigkeit.find(params[:id])
@@ -86,6 +105,9 @@ class NeuigkeitenController < ApplicationController
     end
   end
   def mail_to_fet
+  
+  ActionMailer::Base.default_url_options[:host] = request.host_with_port 
+  
     @neuigkeit = Neuigkeit.find(params[:id])
     authorize! :publish, @neuigkeit
     unless @neuigkeit.published?
@@ -98,6 +120,9 @@ class NeuigkeitenController < ApplicationController
   end
   def mail_preview
     @neuigkeit = Neuigkeit.find(params[:id])
+   @user=current_user
+    @ability=Ability.new(@user)
+
     authorize! :publish, @neuigkeit
     render template: "news_mailer/neuigkeit_mail", layout: false
   end
@@ -209,13 +234,13 @@ actions << {:hicon=>'icon-facebook', :text=> I18n.t('neuigkeit.publishfetmail'),
   
 
 
-  @toolbar_elements << {:text=>I18n.t('common.edit'),:path=>edit_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),:icon=>:pencil} if can? :edit, @neuigkeit.rubrik
+    @toolbar_elements << {:text=>I18n.t('common.edit'),:path=>edit_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),:icon=>:pencil} if can? :edit, @neuigkeit.rubrik
 if  can?(:showversions, Neuigkeit)
     @versions= @neuigkeit.translation.versions.select([:created_at]).reverse
 
     @toolbar_elements <<{:path=>rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit),:method=>:versions,:versions=>@versions}
 end     
-      actions << {:hicon=>'icon-remove-circle', :text=> I18n.t('common.delete'),:path => rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :method=> :delete,:confirm=>'Sure?' } if can? :delete, @neuigkeit
+actions << {:hicon=>'icon-remove-circle', :text=> I18n.t('common.delete'),:path => rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :method=> :delete,:confirm=>'Sure?' } if can? :delete, @neuigkeit
     @toolbar_elements << {:text => "action", :method => :dropdown, :elements=> actions} unless actions.empty?
   end
   

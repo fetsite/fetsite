@@ -1,6 +1,13 @@
+
+
+    <%= stylesheet_link_tag "http://"+ActionMailer::Base.default_url_options[:host].to_s + "/assets/themes/blue2/application.css", :media=>"all"  %>
 <h1>
   <%=  @neuigkeit.title%>
 </h1>
-<%= image_tag "http://www.fet.at"+@neuigkeit.picture.big_thumb.url %>
+<%= content_tag(:img,"",src: "http://"+ActionMailer::Base.default_url_options[:host].to_s+@neuigkeit.picture.big_thumb.url) %>
+<%=url_for controller: "neuigkeiten",action: :show, :id=>@neuigkeit.id, only_path: false %>
 <%= raw(@neuigkeit.text) %>
-<%= link_to "Auf Fet.at weiterlesen", rubrik_neuigkeit_url(@neuigkeit.rubrik, @neuigkeit,:locale=>:de, :theme=>nil,:host=> "www.fet.at") %> 
+<% @neuigkeit.questions.each do |q| %>
+<%= render partial:"survey/questions/mail", object: q %>
+<% end  %>
+<%= link_to "Auf Fet.at weiterlesen", rubrik_neuigkeit_url(@neuigkeit.rubrik, @neuigkeit,:locale=>:de, :theme=>nil) %> 

@@ -44,6 +44,7 @@
 	  <%= @lva.desc.to_s.html_safe %>
 	</div>
 	</div>
+
       </div>
       <div class="span4">
 	<div class="contentbox">
@@ -80,6 +81,10 @@
 
     <div class="row-fluid">
       <div class="span12">
+		<%= new_question_for(@lva) %>
+		<% @questions.each do |q| %>
+			<%= render q if can? :show, q %>
+		<% end %>
 
 				<h2><%= I18n.t("lva.bspe") %></h2>
 				<p>
@@ -116,6 +121,7 @@
 
     <div class="row-fluid">
       <div class="span12">
+
 	<% unless @lva.nlinks.empty? %> 
 	<h2><%= I18n.t("rubrik.title") %></h2>
 	<% @lva.nlinks.each do |l| %> 
@@ -133,6 +139,7 @@
     </div>
 
     <% end %>
+
     <% unless @crawlobjects.nil? %>
     <div class="row-fluid">
       <div class="span12">

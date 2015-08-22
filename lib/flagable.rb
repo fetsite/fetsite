@@ -16,10 +16,11 @@ module Flagable
     module LocalInstanceMethods
       
       def flag
-      fi = controller_name.classify.constantize::FLAG_ICONS
+        fi = controller_path.classify.constantize::FLAG_ICONS
  
-        @obj=controller_name.classify.constantize.find(params[:id])
+        @obj=controller_path.classify.constantize.find(params[:id])
         lflag=("flag_"+params[:flag]).to_sym
+        authorize! lflag, @obj
         unless params[:flag].nil? || params[:flag].empty? || params[:value].nil?
           if @obj.respond_to?(lflag.to_s+"=")
             @obj.send(lflag.to_s+"=",params[:value]=="true")
@@ -52,7 +53,7 @@ module Flagable
         v
       end
       def flaglinkid(flag)
-        return self.class.to_s + "_" + self.id.to_s + "_flag_"+flag.to_s
+        return self.class.to_s.gsub("::","_") + "_" + self.id.to_s + "_flag_"+flag.to_s
       end
     end
   end
@@ -61,9 +62,11 @@ module Flagable
     def flag_link(obj, flag, text="")
       flag=flag.to_s
       fi = obj.class::FLAG_ICONS
+      fc = obj.class::FLAG_CONFIRM
       value=obj.send("flag_"+flag)
       cstyle=(value) ? "true" :"false"
-      link_to ff_icon(fi[flag]), url_for({controller: obj.class.name.tableize,action: :flag, flag: flag, value: !value, theme: nil, locale: nil, id: obj.id}), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag)
+      cfm = (fc.nil? || fc["flag_"+flag].nil?) ?   {} : {confirm:  fc["flag_"+flag]}
+      link_to ff_icon(fi[flag]), url_for({controller: obj.class.name.tableize,action: :flag, flag: flag, value: !value, theme: nil, locale: nil, id: obj.id}), remote: true, class:("flag-"+cstyle +" flag-"+flag + "-"+cstyle ), id: obj.flaglinkid(flag), data: cfm
     end
   end
 end

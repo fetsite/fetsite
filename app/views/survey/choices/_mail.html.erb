@@ -1,0 +1,15 @@
+<% choice=mail  %>
+<%= div_tag_for(choice) do %>
+
+<%
+if @user.nil?
+	t=choice.text
+else
+	value=(@user.id.nil?)? false : choice.answers.where(user_id: @user.id).count>0
+	cstyle=(value) ? "true" :"false"
+	t= link_to(raw("" + choice.html+ (( choice.picture.nil? ||  choice.picture.to_s.empty?) ? "":image_tag(choice.picture.thumb.url))), answer_survey_question_url(choice.question,  params: {key: Key.find_or_create(@user, 3, choice.question).uuid, survey_question: {selected: [choice.id]}}),class: "choice-"+cstyle )
+end
+
+%>
+<%= t %>
+<% end %>

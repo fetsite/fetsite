@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <b>Typ:</b>
+  <%= @survey_question.typ %>
+</p>
+<%= render  partial: "/"+@survey_question.parent.to_partial_path, object: @survey_question.parent unless @survey_question.parent.nil? %>
+<%= render @survey_question %>
+
+<%= render_comments_for(@survey_question) %>
+
+<%= link_to 'Edit', edit_survey_question_path(@survey_question) %> |
+<%= link_to 'Back', polymorphic_path(@survey_question.parent)
+ %>

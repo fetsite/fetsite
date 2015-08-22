@@ -11,21 +11,54 @@ class Ability
     end
     user ||=  User.new # guest user (not logged in)
 
+    if( user.has_role?("fetuser") || user.has_role?("fetadmin"))
+      can [:show,:answer, :create,:new, :create_from_template, :flag], Survey::Question
+      can [:edit, :update, :flag_delete], Survey::Question, :flag_locked=>false
+      can :flag_locked, Survey::Question, :user_id=>user.id
+      can [:show,:new], Survey::Choice
+      can [:edit,:update, :delete,:create], Survey::Choice, :question=>{:flag_locked=>false}
+      can :manage, Survey::Answer
+    end
+    if user.has_role?("fetadmin")
+      can [:delete,:flag_template], Survey::Question
+    end
+    #---------------------------------------------------
     
+    can [:index,:hide], Comment
+    can :show, Comment
+    
+    if loggedin
+      can [:create,:new], Comment
+      can [:comment], Comment
+    end
+
+  #  can :manage, Comment
+    unless user.has_role?("fetadmin")
+      cannot :delete, Comment
+cannot :destroy, Comment
+    end
     #-----------------------------------------------------
     # Rechteverwaltung fuer Studien Modul
     can [:show, :index], Studium, :visible=>true
     can [:show], Modulgruppe
     can [:show, :index], Modul
     can [:show, :index, :beispiel_sammlung], Lva
-    can [:create, :show], Beispiel
+    can [:create, :show], Beispiel, flag_delete: false
     if loggedin
       can :like, Beispiel
       can :dislike, Beispiel    
     end
-    if (user.has_role?("moderator",Beispiel))
+    if ((user.has_role?("moderator",Beispiel)) || user.has_role?("fetuser") || user.has_role?("fetadmin"))
       can :flag, Beispiel
+    can [:create, :show], Beispiel, flag_delete: true
+
       can [:edit, :update], Beispiel
+      can :flag, Beispiel
+      can :set_lecturer, Beispiel
+      can :flag_delete, Beispiel
+      can :flag_goodquality, Beispiel
+      can :flag_badquality, Beispiel
+
     end
     if (user.has_role?("moderator",Lva))
       can [:verwalten, :edit, :compare_tiss, :load_tiss, :update], Lva
@@ -35,7 +68,9 @@ class Ability
       can :manage, Modul
       can :manage, Lva
       can :manage, Studium
-      can :manage, Beispiel
+      #can :manage, Beispiel
+      can :comment, Beispiel
+      
       can :manage, Lecturer
       
     end

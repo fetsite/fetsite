@@ -25,7 +25,7 @@
   <div class="media">
     <% unless neuigkeit_view.picture_robust.big_thumb.to_s.empty? %>
 			<div class="pull-left" href="#">
-				<p><br><%= link_to image_tag(neuigkeit_view.picture_robust.big_thumb.url),neuigkeit_view.picture_robust.try(:url)  %>
+				<p><br><%= link_to image_tag(neuigkeit_view.picture_robust.big_thumb),neuigkeit_view.picture_robust.try(:url)  %>
 				</p>
 			</div>
     <% end %>
@@ -38,15 +38,16 @@
 			</div>
 		</div>
   </div>
-<%= render_calentries_for(neuigkeit_view)%>
 
+	<%= render_calentries_for(neuigkeit_view)%>
+	
 	<% unless neuigkeit_view.meeting.nil? %>
 		<%= render neuigkeit_view.meeting %>
 	<% end%>
 
 	
-	
-	<%= render_attachments_for(neuigkeit_view) %>
 
+	<%= render_attachments_for(neuigkeit_view) %>
+	
 	<%= render 'layouts/pretty_toolbar', :object=> @toolbar_elements %>
 </div>

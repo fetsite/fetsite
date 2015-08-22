@@ -5,15 +5,15 @@ class BeispieleController < ApplicationController
   include LikeVoteable
   acts_as_flagable
   def index
-    unless params[:lva_id].nil?
-      @beispiele= Lva.find(params[:lva_id]).beispiele.accessible_by(current_ability, :show)
-    else
-    @beispiele = Beispiel.accessible_by(current_ability, :show)
-    end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @beispiele }
-    end
+#    unless params[:lva_id].nil?
+#      @beispiele= Lva.find(params[:lva_id]).beispiele.accessible_by(current_ability, :show)
+#    else
+#    @beispiele = Beispiel.accessible_by(current_ability, :show)
+#    end
+#    respond_to do |format|
+#      format.html # index.html.erb
+#      format.json { render json: @beispiele }
+#    end
   end
   
   # GET /beispiele/1
@@ -22,7 +22,7 @@ class BeispieleController < ApplicationController
     # @lva = params([:lva]) unless params([:lva]).nil?
     @beispiel = Beispiel.find(params[:id])
     respond_to do |format|
-      format.html { redirect_to lva_path(@beispiel.lva )}
+      format.html { redirect_to lva_path(@beispiel.lva , show_comments: params[:show_comments])}
       format.js
     end
   end

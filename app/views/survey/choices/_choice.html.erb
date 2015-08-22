@@ -1,0 +1,19 @@
+
+<%= div_tag_for(choice) do %>
+
+<%
+unless can?(:answer,choice.question)
+	t=choice.text
+else
+	value=(current_user.id.nil?)? false : choice.answers.where(user_id: current_user.id).count>0
+	cstyle=(value) ? "true" :"false"
+	t= link_to(raw("" + choice.html+ (( choice.picture.nil? ||  choice.picture.to_s.empty?) ? "":image_tag(choice.picture.thumb.url))), answer_survey_question_path(choice.question,  params: {survey_question: {selected: [choice.id]}}),class: "choice choice-"+cstyle,remote: true )
+end
+
+%>
+
+
+<%= t %>   <%= link_to fa_icon("pencil"), edit_survey_choice_path(choice) , class: "btn btn-link navbar-btn" , remote: true if can? :edit, choice
+%>
+<%= link_to fa_icon("trash"), survey_choice_path(choice) , class: "btn btn-link navbar-btn" , remote: true , method: :delete, data: { confirm: 'Are you sure?' } if can? :delete,choice %>
+<% end %>

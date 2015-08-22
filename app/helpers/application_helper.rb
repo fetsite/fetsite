@@ -1,7 +1,7 @@
 module ApplicationHelper
-  def cache_array_key(array)
+  def cache_array_key(array,prefix="")
  return "empty_array" if array.nil? or array.empty?
- array.map{|c| c.id}.join('_')+"_"+array.max{|c|c.updated_at.to_i}.updated_at.try(:utc).to_s+"_"+I18n.locale.to_s 
+ prefix+array.map{|c| c.id}.join('_')+"_"+array.max{|c|c.updated_at.to_i}.updated_at.try(:utc).to_s+"_"+I18n.locale.to_s 
 # array.map{|c| c.id}.join('')+"_"+array.map{|c|c.try(:updated_at).try(:utc).to_s}.join('') +"_"+I18n.locale.to_s
  
  end
@@ -43,16 +43,29 @@ m.save
     language_path(locale: target_locale)
   end
   def ffi1_icon (name)
-    content_tag("i","", class: "ffi1-"+name )
-  end
-  def ff_icon (name)
-    content_tag("i","", class: name )
+    content_tag("i","", class: "ficon ffi1-"+name )
   end
 
+  def ffi2_icon (name)
+    content_tag("i","", class: "ficon ffi2-"+name )
+  end
+  def ff_icon (name)
+    content_tag("i","", class: "ficon "+name )
+  end
+
+  def fa_stack(icon1, icon2)
+   content_tag("span",  content_tag("span", content_tag("i","", class: "ficon "+" fa-"+icon1+" fa fa-stack-1x" ) +    content_tag("i","", class: "ficon "+" fa-"+icon2+" fa fa-stack-2x" ),class: "fa-stack "),class:"fa-stack-sm")
+  
+  end
   def ffi1_list 
     y=YAML.load_file("#{::Rails.root.to_s}/config/flatfeticon1.yml")
     y["ffi1"]
   end
+  def ffi2_list 
+    y=YAML.load_file("#{::Rails.root.to_s}/config/flatfeticon2.yml")
+    y["ffi2"]
+  end
+
   def fa_list 
     y=YAML.load_file("#{::Rails.root.to_s}/config/fontawesome.yml")
     y["fa"]
@@ -140,6 +153,12 @@ end
 	    out += "disliked by " + obj.get_dislikes.size.to_s
 	   end
     raw(out)
+  end
+  def li_tag(content)
+    content_tag("li", content)
+  end
+  def meta_itemprop(itemprop, content)
+    tag("meta", itemprop: itemprop, content: content) 
   end
 
 end

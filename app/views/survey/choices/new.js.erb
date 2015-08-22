@@ -1,0 +1,1 @@
+$('#<%= divid_for @question %>').find('ul.choice-list').append("<li><%= escape_javascript(render partial: "form", object:@choice) %></li>")

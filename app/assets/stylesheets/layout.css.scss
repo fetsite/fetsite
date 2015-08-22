@@ -39,6 +39,7 @@ a:hover {
 @import 'tinymce';
 @import 'fetlogo';
 @import 'flatfeticon1';
+@import 'flatfeticon2';
 
 
 
@@ -209,7 +210,7 @@ float:clear; }
 
 a.flag-true { color: $color_schema_3_dark}
 a.flag-true.flag-goodquality-true { color: green}
-
+a.flag-true.flag-template-true {color: $color_schema_1_dark}
 a.flag-false { color: #CCC}
 
 ul.ui-menu 
@@ -222,3 +223,56 @@ ul.ui-menu > li > a
 				padding-left:10px;
 				cursor: pointer;				
 }				
+
+a.choice-true
+{font-weight: bold;}
+a.choice-false
+{color:grey}
+
+ul.choice-list
+{list-style-type: none;
+margin:0;
+
+}
+ul.choice-list > li 
+{
+}
+ul.choice-list > li > a {
+
+line-height:normal;
+}
+ul.choice-list > li > a > i { 
+font-size:3em;
+}
+ul.choice-list > li > a.btn > i { 
+font-size:1em;
+}
+a.choice > i {font-size: 32px}
+span.highcharts-axis-labels > i {
+font-size:32px}
+
+div.toolbar-inline > div.dropdown
+{ display:inline;
+
+}
+div.btn-toolbar > div.dropdown > ul.dropdown-menu 
+{	font-size: small;
+}
+.fa-stack {
+height: 1em;}
+ .fa-stack-sm >  .fa-stack
+{postion:relative;
+top:-7px;
+width:2em;
+}
+ .fa-stack-sm {
+
+height:1em;
+line-height:1em;
+width:1em;
+height:1em;
+}
+.btn.stacked {
+padding-left:4px;
+padding-right:4px;
+ }

@@ -1,0 +1,2 @@
+$("#<%= Comment.wrapid_for(@commentable) %>").html("<%= escape_javascript  render partial:"comments/comments", object: @comments %>")
+	$("#<%= Comment.switchshowid_for(@commentable) %>").replaceWith("<%= escape_javascript link_to "Ausblenden",  hide_comments_path(params: {commentable_type: @commentable.class.to_s.gsub("::","_"), commentable_id: @commentable.id}), remote: true , id: Comment.switchshowid_for( @commentable)  %>")

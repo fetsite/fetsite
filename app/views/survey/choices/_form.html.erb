@@ -1,0 +1,49 @@
+<%= div_tag_for(@choice) do %>
+<%= semantic_form_for @choice, remote: true do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :text %>
+  <i id="icon" style="font-size:2em" class="<%= @choice.icon %>"></i><a href="#" id="openselect" onclick=""> Choose Icon</a>
+  
+  <%= f.input :icon, :input_html=>{:id=>"iconfield"},:as=>:hidden %>
+<%= f.input :question %>
+	<%= f.input :picture, as: :uploader %>
+					<%= f.hidden_field :picture_cache %>
+
+  <% end %>
+  
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+<script>
+$(
+  function()
+    {$('#iconfield').on('change', function(){$('#icon').attr("class",$(this).val())});
+$("#dialog").dialog({width:'100%', position:'center top', at:'left top',autoOpen: false,closeOnEscape: false});
+$("#openselect").on('click', function(){$('#dialog').dialog('open')});
+});
+</script>
+
+<div style="font-size:2em; line-height:1.2em" id ="dialog" title="Icon">
+<p>
+<% ffi1_list.each do |i| %>
+ <a onclick="$('#iconfield').val('ffi1-<%= i %>');$('#icon').attr('class','ffi1-<%= i %>'); $('#dialog').dialog('close')" href="#"><%=ffi1_icon(i)%>
+</a>
+<% end %> 
+</p>
+<p>
+<% ffi2_list.each do |i| %>
+ <a onclick="$('#iconfield').val('ffi2-<%= i %>');$('#icon').attr('class','ffi2-<%= i %>'); $('#dialog').dialog('close')" href="#"><%=ffi2_icon(i)%>
+</a>
+<% end %> 
+</p>
+
+<p>
+<% fa_list.each do |i| %>
+ <a onclick="$('#iconfield').val('fa <%= i %>');$('#icon').attr('class','fa <%= i %>'); $('#dialog').dialog('close')" href="#"><%=ff_icon('fa '+i)%>
+</a>
+<% end %> 
+
+</p>
+</div>
+<% end %>

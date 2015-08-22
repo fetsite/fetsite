@@ -23,6 +23,7 @@ class Neuigkeit < ActiveRecord::Base
   has_many :attachments, :as=>:parent
   has_one :title_pic, :class_name=>"Attachment", :as=>:parent, :conditions=>["attachments.flag_titlepic =?", true]
 
+  has_many :questions,  :class_name=>"Survey::Question", as: :parent
 
   validates :rubrik, :presence=>true
   validates :author, :presence=>true
@@ -166,6 +167,7 @@ class Neuigkeit < ActiveRecord::Base
     end
     self.update_column(:cache_is_published, self.published?)
   end
+
   private
   def sanitize
     self.calentries.each do |calentry|

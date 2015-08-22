@@ -11,12 +11,14 @@
 					<%= link_to ff_icon("ffi1-setting")+"Admin" , admin_home_index_path, class: :linkbox if current_user.has_role?(:fetadmin) %>
 				</li>
 				<li>     
-					<%= link_to ff_icon("fa-folder")+"Treeview" , treeview_home_index_path, class: :linkbox if current_user.has_role?(:fetadmin) %>
+					<%= link_to ff_icon("fa fa-folder")+"Treeview" , treeview_home_index_path, class: :linkbox if current_user.has_role?(:fetadmin) %>
 				</li>
 				<li>     
 					<%= link_to ff_icon("ffi1-newspaper9")+"Crawler" , crawler_index_path, class: :linkbox if current_user.has_role?(:fetadmin) %>
 				</li>
-
+<li>     
+					<%= link_to ff_icon("ffi1-setting")+"Meetings" , meetingtyps_path, class: :linkbox if current_user.has_role?(:fetadmin) %>
+				</li>
 			</ul><br>
 		</div>
 			<div>Suche nach Protokollen

@@ -36,7 +36,12 @@
     if user_signed_in?
       flash[:error] = "Not authorized to view this page"
       session[:user_return_to] = nil
-      redirect_to root_url
+    respond_to do |format|
+      format.html {redirect_to root_url}
+        format.js {render text:"alert(\"Not authorized to do this\");", status: 401}
+    end
+      
+
 
     else              
       flash[:error] = "You must first login to view this page"

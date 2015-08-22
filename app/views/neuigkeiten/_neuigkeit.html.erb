@@ -1,30 +1,20 @@
-<% if defined?(wrap_in) && !wrap_in.blank? %>
+<% unless defined?(wrap_in) && !wrap_in.blank?
+	wrap_in=:div
+end
+%>
+<%= content_tag wrap_in do %>
+	
+	<% cache("neuigkeit_" + neuigkeit.id.to_s + "_" + I18n.locale.to_s+neuigkeit.updated_at.try(:utc).try(:to_s)) do %>
+		<% c =[:linkbox] %>
+		<% c << "color-" + neuigkeit.rubrik.color.to_s + "-dark" unless neuigkeit.rubrik.color.nil? %> 
+		<% c << "unpublished" unless neuigkeit.published? %>
+		<%= link_to [neuigkeit.rubrik,neuigkeit], {class: c} do %>
+			<%= render :partial=>"neuigkeiten/compact",:locals=> {:neuigkeit=> neuigkeit} %>
+		<% end %>
 
-  <%= content_tag wrap_in do %>
-
-  <% cache("neuigkeit_"+neuigkeit.id.to_s+"_"+I18n.locale.to_s+neuigkeit.updated_at.try(:utc).try(:to_s)) do %>
-    <% c =[:linkbox] %>
-    <% c << "color-"+neuigkeit.rubrik.color.to_s+"-dark" unless neuigkeit.rubrik.color.nil? %> 
-    <% c << "unpublished" unless neuigkeit.published? %>
-    <%= link_to [neuigkeit.rubrik,neuigkeit], {class: c} do %>
-      <%= render :partial=>"neuigkeiten/compact",:locals=> {:neuigkeit=> neuigkeit} %>
-    <% end %>
-
-  <% end %>
- <% end %>
-<% else %>
-
-<% cache("neuigkeit_"+neuigkeit.id.to_s+"_"+I18n.locale.to_s+neuigkeit.updated_at.try(:utc).try(:to_s)) do %>
- 
-<% c =[:linkbox] %>
-<% c << "color-"+neuigkeit.rubrik.color.to_s+"-dark" unless neuigkeit.rubrik.color.nil? %>
-    <% c << "unpublished" unless neuigkeit.published? %>
-<%= link_to [neuigkeit.rubrik,neuigkeit], {class: c} do %>
-<%= render :partial=>"neuigkeiten/compact",:locals=> {:neuigkeit=> neuigkeit} %>
-<% end %>
+	<% end %>
 <% end %>
 
 
-<% end %>
 
 
