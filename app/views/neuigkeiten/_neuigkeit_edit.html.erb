@@ -32,6 +32,9 @@
     <% unless @neuigkeit.picture_robust.big_thumb.to_s.empty? %>
 			<div class="pull-left" href="#">
 				<p><br><%= link_to image_tag(@neuigkeit.picture_robust.big_thumb.url),@neuigkeit.picture_robust.try(:url)  %>
+	<%= f.input :picture, as: :uploader %>
+					<%= f.hidden_field :picture_cache %>
+
 				</p>
 			</div>
     <% end %>
