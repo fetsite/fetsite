@@ -13,7 +13,7 @@
 #
 
 class Neuigkeit < ActiveRecord::Base
-  attr_accessible :datum, :text, :title, :rubrik_id, :author_id,:picture, :calentries_attributes, :flag_important
+  attr_accessible :datum, :text, :title, :rubrik_id, :author_id,:picture,:picture_cache, :calentries_attributes, :flag_important
   belongs_to :author, :class_name =>'User'
   belongs_to :rubrik, :class_name =>'Rubrik', :foreign_key => "rubrik_id"
   has_one :calendar, through: :rubrik  

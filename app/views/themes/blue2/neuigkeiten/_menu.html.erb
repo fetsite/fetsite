@@ -16,7 +16,7 @@
 	<span class=" pull-right">
 		<%= link_to(fa_icon("globe"), publish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), title:  I18n.t('neuigkeit.publish'), class: "btn") if can?(:publish, @neuigkeit) && !@neuigkeit.published? 
 		%>
-		<%= link_to (fa_stack("globe","ban"), unpublish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :remote=>true, class: "btn stacked") if  can?(:unpublish, @neuigkeit) && @neuigkeit.published? 
+		<%= link_to(fa_stack("globe","ban"), unpublish_rubrik_neuigkeit_path(@neuigkeit.rubrik,@neuigkeit), :remote=>true, class: "btn stacked") if  can?(:unpublish, @neuigkeit) && @neuigkeit.published? 
 		%>
 		<% if @neuigkeit.published? %>
 			<div class="dropdown" style=" display:inline"">
