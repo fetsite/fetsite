@@ -1,4 +1,4 @@
-class CheckboxAutocompleteInput < FormtasticBootstrap::Inputs::CheckboxInput
+class CheckboxAutocompleteInput < FormtasticBootstrap::Inputs::CheckBoxesInput
 	def input_html_options
 		super
 		#super.merge(:class => "input-append date")

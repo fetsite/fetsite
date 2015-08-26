@@ -29,15 +29,17 @@
 		</div>    
   <% end %>
   <div class="media">
-    <% unless @neuigkeit.picture_robust.big_thumb.to_s.empty? %>
+
 			<div class="pull-left" href="#" style="width:200px">
-				<p><br><%= link_to image_tag(@neuigkeit.picture_robust.big_thumb.url),@neuigkeit.picture_robust.try(:url)  %>
+				<p><br>
+    <% unless @neuigkeit.picture_robust.big_thumb.to_s.empty? %><%= link_to image_tag(@neuigkeit.picture_robust.big_thumb.url),@neuigkeit.picture_robust.try(:url)  %>
+    <% end %>
 	<%= f.input :picture, as: :uploader %>
 					<%= f.hidden_field :picture_cache %>
 
 				</p>
 			</div>
-    <% end %>
+
     <div class="media-body" style="border: dashed black thin">
 			<h1 itemprop="name" class="editable_simple" data-target="#neuigkeit_title">
 				<%=  raw(@neuigkeit.title) %>
